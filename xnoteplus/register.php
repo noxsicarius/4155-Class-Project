@@ -84,16 +84,7 @@ else if(loggedin()){
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 black-bg left-container">
 			<h1 class="logo-left hidden-xs margin-bottom-60">Note</h1>			
 			<div class="tm-left-inner-container">
-				<ul class="nav nav-stacked templatemo-nav">
-				  <li><a href="index.php" class="active"><i class="fa fa-home fa-medium"></i>Homepage</a></li>
-				  <li><a href="login.php"><i class="fa fa-shopping-cart fa-medium"></i>Log in</a></li>
-				  <li><a href="uploads.php"><i class="fa fa-send-o fa-medium"></i>upload</a></li>				  
-				  <li><a href="about.php"><i class="fa fa-gears fa-medium"></i>About Us</a></li>
-					<?php
-						if($logged_in==1){
-							echo '<li><a href="logout.php"><i class="fa fa-gears fa-medium"></i>Log out</a></li>';
-						}
-				  ?>				  
+				<?php include 'menu.php'; ?>				  
 				  
 				</ul>
 			</div>
