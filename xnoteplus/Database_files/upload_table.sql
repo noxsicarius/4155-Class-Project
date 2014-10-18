@@ -1,6 +1,6 @@
 USE a_database
 GO
-CREATE TABLE UploadInfo (
+CREATE TABLE uploadInfo (
 	StudentID			 int		     NOT NULL,
 	FileID				 int             NOT NULL AUTO_INCREMENT,
 	FileName    		 varchar(50) 	 NOT NULL,

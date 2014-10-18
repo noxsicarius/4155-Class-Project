@@ -43,23 +43,14 @@ if(loggedin()){
 		  }
 		  else{
 			$location ='uploads/';
-			$query = "SELECT 'FileName' from uploadinfo WHERE FileName='$name'";
+			$query = "SELECT 'FileName' from Uploadinfo WHERE FileName='$name'";
 			$query_run = mysql_query($query);
 			$num_of_rows=mysql_num_rows($query_run);
 			if($num_of_rows==1) {
 				$Sring_Message= 'The File '.$name. ' already exists.';
 			} else{
 				//sql query
-				$query = "INSERT INTO uploadinfo VALUES ('$StudentID',
-															FileID,
-														'".mysql_real_escape_string($name)."',
-														'".mysql_real_escape_string($location)."',
-														'".mysql_real_escape_string($school)."',
-														'".mysql_real_escape_string($classname)."',
-														'".mysql_real_escape_string($teacher)."',
-														'".mysql_real_escape_string($chapter)."',
-														'".mysql_real_escape_string($title)."',
-														'".mysql_real_escape_string($comments)."')";
+				$query = "INSERT INTO Uploadinfo VALUES ('$StudentID',FileID,'".mysql_real_escape_string($name)."','".mysql_real_escape_string($location)."','".mysql_real_escape_string($school)."','".mysql_real_escape_string($classname)."','".mysql_real_escape_string($teacher)."','".mysql_real_escape_string($chapter)."','".mysql_real_escape_string($title)."','".mysql_real_escape_string($comments)."')";
 
 
 				if ($query_run = mysql_query($query)){
