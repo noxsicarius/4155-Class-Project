@@ -22,6 +22,12 @@ function getfield($field){
 		return 'Wrong field or query not excuted right';
 	}
 }
+
+function getuserid(){
+$id=$_SESSION['user_id'];
+return $id;
+
+}
 		
 
 	
