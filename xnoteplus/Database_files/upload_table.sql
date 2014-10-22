@@ -1,5 +1,3 @@
-USE a_database
-GO
 CREATE TABLE uploadInfo (
 	StudentID			 int		     NOT NULL,
 	FileID				 int             NOT NULL AUTO_INCREMENT,
@@ -11,11 +9,12 @@ CREATE TABLE uploadInfo (
 	Chapter				 varchar(50) 	 NOT NULL,
 	NotesTitle			 varchar(100) 	 NOT NULL,	
 	Comments    		 text  		 	 NOt NULL,
+	Content              MEDIUMBLOB      NOT NULL,
 	PRIMARY KEY (FileID),
-	UNIQUE (FileName),
+	UNIQUE (FileName,StudentID),
 	FOREIGN KEY (StudentID) REFERENCES users(Id)
 	)
-GO
+
 
 
 	

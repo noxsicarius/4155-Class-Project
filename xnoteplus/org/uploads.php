@@ -19,7 +19,7 @@ $Sring_Message=' ';
 if(isset($_POST['submit'])){
   $name = $_FILES['file']['name'];
   $type = $_FILES['file']['type'];
-  $size = $_FILES['file']['size'];
+  //$size = $_FILES['file']['size'];
   $tmp_name = $_FILES['file']['tmp_name'];
   }
   
@@ -42,20 +42,11 @@ if(loggedin()){
 			
 		  }
 		  else{
-			$extract = fopen($tmp_name, 'r'); 
-				$content = fread($extract, $size); 
-				$content = addslashes($content); 
-				fclose($extract); 
 			$location ='uploads/';
-			$query = "SELECT * from uploadinfo WHERE FileName='$name' AND StudentID=$StudentID";
+			$query = "SELECT 'FileName' from uploadinfo WHERE FileName='$name'";
 			$query_run = mysql_query($query);
 			$num_of_rows=mysql_num_rows($query_run);
-			
-			//Checking if the file exists in the database
-			$File_Student_ID = mysql_result($query_run, 0,'StudentID');
-			//echo 'Database: '.$File_Student_ID.'<br>';
-			//echo 'Current: '.$StudentID.'<br>';
-			if($num_of_rows==1 && $File_Student_ID==$StudentID) {
+			if($num_of_rows==1) {
 				$Sring_Message= 'The File '.$name. ' already exists.';
 			} else{
 				//sql query
@@ -68,8 +59,7 @@ if(loggedin()){
 														'".mysql_real_escape_string($teacher)."',
 														'".mysql_real_escape_string($chapter)."',
 														'".mysql_real_escape_string($title)."',
-														'".mysql_real_escape_string($comments)."',
-														'".mysql_real_escape_string($content)."')";
+														'".mysql_real_escape_string($comments)."')";
 
 
 				if ($query_run = mysql_query($query)){
@@ -77,7 +67,7 @@ if(loggedin()){
 						$Sring_Message= 'File Uploaded';
 					}
 				}else {
-					$Sring_Message= mysql_error();
+					$Sring_Message= 'Sorry , try again later';
 				}
 			}
 			
@@ -89,18 +79,6 @@ if(loggedin()){
 		 $Sring_Message= 'All fields are required';
 		}
 
-}
-$query = "SELECT * FROM uploadinfo WHERE  StudentID = '$StudentID'";
-if($resulta  = mysql_query($query)){
-$num_of_rows=mysql_num_rows($resulta);
-for($i=0;$i<$num_of_rows;$i++){
-$content=mysql_result($resulta,$i,"FileName");
-	$File_names[$i]= $content;
-	
-}
-}
-else{
-	echo 'File in database not working';
 }
 }
 
@@ -166,12 +144,7 @@ else{
 									<input type="submit" name="submit" value ="Upload">
 
 								</form>';
-							echo "$Sring_Message".'<br>';
-							$arrlength=count($File_names);
-							echo 'My Files in DataBase'.'<br>';
-							for($x=0;$x<$arrlength;$x++){
-								echo $File_names[$x].'<br>';
-							}
+							echo "$Sring_Message";
 						}
 						else{
 							echo 'Log in before uploading a file';
