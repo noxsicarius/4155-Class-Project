@@ -47,19 +47,14 @@ if(loggedin()){
 				$content = addslashes($content); 
 				fclose($extract); 
 			$location ='uploads/';
-			$query = "SELECT * from uploadinfo WHERE FileName='$name' AND StudentID=$StudentID";
+			$query = "SELECT 'FileName' from files WHERE FileName='$name'";
 			$query_run = mysql_query($query);
 			$num_of_rows=mysql_num_rows($query_run);
-			
-			//Checking if the file exists in the database
-			$File_Student_ID = mysql_result($query_run, 0,'StudentID');
-			//echo 'Database: '.$File_Student_ID.'<br>';
-			//echo 'Current: '.$StudentID.'<br>';
-			if($num_of_rows==1 && $File_Student_ID==$StudentID) {
+			if($num_of_rows==1) {
 				$Sring_Message= 'The File '.$name. ' already exists.';
 			} else{
 				//sql query
-				$query = "INSERT INTO uploadinfo VALUES ('$StudentID',
+				$query = "INSERT INTO files VALUES ('$StudentID',
 															FileID,
 														'".mysql_real_escape_string($name)."',
 														'".mysql_real_escape_string($location)."',
@@ -77,7 +72,7 @@ if(loggedin()){
 						$Sring_Message= 'File Uploaded';
 					}
 				}else {
-					$Sring_Message= mysql_error();
+					$Sring_Message= 'Sorry , try again later';
 				}
 			}
 			
@@ -90,17 +85,13 @@ if(loggedin()){
 		}
 
 }
-$query = "SELECT * FROM uploadinfo WHERE  StudentID = '$StudentID'";
+$query = "SELECT * FROM files WHERE  StudentID = '$StudentID'";
 if($resulta  = mysql_query($query)){
-$num_of_rows=mysql_num_rows($resulta);
-for($i=0;$i<$num_of_rows;$i++){
-$content=mysql_result($resulta,$i,"FileName");
-	$File_names[$i]= $content;
-	
-}
+$content=mysql_result($resulta,0,"content");
+	$Sring_Message= $content;
 }
 else{
-	echo 'File in database not working';
+	echo 'File in databse not working';
 }
 }
 
@@ -153,7 +144,7 @@ else{
 				</article>
 					<?php
 						if($logged_in==1){
-							echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
+							echo '<form action="uploads_test.php" method="POST" enctype="multipart/form-data">
 
 									Title:<br> <input type="text" name ="title"><br><br>
 									Chapter:<br> <input type="text" name ="chapter"><br><br>
@@ -166,12 +157,7 @@ else{
 									<input type="submit" name="submit" value ="Upload">
 
 								</form>';
-							echo "$Sring_Message".'<br>';
-							$arrlength=count($File_names);
-							echo 'My Files in DataBase'.'<br>';
-							for($x=0;$x<$arrlength;$x++){
-								echo $File_names[$x].'<br>';
-							}
+							echo "$Sring_Message";
 						}
 						else{
 							echo 'Log in before uploading a file';
