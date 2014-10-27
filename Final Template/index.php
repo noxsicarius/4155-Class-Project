@@ -10,7 +10,8 @@
 						}else{
 							//include 'login.inc.php';
 							$logged_in=0;
-						}	
+						}
+						
 					?>
 
 <!doctype html>

@@ -19,7 +19,7 @@ function getfield($field){
 			return $query_result;
 		}
 	}else{
-		return 'Wrong field or query not excuted right';
+		return 'Wrong field or query not executed right';
 	}
 }
 

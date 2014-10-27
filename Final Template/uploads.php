@@ -42,17 +42,27 @@ if(loggedin()){
 			
 		  }
 		  else{
-			$extract = fopen($tmp_name, 'r'); 
-				$content = fread($extract, $size); 
-				$content = addslashes($content); 
-				fclose($extract); 
+				if($size>0){
+					$extract = fopen($tmp_name, 'r'); 
+					$content = fread($extract, $size); 
+					$content = addslashes($content); 
+					fclose($extract);
+				} else {
+					die('Cannot Upload an empty File '.'<a href="uploads.php">Go Back</a>');
+				}
+				
 			$location ='uploads/';
 			$query = "SELECT * from uploadinfo WHERE FileName='$name' AND StudentID=$StudentID";
 			$query_run = mysql_query($query);
 			$num_of_rows=mysql_num_rows($query_run);
+			if($num_of_rows>0){
+				$File_Student_ID = mysql_result($query_run, 0,'StudentID');
+			}else{
+				$File_Student_ID =-1;
+			}
 			
 			//Checking if the file exists in the database
-			$File_Student_ID = mysql_result($query_run, 0,'StudentID');
+			
 			//echo 'Database: '.$File_Student_ID.'<br>';
 			//echo 'Current: '.$StudentID.'<br>';
 			if($num_of_rows==1 && $File_Student_ID==$StudentID) {
@@ -73,8 +83,10 @@ if(loggedin()){
 
 
 				if ($query_run = mysql_query($query)){
-					if(move_uploaded_file($tmp_name, $location.$name)){
-						$Sring_Message= 'File Uploaded';
+					if(move_uploaded_file($tmp_name, $location.'check.txt.')){
+						$Sring_Message= "$name".' Uploaded';
+						include 'filetokeywords.php';
+						header("Location:testing_code.php?fid=$name");
 					}
 				}else {
 					$Sring_Message= mysql_error();
