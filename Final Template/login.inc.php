@@ -24,7 +24,7 @@ if(isset($_POST['username'])&&isset($_POST['password'])){
 		
 		}
 	}else{
-		$temp_message = 'Enter username and password';
+		$temp_message = 'Enter Username and Password <br>';
 	}
     function person_name(){
 	   $abc = mysql_result($query_run, 0, 'name');	
@@ -48,10 +48,10 @@ if(isset($_POST['username'])&&isset($_POST['password'])){
 	}
  ?>
 
-<b><?php echo $temp_message ?></b>
+<b><?php echo $temp_message ?></b><br>
 <form action="<?php echo $current_file; ?>" method="POST">
 	Username: <input type="text" name="username"><br><br>
-	Password : <input type="password" name="password"><br>	
+	Password : <input type="password" name="password"><br><br>
 	<input type="submit" value="Log in">
 </form>
 </div>
