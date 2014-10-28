@@ -86,7 +86,7 @@ if(loggedin()){
 					if(move_uploaded_file($tmp_name, $location.'check.txt.')){
 						$Sring_Message= "$name".' Uploaded';
 						include 'filetokeywords.php';
-						header("Location:testing_code.php?fid=$name");
+						
 					}
 				}else {
 					$Sring_Message= mysql_error();
