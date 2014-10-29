@@ -83,7 +83,7 @@ if(loggedin()){
 
 
 				if ($query_run = mysql_query($query)){
-					if(move_uploaded_file($tmp_name, $location.'check.txt.')){
+					if(move_uploaded_file($tmp_name, $location.$name)){
 						$Sring_Message= "$name".' Uploaded';
 						include 'filetokeywords.php';
 						
