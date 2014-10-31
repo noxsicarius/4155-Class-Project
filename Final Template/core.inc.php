@@ -2,7 +2,13 @@
 ob_start();
 session_start();
 $current_file = $_SERVER['SCRIPT_NAME'];
-$http_referer = $_SERVER['HTTP_REFERER'];
+if(isset($_SERVER['HTTP_REFERER'])) {
+     $http_referer=$_SERVER['HTTP_REFERER'];
+   }
+else
+{
+   $http_referer='index.php';
+}
 
 function loggedin() {
 	if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
@@ -21,6 +27,10 @@ function getfield($field){
 	}else{
 		return 'Wrong field or query not executed right';
 	}
+}
+
+function getbackpage(){
+return $http_referer ;
 }
 
 function getuserid(){
