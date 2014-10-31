@@ -1,17 +1,7 @@
 <?php
-    global $link;
-    global $result;
-    global $select_db;
-    $link = mysql_connect('localhost', 'root', '');
-    if (!$link){
-        die("Database Connection Failed" . mysql_error());
-    }
-    $select_db = mysql_select_db('a_database');
-    if (!$select_db){
-        die("Database Selection Failed" . mysql_error());
-    }
+    include 'connect.inc.php';
     $option = '';
-    $sql = "SELECT * FROM `uploadInfo`";
+    $sql = "SELECT * FROM `uploadinfo`";
     $result = mysql_query($sql);
 
     while ($row = mysql_fetch_assoc($result)){
