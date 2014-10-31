@@ -10,7 +10,7 @@
             
             <ul>
             	<li><h4>My Account</h4></li>
-                <li><a href="#">My Files</a></li>
+                <li><a href="myaccount.php">My Files</a></li>
                 <li><a href="#">Similar Files </a></li>
                 <li><a href="#">My Courses</a></li>
                 <li><a href="#">My Profile</a></li>
