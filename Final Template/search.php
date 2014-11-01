@@ -5,7 +5,7 @@ require 'connect.inc.php';
 if(isset($_GET['searchparams'])){
 	$searchText = $_GET['searchparams'];
 	//$searchResults=searchDB($searchText);
-	$query = "SELECT * FROM uploadinfo WHERE FileName LIKE '%$searchText%'";
+	$query = "SELECT * FROM uploadinfo WHERE NotesTitle LIKE '%$searchText%'";
 	$searchResults=mysql_query($query);
 }
 
@@ -50,7 +50,7 @@ if(isset($_GET['searchparams'])){
 						if((mysql_num_rows($searchResults)) >= 1) {
 							$output = "";
 							while($row = mysql_fetch_array($searchResults)) {
-								$output .= "Note: " . $row['FileName'] . "<br />";
+								$output .= "Note: " . $row['NotesTitle'] . "<br />";
 							}
 							echo $output;
 						} else {
