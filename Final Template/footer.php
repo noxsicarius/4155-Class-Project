@@ -5,7 +5,7 @@
                 <li><a href="#">Uploading Notes</a></li>
                 <li><a href="#">Saving Notes</a></li>
                 <li><a href="#">Downloading Notes </a></li>
-                <li><a href="#">More about X Note Plus</a></li>
+                <li><a href="#">Credits</a></li>
             </ul>
             
             <ul>
@@ -18,14 +18,14 @@
             </ul>
             
             <ul class="endfooter">
-            	<li><h4>Suspendisse</h4></li>
-                <li><a href="#">Morbi hendrerit libero </a></li>
-                <li><a href="#">Proin placerat accumsan</a></li>
-                <li><a href="#">Rutrum nulla a ultrices</a></li>
-                <li><a href="#">Curabitur sit amet tellus</a></li>
-                <li><a href="#">Donec in ligula nisl.</a></li>
+            	<li><h4>Search</h4></li>
+                <li><a href="#">All Database </a></li>
+                <li><a href="#">My Class</a></li>
+                <li><a href="#">MY School</a></li>
+                <li><a href="#">High rated</a></li>
+                <li><a href="#">Upload</a></li>
             </ul>
             
             <div class="clear"></div>
         </div>
-        <div class="footer-bottom">Group Two Capstone Project</div>
+        <div class="footer-bottom"><font color="blue">Group Two Capstone Project</font></div>

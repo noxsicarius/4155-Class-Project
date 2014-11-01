@@ -139,7 +139,7 @@ else{
     	<?php include 'menu.php'; ?>
     </nav>
 
-	<img class="header-image" src="images/image.jpg" alt="Buildings" />
+
 
     <div id="body">
 
