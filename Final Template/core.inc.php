@@ -30,8 +30,15 @@
 		}
 	}
 
+	function searchDB($searchText){
+		$query = "SELECT * FROM uploadinfo WHERE NotesTitle LIKE '%$searchText%'";
+		$searchResults=mysql_query($query);
+		
+		return $searchResults;
+	}
+	
 	function getbackpage(){
-		return $http_referer ;
+		return $http_referer;
 	}
 
 	function getuserid(){

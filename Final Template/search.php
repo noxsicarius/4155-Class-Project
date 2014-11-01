@@ -1,15 +1,12 @@
 <?php
-require 'core.inc.php';
-require 'connect.inc.php';
 
-if(isset($_GET['searchparams'])){
-	$searchText = $_GET['searchparams'];
-	//$searchResults=searchDB($searchText);
-	$query = "SELECT * FROM uploadinfo WHERE NotesTitle LIKE '%$searchText%'";
-	$searchResults=mysql_query($query);
-}
+	require 'core.inc.php';
+	require 'connect.inc.php';
 
-//$query = "SELECT * FROM TABLETABLETABLE WHERE title LIKE '%$searchText%'";
+	if(isset($_GET['searchparams'])){
+		$searchText = $_GET['searchparams'];
+		$searchResults=searchDB($searchText);
+	}
 
 ?>
 <!doctype html>
