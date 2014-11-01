@@ -8,6 +8,8 @@ $user_name_exit =' ';
 $aleady_register=' ';
 $logged_in=0;
 
+
+
 if(!loggedin()){
 	if(
 	isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password_again']) && isset($_POST['name']) && isset($_POST['school']) ){
@@ -23,7 +25,7 @@ if(!loggedin()){
 			$password_match= 'Password do not match.';
 		  }
 		  else{
-			$query = "SELECT 'Id' from users WHERE username='$username'";
+			$query = "SELECT `users`.`username` FROM users WHERE (`users`.`username` = '$username')";
 			$query_run = mysql_query($query);
 			$num_of_rows=mysql_num_rows($query_run);
 			if($num_of_rows==1) {
