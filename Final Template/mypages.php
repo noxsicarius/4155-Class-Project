@@ -1,4 +1,5 @@
 <?php
+
     include 'connect.inc.php';
     $option = '';
     $sql = "SELECT * FROM `uploadinfo`";
@@ -6,16 +7,17 @@
 
     while ($row = mysql_fetch_assoc($result)){
 
-         $option .= '<option value = "'.$row['FileName'].'">'.$row['FileName'].'</option>';}
-
+        $option .= '<option value = "'.$row['FileName'].'">'.$row['FileName'].'</option>';
+	}
     
-    ?>
+?>
+
 <html>
 <body>
-<form>
-<select>
-<?php echo $option; ?>
-</select>
-</form>
+	<form>
+		<select>
+			<?php echo $option; ?>
+		</select>
+	</form>
 </body>
 </html>

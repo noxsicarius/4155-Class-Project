@@ -1,44 +1,42 @@
 <?php
-ob_start();
-session_start();
-$current_file = $_SERVER['SCRIPT_NAME'];
-if(isset($_SERVER['HTTP_REFERER'])) {
-     $http_referer=$_SERVER['HTTP_REFERER'];
-   }
-else
-{
-   $http_referer='index.php';
-}
 
-function loggedin() {
-	if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-		return true;
-	} else{
-		return false;
-	}
-}
+	ob_start();
+	session_start();
+	$current_file = $_SERVER['SCRIPT_NAME'];
 
-function getfield($field){
-	$query = "SELECT name FROM `users` WHERE Id=". $_SESSION['user_id'];		
-	if ($query_run=mysql_query($query)){
-		if($query_result=mysql_result($query_run, 0, $field)){
-			return $query_result;
-		}
+	if(isset($_SERVER['HTTP_REFERER'])) {
+		$http_referer=$_SERVER['HTTP_REFERER'];
 	}else{
-		return 'Wrong field or query not executed right';
+	   $http_referer='index.php';
 	}
-}
 
-function getbackpage(){
-return $http_referer ;
-}
+	function loggedin() {
+		if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 
-function getuserid(){
-$id=$_SESSION['user_id'];
-return $id;
+	function getfield($field){
+		$query = "SELECT name FROM `users` WHERE Id=". $_SESSION['user_id'];		
 
-}
-		
+		if ($query_run=mysql_query($query)){
+			if($query_result=mysql_result($query_run, 0, $field)){
+				return $query_result;
+			}
+		}else{
+			return 'Wrong field or query not executed right';
+		}
+	}
 
+	function getbackpage(){
+		return $http_referer ;
+	}
+
+	function getuserid(){
+		$id=$_SESSION['user_id'];
+		return $id;
+	}
 	
 ?>

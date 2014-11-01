@@ -1,10 +1,5 @@
 <?php
     include 'connect.inc.php';
-		
-	
-	
-	
-	
 	
 	
 //---------------------------------------------------------------------------------------------------------------------------------
@@ -28,9 +23,8 @@
 			$content=mysql_result($result,$i,$Field);
 			$File_Field[$i]= $content;		
 			}
-			return $File_Field;
-		
-		}	
+			return $File_Field;		
+		}
 	}
 //---------------------------------------------------------------------------------------------------------------------------------
 	//This function will return an array of files in the database for the current user
@@ -40,12 +34,11 @@
 		if($result = mysql_query($query)){
 			$num_of_rows=mysql_num_rows($result);
 			for($i=0;$i<$num_of_rows;$i++){
-			$content=mysql_result($result,$i,$Field);
-			$File_Field[$i]= $content;		
+				$content=mysql_result($result,$i,$Field);
+				$File_Field[$i]= $content;
 			}
 			return $File_Field;
-		
-		}	
+		}
 	}
 //---------------------------------------------------------------------------------------------------------------------------------
 	//This function will give an Array of all the tables in the database 
@@ -54,10 +47,11 @@
 		$tables = array();
 		$list_tables_sql = "SHOW TABLES FROM {$database};";
 		$result = mysql_query($list_tables_sql);
-		if($result)
-		while($table = mysql_fetch_row($result))
-		{
-			$tables[] = $table[0];
+		if($result){
+			while($table = mysql_fetch_row($result))
+			{
+				$tables[] = $table[0];
+			}
 		}
 		return $tables;
 	}
@@ -75,7 +69,6 @@
 			}
 		}
 	  return $File_ID;
-	
 	}
 //---------------------------------------------------------------------------------------------------------------------------------
 	// This function will make sure that sentences and keywords table is deleted when the file is deleted from uploadinfo
@@ -87,24 +80,18 @@
 		$file_length=count($file_id);//y
 		for($x=0;$x<$tables_length;$x++){
 			$count=0;
-				for($y=0;$y<$file_length;$y++){
-				
-					if($tables_id[$x]==$file_id[$y]){
-						$count++;
-					}				
-				}
+			for($y=0;$y<$file_length;$y++){
+				if($tables_id[$x]==$file_id[$y]){
+					$count++;
+				}				
+			}
 			if ($count>0){
-						break;
-					}else{
-						$id=$tables_id[$x];
-						Drop_Table($id);
-					}				
-				
+				break;
+			}else{
+				$id=$tables_id[$x];
+				Drop_Table($id);
+			}
 		}
-		
-		
-		
-		
 	}		
 //---------------------------------------------------------------------------------------------------------------------------------	
 	function DatabaseName(){
@@ -112,11 +99,4 @@
 		return $database;
 	}
 //---------------------------------------------------------------------------------------------------------------------------------   
-    ?>
-	
-	
-	
-	
-	
-	
-	
+?>

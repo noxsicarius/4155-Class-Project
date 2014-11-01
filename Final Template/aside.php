@@ -21,22 +21,22 @@
 
 	<li>
 		<h4>Search site</h4>
-			<ul>
-				<li class="text">
-					<form action="search.php" method="get">
-						<label>Document Title:
-							<input type="text" name="searchparams" />
-						</label>
-						<input type="submit" value="Search" />
-					</form>
-				</li>
-			</ul>
+		<ul>
+			<li class="text">
+				<form action="search.php" method="get">
+					<label>Document Title:
+						<input type="text" name="searchparams" />
+					</label>
+					<input type="submit" value="Search" />
+				</form>
+			</li>
+		</ul>
 	</li>
 
 	<li>
 		<h4>Helpful Links</h4>
-			<ul>
-				<li></li>
-			</ul>
+		<ul>
+			<li></li>
+		</ul>
 	</li>
 </ul>

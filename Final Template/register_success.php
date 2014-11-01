@@ -11,49 +11,46 @@
 
 </head>
 <body>
-<div id="container">
-    <header>
-    	<h1><a href="/">X NOTE<span> PLUS</span></a></h1>
-        <h2>Upload, Share, and compare notes</h2>
-    </header>
-    <nav>
-    	<?php include 'menu.php'; ?>
-    </nav>
+	<div id="container">
+		<header>
+			<h1><a href="/">X NOTE<span> PLUS</span></a></h1>
+			<h2>Upload, Share, and compare notes</h2>
+		</header>
+		<nav>
+			<?php include 'menu.php'; ?>
+		</nav>
 
-	<img class="header-image" src="images/image.jpg" alt="Buildings" />
+		<img class="header-image" src="images/image.jpg" alt="Buildings" />
 
-    <div id="body">
+		<div id="body">
 
-		
+			<section id="content">
+				<article>
 
-	  <section id="content">
+					<h1>Welcome to NotePlus</h1>
 
-	    <article>
-				
+					<h2>&nbsp;</h2>
+					<p>&nbsp;</p>
+
+				</article>
+
+				<article class="expanded">
+					<h2> Registration successful. </h2>
+					<h2>&nbsp;</h2>
+				</article>
+			</section>
 			
-		  <h1>Welcome to NotePlus</h1>
-		    <h2>&nbsp;</h2>
-			
-		  
-			<p>&nbsp;</p>
-	    </article>
-	    <article class="expanded">
-		<h2> Registration successful. </h2>
-		  <h2>&nbsp;</h2>
-		</article>
-        </section>
-        
-        <aside class="sidebar">
-	
-            <?php include 'aside.php'; ?>
+			<aside class="sidebar">
 		
-      </aside>
-    	<div class="clear"></div>
-  </div>
-    <footer>
-        <div class="footer-content">
-            <?php include 'footer.php' ?>;
-    </footer>
-</div>
+				<?php include 'aside.php'; ?>
+			
+			</aside>
+			<div class="clear"></div>
+		</div>
+		
+		<footer>
+			<?php include 'footer.php' ?>;
+		</footer>
+	</div>
 </body>
 </html>
