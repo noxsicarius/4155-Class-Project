@@ -45,11 +45,19 @@
 				<?php
 					if(isset($_GET['searchparams'])){
 						if((mysql_num_rows($searchResults)) >= 1) {
-							$output = "";
 							while($row = mysql_fetch_array($searchResults)) {
-								$output .= "Note: " . $row['NotesTitle'] . "<br />";
+								$docTitle = $row['NotesTitle'];
+								$docContent = $row['Content'];
+
+								echo "<div style=\"padding:3px;background-color:#FFFFFF;border:1px solid #d8d8d8;\">
+								<input type=\"button\" class=\"button2\" style=\"min-width:20px;\" value=\"+\" 
+								onclick=\"var container=this.parentNode.getElementsByTagName('div')[0];
+								if(container.style.display!='')  {container.style.display='';this.value='-';} 
+								else {container.style.display='none';this.value='+';}\" />
+								<span style=\"text-transform:uppercase;font-weight:bold;font-size:0.8em;\">{$docTitle}</span><hr />
+								<div style=\"display:none;word-wrap:break-word;overflow:hidden;\">{$docContent}</div></div>";
+
 							}
-							echo $output;
 						} else {
 							if($searchText == "") {
 								echo "No search entered";
@@ -59,6 +67,7 @@
 						}
 					}
 				?>
+
 			</section>
 			
 			<aside class="sidebar">
