@@ -36,7 +36,7 @@
 		
 		return $searchResults;
 	}
-	
+		
 	function getbackpage(){
 		return $http_referer;
 	}
@@ -46,4 +46,25 @@
 		return $id;
 	}
 	
+	function createSpoiler($title, $content, $rateUp, $rateDown){
+		echo "<div style=\"padding:3px;background-color:#FFFFFF;border:1px solid #d8d8d8;\">
+				<input 
+					type=\"button\" class=\"button2\" style=\"min-width:20px;\" 
+					value=\"+\" onclick=\"var container=this.parentNode.getElementsByTagName('div')[0];
+					if(container.style.display!='')  {
+						container.style.display='';this.value='-';
+					} else {
+						container.style.display='none';this.value='+';}\" 
+				/>
+				<span 
+					style=\"text-transform:uppercase;font-weight:bold;font-size:0.9em;\">{$title}
+					<p align=right >
+						<input type=\"button\" class=\"button3\" style=\"min-width:10px;font-size:0.7em;\" value=\"&#x25B2\" onclick=\"\" /> {$rateUp}
+						<input type=\"button\" class=\"button3\" style=\"min-width:10px;font-size:0.7em;\" value=\"&#x25BC\" onclick=\"\" /> {$rateDown} 
+					</p>
+				</span>
+				<hr />
+				<div style=\"display:none;word-wrap:break-word;overflow:hidden;\">{$content}</div>
+			</div>";
+	}
 ?>
