@@ -56,14 +56,15 @@
 					} else {
 						container.style.display='none';this.value='+';}\" 
 				/>
+				
 				<span 
-					style=\"text-transform:uppercase;font-weight:bold;font-size:0.9em;\">{$title}
-					<p align=right >
-						<input type=\"button\" class=\"button3\" style=\"min-width:10px;font-size:0.7em;\" value=\"&#x25B2\" onclick=\"\" /> {$rateUp}
-						<input type=\"button\" class=\"button3\" style=\"min-width:10px;font-size:0.7em;\" value=\"&#x25BC\" onclick=\"\" /> {$rateDown} 
-					</p>
+					style=\"text-transform:uppercase;font-weight:bold;font-size:0.9em;\" >{$title}
+						<p align=right style=\"margin-top: -25px;\">
+						<input type=\"button\" class=\"button3\" style=\"min-width:10px;font-size:0.7em;\" value=\"&#x25B2\" onclick=\"\"  />{$rateUp}
+						<input type=\"button\" class=\"button3\" style=\"min-width:10px;font-size:0.7em;\" value=\"&#x25BC\" onclick=\"\" />{$rateDown} 
+						</p>
 				</span>
-				<hr />
+				
 				<div style=\"display:none;word-wrap:break-word;overflow:hidden;\">{$content}</div>
 			</div>";
 	}

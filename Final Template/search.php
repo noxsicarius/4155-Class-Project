@@ -50,7 +50,6 @@
 								$docContent = $row['Content'];
 
 								createSpoiler($docTitle, $docContent, $rateUp, $rateDown);
-
 							}
 						} else {
 							if($searchText == "") {
