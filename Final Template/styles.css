@@ -46,6 +46,7 @@ code {
 	color:#ccc;
 	border: none;
 }
+
 blockquote {
 	border-left: 5px solid #222;
 }
@@ -75,7 +76,6 @@ a:focus {
 	outline: none;
 }
 
-
 a.button { 
     background-color: #799AC0;
     border-radius: 5px 5px 5px 5px;
@@ -91,7 +91,6 @@ a.button {
 a.button:hover {
 	background-color: #4076AB;
 }
-
 
 fieldset {
 	display: block;
@@ -207,10 +206,9 @@ li ol, li ul {
 	padding-top: 5px;
 }
 
-
 #container {
 	width: 100%;
-	min-width: 690px;
+	min-width: 450px;
 	max-width: 960px;
 	margin: 20px auto;
 	padding: 10px;
@@ -234,6 +232,7 @@ header h1 a, header h1 a:hover {
     text-decoration: none;
     text-transform: uppercase;
 }
+
 header h1 a span { 
 	color: #DE2D3A;
 }
@@ -264,7 +263,6 @@ nav ul li {
 	padding: 0;
 }
 
-
 nav ul li a {
     color: #eee;
     display: block;
@@ -277,13 +275,13 @@ nav ul li a {
     text-transform: uppercase;
 	border-right:1px solid #668CB7;
 }
+
 nav ul li.selected a,
 nav ul li.selected a:hover { 
 	background-color: #4076AB;
 	color: #fff; 
 	font-weight:bold;
 }
-
 
 nav ul li a:hover {
 	color: #fff;
@@ -293,7 +291,7 @@ nav ul li a:hover {
 
 img.header-image { 
 	padding-top: 10px;
-	margin-bottom: -3px; 
+	margin-bottom: -3px;
 }
 
 #body {
@@ -375,8 +373,6 @@ article .article-info a {
 	border-bottom: none;
 }
 
-
-
 .sidebar li ul li a {
 	font-weight: normal;
 }
@@ -390,16 +386,14 @@ article .article-info a {
    font-weight: bold;
 }
 
-
-
-
 .clear {
 	clear: both;
 }
 
 footer {
 	margin:20px auto 0;
-	width: 960px;
+	max-width: 960px;
+	width: 100%;
 }
 
 footer p {

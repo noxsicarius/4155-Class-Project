@@ -25,7 +25,7 @@
 			<li class="text">
 				<form action="search.php" method="get">
 					<label>Document Title:
-						<input type="text" name="searchparams" />
+						<input type="text" name="searchparams" style="width:100%;height:auto;"/>
 					</label>
 					<input type="submit" value="Search" />
 				</form>

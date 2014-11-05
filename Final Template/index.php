@@ -11,12 +11,10 @@
 		//include 'login.inc.php';
 		$logged_in=0;
 	}
-
 ?>
 
 <!doctype html>
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>X Note Plus</title>
@@ -30,11 +28,13 @@
 			<h2>Upload, Share, and compare notes</h2>
 		</header>
 
-		<nav>
-			<?php include 'menu.php'; ?>
-		</nav>
-
-		<img class="header-image" src="images/image.jpg" alt="Buildings" />
+		<div id="navmenu">
+			<nav>
+				<?php include 'menu.php'; ?>
+			</nav>
+		</div>
+		
+		<img class="header-image" src="images/image.jpg" alt="Buildings" style="width:100%;height:auto;"/>
 
 		<div id="body">
 
