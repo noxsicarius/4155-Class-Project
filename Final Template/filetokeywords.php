@@ -1,10 +1,11 @@
 <?php
 	require 'connect.inc.php';
 
-	$wordstoignore=array("is","was","are","they","can");
+	$wordstoignore=array("is","was","are","they","can","a","i");
 	$filetostring = 'what is my name?.   what is your name....';
 	//$name='text1.txt';
 	$queryx="SELECT * FROM `uploadinfo` WHERE `FileName` = '$name'";
+	$All_File_keywords=array();
 
 	if($query_runx = mysql_query($queryx)){
 		$filetostring=mysql_result($query_runx,0,"content");
@@ -38,13 +39,16 @@
 				if($count==0){					
 					if(strlen($keywordstowrite)>0){
 						$keywordstowrite=$keywordstowrite.','.$string_to_array[$j];
+						$All_File_keywords[]=$string_to_array[$j];
 					}else{
 						$keywordstowrite=$string_to_array[$j];
+						$All_File_keywords[]=$string_to_array[$j];
 					}
 				}
 			}
 
 			fwrite($keywords_file,($keywordstowrite.PHP_EOL));
+			$keywordstowrite=strtolower($keywordstowrite);
 			write_table($sentencesarray[$x],$keywordstowrite,$FileID);
 			$keywordstowrite=null;
 		}
@@ -52,7 +56,13 @@
 
 	fclose($fp);
 	fclose($keywords_file);
-
+	$All_File_keywords=array_unique($All_File_keywords);
+	Save_FileKeywords($FileID,$All_File_keywords);
+	//comparing
+	if(NumberofRows('keywords')>1){
+		CompareFileToAll($FileID);
+	}
+	
 	function make_table($File_ID){
 		$sql="CREATE TABLE table_$File_ID ( SentenceNO int NOT NULL AUTO_INCREMENT, Sentence text NOT NULL, Keywords text NOT NULL, PRIMARY KEY (SentenceNO) )";
 		if(mysql_query($sql)){	

@@ -1,17 +1,22 @@
 <?php
 	require 'connect.inc.php';
-	//header("Location:testing_code.php?fid=$name");
-	//echo "The file id is: " . $_GET['fid'];
+	require 'core.inc.php';
 	
-	function make_table($File_ID){
-	$sql="CREATE TABLE table_$File_ID ( SentenceNO int NOT NULL AUTO_INCREMENT, Sentence text NOT NULL, Keywords text NOT NULL, PRIMARY KEY (SentenceNO) )";
-		if(mysql_query($sql)){	
-			echo 'table '.$File_ID.' created'; 
-		}
+	if(isset($_GET['id'])){
+		$CurrentFileID=$_GET['id'];
+	}else{
+		$CurrentFileID=null;
 	}
-
-	function write_table($sentence,$keywords,$FileID){
-		$sql="INSERT INTO `a_database`.`table_$FileID` VALUES (NULL, '$sentence', '$keywords')";
-		echo $sql;
-	}
+	
+	$Array=( GetMatchTo($CurrentFileID));
+	echo 'Similar Notes to '.$CurrentFileID.'<br>';
+	for($x=0;$x<sizeof($Array);$x++){
+		echo 'File ID: '.$Array[$x][0]. ' '.$Array[$x][1].' % Match<br>';
+	}	
+	//returns multi dim array with two columns first with fileID and SENCOUND with match
+	//pass file id of the file you want matches to
+	
+	
+	
+	
 ?>

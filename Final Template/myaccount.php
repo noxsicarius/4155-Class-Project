@@ -2,6 +2,12 @@
 	require 'core.inc.php';
 	require 'connect.inc.php';
 	
+	if(isset($_GET['id'])){
+		$CurrentFileID=$_GET['id'];
+	}else{
+		$CurrentFileID=null;
+	}
+	
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
@@ -10,7 +16,9 @@
 		$logged_in=0;
 	}
 	$ID=getuserid();
-	$Files_Names=FilesInDataBase_ID('NotesTitle',$ID);
+	$Files_Title=FilesInDataBase_ID('NotesTitle',$ID);
+	$Files_Names=FilesInDataBase_ID('FileName',$ID);
+	$Files_ID=FilesInDataBase_ID('FileID',$ID);
 	
 ?>
 
@@ -43,19 +51,40 @@
 					<table border="1" style="width:100%">
 						<tr>
 							<td><b>File Title</b></td>
+							<td><b>File Name</b></td>
+							<td><b>Action</b></td>
 						</tr>
 
 						<?php
-							$arrlength=count($Files_Names);
+							$arrlength=count($Files_Title);
 
 							for($x=0;$x<$arrlength;$x++){
 								echo '<tr>';
+								//First column
+								echo '<td>'."$Files_Title[$x]".'</td>';
+								//Second column 
 								echo '<td>'."$Files_Names[$x]".'</td>';
+								//Third Column
+								$href='deletefile.php?id='.$Files_ID[$x];
+								$view='myaccount.php?id='.$Files_ID[$x];
+								echo '<td>';echo "<a href='".$href."'>Delete</a>";echo '   '."<a href='".$view."'>View</a>"; 
+								
+								echo '</td>';
 								echo '</tr>';
 							}
 						?>
 					</table>
 				</article>
+					<article>
+					<?php
+						if($CurrentFileID!=null){
+							CreateSpoilerByFileID($CurrentFileID);
+						}else{
+							echo 'Click View to see the content of your notes.';
+						}
+					?>
+					
+					</article>
 			</section>
 
 			<aside class="sidebar">

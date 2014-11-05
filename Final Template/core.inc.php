@@ -17,7 +17,7 @@
 			return false;
 		}
 	}
-
+    // return name of current user
 	function getfield($field){
 		$query = "SELECT name FROM `users` WHERE Id=". $_SESSION['user_id'];		
 
@@ -27,6 +27,15 @@
 			}
 		}else{
 			return 'Wrong field or query not executed right';
+		}
+	}
+	//return any value from upload table by passing FileID and column name
+	function FileInfo($FileID,$Column){
+		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";
+		if($result = mysql_query($query)){			
+			$content=mysql_result($result,0,$Column);
+			$File_Field= $content;			
+			return $File_Field;
 		}
 	}
 
@@ -68,15 +77,26 @@
 				<div style=\"display:none;word-wrap:break-word;overflow:hidden;\">{$content}</div>
 			</div>";
 	}
+	//Does it exactly the thing as createSpoiler just by using FileID
+	function CreateSpoilerByFileID($FileID){
+		$title=FileInfo($FileID,'NotesTitle');
+		$content=FileInfo($FileID,'content');
+		$rateDown=0;
+		$rateUp=5;
+		createSpoiler($title, $content, $rateUp, $rateDown);
+	}
 	
 	//---------------------------------------------------------------------------------------------------------------------------------
 	// this function will delete a File and also drop the table of sentences and keywords
 	function Drop_Table($id){
 		$database=DatabaseName();
 		$name='table_'.$id;
-		mysql_query("DROP TABLE IF EXISTS `$database`.`$name`");
-		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");	
+		mysql_query("DROP TABLE IF EXISTS `$database`.`$name`");		
+		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
+		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
 	}
+	
+	
 	
 //---------------------------------------------------------------------------------------------------------------------------------	
 	
@@ -159,7 +179,144 @@
 				Drop_Table($id);
 			}
 		}
-	}		
+	}
+//--------------------------------------------------------------------------------------------------------------------------------	
+// Return Number of Rows for a table
+	// Pass the name of the table 
+	function NumberofRows($table){		
+		$query = "SELECT * FROM `$table`";
+		if($result  = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			return $num_of_rows;
+		}else{
+			$String='Table '.$table.' not found!';
+			return $String;
+		}
+	}
+//-------------------------------Compare Functions----------------------------------------------------------------------
+	// this function will save a keyword string to the keywords table for each file.
+	function Save_FileKeywords($FileID,$Array){
+		$Keyword=ArrayToString($Array);
+		$Keyword=strtolower($Keyword);
+		$database=DatabaseName();
+		$query="INSERT INTO `$database`.`keywords` (`FileID`, `Keyword`, `ComparedTO`, `MatchedTO`) VALUES ('$FileID', '$Keyword', '', '')";		
+		mysql_query($query);
+	}
+	
+	//---Return a String made from an array separated by coma 
+	Function ArrayToString($array){
+		$array=array_values($array);
+		$String=null;
+		
+		for($x=0;$x<sizeof($array);$x++){			
+			if(Strlen($array[$x])>0){
+				if(Strlen($String)>0){
+					$String=$String.','.$array[$x];
+				}else{
+				    $String=$array[$x];
+				}
+			}
+		}
+	  return $String;
+	}
+	
+	
+	//saves an id to keep record of all the files compared to
+	function Save_FileComparedTo($FileID,$ComparedToID){
+		//$query="UPDATE `a_database`.`keywords` SET `ComparedTO` = CONCAT(ComparedTO,',','$ComparedToID') WHERE `keywords`.`FileID` = $FileID";
+		$query="UPDATE `a_database`.`keywords` SET `ComparedTO` = CONCAT(ComparedTO,',','$ComparedToID') WHERE `keywords`.`FileID` = $FileID";
+		mysql_query($query);
+	}
+	
+	function Save_FileMatchTo($FileID,$MatchToID,$Percent){
+		$String=$MatchToID.'-'.$Percent;
+		$query="UPDATE `a_database`.`keywords` SET `MatchedTO` = CONCAT(MatchedTO,',','$String') WHERE `keywords`.`FileID` = $FileID";
+		mysql_query($query);
+	}
+	
+	// This Function will return an Array of all the keywords of a file
+	function GetFileKeywords($FileID){
+	$result=mysql_query("SELECT * FROM `keywords` WHERE `FileID` = $FileID");
+	$content=mysql_result($result,0,'Keyword');
+	$contentArray=preg_split('/,/', $content );	
+	return $contentArray;
+	}
+	
+	// This Function will return an array of the sentences of a File
+	function GetFileSentences($FileID){
+		$tablename='table_'.$FileID;
+		$query="SELECT * FROM `$tablename`";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			for($i=0;$i<$num_of_rows;$i++){
+				$content=mysql_result($result,$i,'Sentence');
+				$File_Field[$i]= $content.'.';
+			}
+			return $File_Field;
+		}
+	}
+	
+	// This function compares two files
+	// This Function is called by CompareFileToAll
+	function CompareTwoFiles($FirstFile,$SecountFile){
+		$KeyFirstFile=GetFileKeywords($FirstFile);//Array of keywords of first file --no doubles 
+		$KeySecountFile=GetFileKeywords($SecountFile);//Array of second File keywords
+		$AverageKeyWord=(sizeof($KeyFirstFile)+sizeof($KeySecountFile))/2;//average number of keywords in both file. 
+		$count=0;
+		//compare 
+		for($x=0;$x<sizeof($KeyFirstFile);$x++){
+			for($y=0;$y<sizeof($KeySecountFile);$y++){
+				if($KeySecountFile[$y]==$KeyFirstFile[$x]){
+					$count++;
+				}
+			}	
+		}
+		//count is number of similar keywords 
+		
+		$OverAllSimilitry=($count/$AverageKeyWord)*100;   
+		$First_TO_Secound=($count/sizeof($KeyFirstFile))*100; //percent of FirstFile keywords found in Second File
+		$Secound_To_First=($count/sizeof($KeySecountFile))*100;//percent of SecoundFile keywords found in First File
+		$Similitry=array($First_TO_Secound,$Secound_To_First,$OverAllSimilitry);
+		return $Similitry;
+	}
+	//Pass FileID and it will compare that file to the rest of files in the database.
+	function CompareFileToAll($FileID){
+		$CurrentFile=$FileID;
+		$AllFiles=FilesInDataBase('FileID');
+		for($x=0;$x<sizeof($AllFiles);$x++){
+			if($AllFiles[$x]!=$CurrentFile){
+				Save_FileComparedTo($CurrentFile,$AllFiles[$x]);
+				Save_FileComparedTo($AllFiles[$x],$CurrentFile);
+				$Result=CompareTwoFiles($CurrentFile,$AllFiles[$x]);
+				Save_FileMatchTo($CurrentFile,$AllFiles[$x],intval($Result[0]));
+				Save_FileMatchTo($AllFiles[$x],$CurrentFile,intval($Result[1]));			
+				
+			}
+		}
+	}
+	
+	function GetMatchTo($FileID){
+		$Array=array();
+		$AllFilesID=FilesInDataBase('FileID');
+		$Result=mysql_query("SELECT `MatchedTO` FROM `keywords` WHERE `FileID` = $FileID");
+		$content=mysql_result($Result,0);
+		$contentArray=preg_split('/,/', $content );
+		$count=0;
+		for($x=0;$x<sizeof($contentArray);$x++){
+			if(strlen($contentArray[$x])>0){
+				$temp=preg_split('/-/',$contentArray[$x]);
+				if (in_array($temp[0], $AllFilesID)) {
+					for($y=0;$y<2;$y++){
+						$Array[$count][$y]=$temp[$y];						
+					}
+					$count++;
+				}
+				
+			}
+		}
+		return $Array;
+	}
+	
 //---------------------------------------------------------------------------------------------------------------------------------	
 	function DatabaseName(){
 		$database='a_database';
