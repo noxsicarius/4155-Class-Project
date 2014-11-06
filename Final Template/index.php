@@ -27,12 +27,10 @@
 			<h1><a href="/">X NOTE<span> PLUS</span></a></h1>
 			<h2>Upload, Share, and compare notes</h2>
 		</header>
-
-		<div id="navmenu">
-			<nav>
-				<?php include 'menu.php'; ?>
-			</nav>
-		</div>
+		
+		
+		<?php include 'menu.php'; ?>
+		
 		
 		<img class="header-image" src="images/image.jpg" alt="Buildings" style="width:100%;height:auto;"/>
 
