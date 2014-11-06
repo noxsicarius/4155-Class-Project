@@ -129,7 +129,7 @@
 	
 	//-----------------------------------------------Working with Tables------------------------------------------------------------------------------
 	Function ST_CreateClassTable($university,$class){
-		$String='CLASS_'.$university.'_'.$class;
+		$String='class_'.$university.'_'.$class;
 		$query="CREATE TABLE IF NOT EXISTS `$String` (
 				  `SentenceNo` int(11) NOT NULL AUTO_INCREMENT,
 				  `Keywords` text NOT NULL,
@@ -149,7 +149,8 @@
 		$AllTables=Table_Names();
 		for($x=0;$x<sizeof($AllTables);$x++){
 			$result = substr($AllTables[$x], 0, 5);
-			if($result == 'class'){
+			if($result == 'class' ){
+               // echo "hey";
 				$temp=preg_split('/_/',$AllTables[$x]);
 					for($y=0;$y<2;$y++){
 						$Array[$count][$y]=$temp[$y+1];
