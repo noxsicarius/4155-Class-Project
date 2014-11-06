@@ -1,6 +1,7 @@
 <?php
 	require 'connect.inc.php';
 	
+	
 
 	$wordstoignore=array("is","was","are","they","can","a","i");
 	$filetostring = 'what is my name?.   what is your name....';
@@ -63,6 +64,9 @@
 	if(NumberofRows('keywords')>1){
 		CompareFileToAll($FileID);
 	}
+	//calling Study guide comparison 
+	ST_CompareFileTOMaster($FileID);
+	
 	
 	function make_table($File_ID){
 		$sql="CREATE TABLE table_$File_ID ( SentenceNO int NOT NULL AUTO_INCREMENT, Sentence text NOT NULL, Keywords text NOT NULL, PRIMARY KEY (SentenceNO) )";
