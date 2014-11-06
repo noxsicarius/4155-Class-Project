@@ -73,7 +73,7 @@
 
 	function write_table($sentence,$keywords,$FileID){
 		$database=DatabaseName();
-		$sql="INSERT INTO `a_database`.`table_$FileID` VALUES (NULL, '$sentence', '$keywords')";
+		$sql="INSERT INTO `$database`.`table_$FileID` VALUES (NULL, '$sentence', '$keywords')";
 		if(mysql_query($sql)){	
 			$Sring_Message= 'Row saved to database <br>'; 
 		}
