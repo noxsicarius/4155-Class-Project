@@ -79,7 +79,7 @@
 	
 	//ST_CompareFileTOMaster(4);
 	//Master is the Class StudyGuide
-	ST_CompareFileTOMaster(5);
+	//ST_CompareFileTOMaster(5);
 	
 	
 	
@@ -119,10 +119,11 @@
 	
 	
 	
-		  (ST_HighestHits('uncc','nbi'));
+		  //(ST_HighestHits('uncc','nbi'));
     
-    // this function takes a class and school name and returns the sentence that has the highest hits
-    Function ST_HighestHits($School,$Class){
+    // this function takes a class and school name and returns the sentencenumber that has the highest hits
+
+    Function ST_TOPHighestHits($School,$Class){
         $tablename='class_' .$School.'_'.$Class;
         //$query="SELECT * FROM `$tablename`";
         $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
@@ -134,10 +135,69 @@
         }
     }
     
-    
+    //print_r(ST_ALLHighestHits('uncc','nbi'));
+	// this function takes a class and school name and returns the sentence number that has the highest hits in an array with all of the sentences 
+	// from highest to the lowes 
+
+	   Function ST_ALLHighestHits($School,$Class){
+        $tablename=ST_ClassTableName($School,$Class);
+        //$query="SELECT * FROM `$tablename`";
+        $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
+        if($result = mysql_query($query)){
+            $num_of_rows=mysql_num_rows($result);
+            for($i=0;$i<$num_of_rows;$i++){
+            	$content=mysql_result($result,$i,'SentenceNo');
+          		$File_Field[$i]= $content;
+       		}
+            return $File_Field;
+        }
+    }
 	
-	
-	
+    // pass this functioon a school, class aname and sentence number and it will return a sentences rank
+	//echo ST_GetSentenceRank('uncc','nbi','6');	
+	Function ST_GetSentenceRank($School,$Class,$SentenceNo){
+      $TableName=ST_ClassTableName($School,$Class);
+        //$query="SELECT * FROM `$tablename`";
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+            	$content=mysql_result($result,$SentenceNo,'Hits');
+       		}
+            return $content;
+        }
+
+
+	//ST_IncreaseHITbyONE('uncc','nbi','6');	
+// pass this function a school, calls and sentence number and it will incriment the hit value by one
+    Function ST_IncreaseHITbyONE($School,$Class,$SentenceNo){
+    	$TableName=ST_ClassTableName($School,$Class);
+        //$query="SELECT * FROM `$tablename`";
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+            	$content=mysql_result($result,$SentenceNo,'Hits');
+       			$content ++;
+       			$database=DatabaseName();
+				$query="UPDATE `a_database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo';";
+				mysql_query($query);
+       		}
+    }
+
+
+    //ST_DecreaseHITbyONE('uncc','nbi','6');
+	// pass this function a school, calls and sentence number and it will Decrease the hit value by one
+    //NOTE IT IS POSSIBLE TO GET A NEGATIVE NUMBER 
+	Function ST_DecreaseHITbyONE($School,$Class,$SentenceNo){
+    	$TableName=ST_ClassTableName($School,$Class);
+        //$query="SELECT * FROM `$tablename`";
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+            	$content=mysql_result($result,$SentenceNo,'Hits');
+       			$content --;
+       			$database=DatabaseName();
+				$query="UPDATE `a_database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo';";
+				mysql_query($query);
+       		}
+    }
+
 	
 	
 	
