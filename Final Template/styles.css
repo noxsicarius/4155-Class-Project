@@ -205,7 +205,6 @@ li ol, li ul {
 
 #container {
 	width: 100%;
-	min-width: 450px;
 	max-width: 960px;
 	margin: 20px auto;
 	padding: 10px;
