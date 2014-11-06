@@ -237,7 +237,10 @@
        		}
     }
 
-    
+
+
+
+    // pass this function a school, class and a value and it will dispalay all sentences from this class that have a hit value  = or > than $val
 	Function ST_PrintMaster($School,$Class,$val){
         $tablename=ST_ClassTableName($School,$Class);
         //$query="SELECT * FROM `$tablename`";
