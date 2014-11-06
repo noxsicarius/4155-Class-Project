@@ -64,12 +64,6 @@
 
 			}else{
 
-				// mypages page
-				if($currentPage == "mypages.php"){
-					echo '<li class="start selected"><a href="mypages.php">My Pages</a></li>';
-				} else {
-					echo '<li class=""><a href="mypages.php">My Pages</a></li>';
-				}
 
 				// myaccount page
 				if($currentPage == "myaccount.php"){
