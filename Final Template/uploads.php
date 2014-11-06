@@ -1,6 +1,7 @@
 <?php
 	require 'core.inc.php';
 	require 'connect.inc.php';
+	require 'comparison.php';
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
