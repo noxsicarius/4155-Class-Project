@@ -79,7 +79,7 @@
 	
 	//ST_CompareFileTOMaster(4);
 	//Master is the Class StudyGuide
-	ST_CompareFileTOMaster(58);
+	ST_CompareFileTOMaster(5);
 	
 	
 	
@@ -119,7 +119,22 @@
 	
 	
 	
-	
+		  (ST_HighestHits('uncc','nbi'));
+    
+    // this function takes a class and school name and returns the sentence that has the highest hits
+    Function ST_HighestHits($School,$Class){
+        $tablename='class_' .$School.'_'.$Class;
+        //$query="SELECT * FROM `$tablename`";
+        $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
+        if($result = mysql_query($query)){
+            $num_of_rows=mysql_num_rows($result);
+            $content=mysql_result($result,0,'SentenceNo');
+           // echo $content;
+            return $content;
+        }
+    }
+    
+    
 	
 	
 	
