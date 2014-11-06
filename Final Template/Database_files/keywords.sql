@@ -1,4 +1,4 @@
-CREATE TABLE Keywords (
+CREATE TABLE keywords (
 	FileID				 int             NOT NULL,
 	Keyword		   		 text  		 	 NOt NULL,
 	ComparedTO	   		 text  		 	 NOt NULL,

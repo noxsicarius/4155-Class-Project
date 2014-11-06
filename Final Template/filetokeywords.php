@@ -1,5 +1,6 @@
 <?php
 	require 'connect.inc.php';
+	
 
 	$wordstoignore=array("is","was","are","they","can","a","i");
 	$filetostring = 'what is my name?.   what is your name....';
@@ -71,9 +72,12 @@
 	}
 
 	function write_table($sentence,$keywords,$FileID){
+		$database=DatabaseName();
 		$sql="INSERT INTO `a_database`.`table_$FileID` VALUES (NULL, '$sentence', '$keywords')";
 		if(mysql_query($sql)){	
 			$Sring_Message= 'Row saved to database <br>'; 
 		}
 	}
+	
+	
 ?>

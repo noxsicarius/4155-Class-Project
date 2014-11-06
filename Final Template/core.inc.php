@@ -223,14 +223,15 @@
 	
 	//saves an id to keep record of all the files compared to
 	function Save_FileComparedTo($FileID,$ComparedToID){
-		//$query="UPDATE `a_database`.`keywords` SET `ComparedTO` = CONCAT(ComparedTO,',','$ComparedToID') WHERE `keywords`.`FileID` = $FileID";
-		$query="UPDATE `a_database`.`keywords` SET `ComparedTO` = CONCAT(ComparedTO,',','$ComparedToID') WHERE `keywords`.`FileID` = $FileID";
+		$database=DatabaseName();
+		$query="UPDATE `$database`.`keywords` SET `ComparedTO` = CONCAT(ComparedTO,',','$ComparedToID') WHERE `keywords`.`FileID` = $FileID";
 		mysql_query($query);
 	}
 	
 	function Save_FileMatchTo($FileID,$MatchToID,$Percent){
 		$String=$MatchToID.'-'.$Percent;
-		$query="UPDATE `a_database`.`keywords` SET `MatchedTO` = CONCAT(MatchedTO,',','$String') WHERE `keywords`.`FileID` = $FileID";
+		$database=DatabaseName();
+		$query="UPDATE `$database`.`keywords` SET `MatchedTO` = CONCAT(MatchedTO,',','$String') WHERE `keywords`.`FileID` = $FileID";
 		mysql_query($query);
 	}
 	
