@@ -77,6 +77,9 @@
 		}		
 	}
 	
+
+
+
 	
 	//Master is the Class StudyGuide
 	
@@ -256,7 +259,88 @@
             return $Array;
         }
     }
-	
+
+//accepts the table name and value and it will dispalay all sentences from this class that have a hit value  = or > than $val
+    	Function ST_PrintMaster_tablename($tablename,$val){
+        $tablename=$tablename;
+        $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
+        if($result = mysql_query($query)){
+            $num_of_rows=mysql_num_rows($result);
+            for($i=0;$i<$num_of_rows;$i++){
+            	$content=mysql_result($result,$i,'Sentence');
+          		$File_Field[$i][0]= $content;
+          		$content=mysql_result($result,$i,'Hits');
+          		$File_Field[$i][1] = $content;
+          		$content=mysql_result($result,$i,'SentenceNo');
+          		$File_Field[$i][2] = $content;
+       		}
+       		$count= 0;
+            for($i=0;$i<$num_of_rows;$i++){
+				if ($File_Field[$i][1] >=$val){
+					$Array[$count][0] = $File_Field[$i][0];
+					$Array[$count][1] = $File_Field[$i][2];
+					$count ++;
+				}
+            }
+            return $Array;
+        }
+    }
+
+     // Takes a table name and a sentencenumber and increases the hit value by 1
+	Function ST_IncreaseHITbyONE_tablename($TableName,$SentenceNo){
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+				$rowNumber=$SentenceNo-1;
+            	$content=mysql_result($result,$rowNumber,'Hits');
+       			$content ++;
+       			$database=DatabaseName();
+				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
+				mysql_query($query);
+       		}
+    }
+ // Takes a table name and a sentencenumber and decreases the hit value by -1
+    	Function ST_DecreaseHITbyONE_tablename($TableName,$SentenceNo){
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+				$rowNumber=$SentenceNo-1;
+            	$content=mysql_result($result,$rowNumber,'Hits');
+       			$content --;
+       			$database=DatabaseName();
+				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
+				mysql_query($query);
+       		}
+    }
+
+    // Takes a table name and a sentencenumber and decreases the hit value by -5
+    Function ST_ReportAbuse_tablename($TableName,$SentenceNo){
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+				$rowNumber=$SentenceNo-1;
+            	$content=mysql_result($result,$rowNumber,'Hits');
+       			$content =$content - 5;
+       			$database=DatabaseName();
+				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
+				mysql_query($query);
+       		}
+    }
+
+//accepts a user ID and returns all classes and school's that the user is enrolled in 
+    Function ST_Student_Classes($ID){
+		$query="SELECT DISTINCT `School`,`ClassName` FROM `uploadInfo` WHERE `StudentID` = $ID";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			for($i=0;$i<$num_of_rows;$i++){
+				$content=mysql_result($result,$i, 'School');
+				$File_Field[$i][0]= $content;
+				$content=mysql_result($result,$i, 'ClassName');
+				$File_Field[$i][1]= $content;
+				
+			}
+			//print_r($File_Field);
+			return $File_Field;
+		}
+	}
+
 	
 //---------------------------------------------------Hits Function ends here-----------------------------------------------------------------------------	
 	

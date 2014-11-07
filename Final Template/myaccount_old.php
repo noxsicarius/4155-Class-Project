@@ -1,7 +1,6 @@
 <?php
 	require 'core.inc.php';
 	require 'connect.inc.php';
-	require 'comparison.php';
 	
 	if(isset($_GET['id'])){
 		$CurrentFileID=$_GET['id'];
@@ -20,7 +19,6 @@
 	$Files_Title=FilesInDataBase_ID('NotesTitle',$ID);
 	$Files_Names=FilesInDataBase_ID('FileName',$ID);
 	$Files_ID=FilesInDataBase_ID('FileID',$ID);
-	$Student_Classes=ST_Student_Classes($ID);
 	
 ?>
 
@@ -83,39 +81,10 @@
 								echo '</tr>';
 							}
 						?>
-						</table>
-						<table>
-						<h2>Your classes</h2><br>
-						<tr bgcolor="#FFFFF0">
-							<td><b>School</b></td>
-							<td><b>Class</b></td>
-							<td><b>Action</b></td>
-						</tr>
-						<?php
-							$arrlength=count($Student_Classes);
-							for($x=0;$x<$arrlength;$x++){
-								echo '<tr>';
-								//First column
-								echo '<td>'.$Student_Classes[$x][0].'</td>';
-								//Second column 
-								echo '<td>'.$Student_Classes[$x][1].'</td>';
-								$table[$x] = ST_ClassTableName($Student_Classes[$x][0],$Student_Classes[$x][1]);
-								$view='ST_view.php?Name='.$table[$x];
-								//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
-								echo '<td>';
-								//echo "<a href='".$href."'>Delete</a>";
-								echo '   '."<a href='".$view."'>View study guide</a>"; 
-								
-								echo '</td>';
-								echo '</tr>';
-							}
-						?>
-
 				</table>
 				</div>
 				</div>
 				</article>
-
 					<article>
 					<?php
 						if($CurrentFileID!=null){
