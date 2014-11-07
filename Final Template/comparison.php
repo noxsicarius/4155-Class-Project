@@ -186,9 +186,8 @@
     // pass this function a school, class name and sentence number and it will return a sentences rank
 	//echo ST_GetSentenceRank('uncc','itcs-1600',4);	
 	Function ST_GetSentenceRank($School,$Class,$SentenceNo){
-      $TableName=ST_ClassTableName($School,$Class);
-	  $rowNumber=$SentenceNo-1;
-        //$query="SELECT * FROM `$tablename`";
+      	$TableName=ST_ClassTableName($School,$Class);
+	  	$rowNumber=$SentenceNo-1;
         $query="SELECT * FROM `$TableName` ";
         if($result = mysql_query($query)){
             	$content=mysql_result($result,$rowNumber,'Hits');
@@ -203,8 +202,6 @@
     Function ST_IncreaseHITbyONE($School,$Class,$SentenceNo){
 		
     	$TableName=ST_ClassTableName($School,$Class);
-		//echo $TableName;
-        //$query="SELECT * FROM `$tablename`";
         $query="SELECT * FROM `$TableName` ";
         if($result = mysql_query($query)){
 				$rowNumber=$SentenceNo-1;
@@ -212,7 +209,6 @@
        			$content ++;
        			$database=DatabaseName();
 				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
-				//echo '<br>'.$query.'<br>';
 				mysql_query($query);
        		}
     }
@@ -223,8 +219,6 @@
     //NOTE IT IS POSSIBLE TO GET A NEGATIVE NUMBER 
 	Function ST_DecreaseHITbyONE($School,$Class,$SentenceNo){
     	$TableName=ST_ClassTableName($School,$Class);
-		//echo $TableName;
-        //$query="SELECT * FROM `$tablename`";
         $query="SELECT * FROM `$TableName` ";
         if($result = mysql_query($query)){
 				$rowNumber=$SentenceNo-1;
@@ -232,7 +226,6 @@
        			$content --;
        			$database=DatabaseName();
 				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
-				//echo '<br>'.$query.'<br>';
 				mysql_query($query);
        		}
     }
@@ -241,9 +234,9 @@
 
 
     // pass this function a school, class and a value and it will dispalay all sentences from this class that have a hit value  = or > than $val
+	
 	Function ST_PrintMaster($School,$Class,$val){
         $tablename=ST_ClassTableName($School,$Class);
-        //$query="SELECT * FROM `$tablename`";
         $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
         if($result = mysql_query($query)){
             $num_of_rows=mysql_num_rows($result);
@@ -253,12 +246,14 @@
           		$content=mysql_result($result,$i,'Hits');
           		$File_Field[$i][1] = $content;
        		}
+       		$count= 0;
             for($i=0;$i<$num_of_rows;$i++){
-				if ($File_Field[$i][1] >=val){
-
-					echo $File_Field[$i][0] .'<br>';
+				if ($File_Field[$i][1] >=$val){
+					$Array[$count] = $File_Field[$i][0];
+					$count ++;
 				}
             }
+            return $Array;
         }
     }
 	
