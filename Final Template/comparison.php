@@ -133,7 +133,7 @@
 					if($percentage>60){
 						$count++;
 						//echo 'HIT  ==> Master Sentence '. ($y+1).' '.$MasterSentences[$y]. '<br>';
-						ST_IncreaseHITbyONE($School,$Class,$y+1); // increase hits
+						ST_IncreaseHITbyTEN($School,$Class,$y+1); // increase hits
 						//echo 'Matched Master sentence '.($y+1).' to File Sentence '.$x.'<br>';
 					}
 					if($y==$size-1 && $count<1){
@@ -199,7 +199,20 @@
         }
 
 
-	
+	Function ST_IncreaseHITbyTEN($School,$Class,$SentenceNo){
+		$TableName=ST_ClassTableName($School,$Class);
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+				$rowNumber=$SentenceNo-1;
+            	$content=mysql_result($result,$rowNumber,'Hits');
+       			$content = $content+10;
+       			$database=DatabaseName();
+				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
+				mysql_query($query);
+       		}
+
+	}
+
 // pass this function a school, calls and sentence number and it will increment the hit value by one
 //Fixed by Asif
     Function ST_IncreaseHITbyONE($School,$Class,$SentenceNo){
@@ -340,6 +353,34 @@
 			return $File_Field;
 		}
 	}
+
+	
+	Function ST_PrintMaster_tablename_calcval($tablename){
+        $tablename=$tablename;
+        $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
+        if($result = mysql_query($query)){
+            $num_of_rows=mysql_num_rows($result);
+            for($i=0;$i<$num_of_rows;$i++){
+            	$content=mysql_result($result,$i,'Sentence');
+          		$File_Field[$i][0]= $content;
+          		$content=mysql_result($result,$i,'Hits');
+          		$File_Field[$i][1] = $content;
+          		$content=mysql_result($result,$i,'SentenceNo');
+          		$File_Field[$i][2] = $content;
+       		}
+       		$max = $File_Field[0][1];
+       		$val = $max-40;
+       		$count= 0;
+            for($i=0;$i<$num_of_rows;$i++){
+				if ($File_Field[$i][1] >=$val){
+					$Array[$count][0] = $File_Field[$i][0];
+					$Array[$count][1] = $File_Field[$i][2];
+					$count ++;
+				}
+            }
+            return $Array;
+        }
+    }
 
 	
 //---------------------------------------------------Hits Function ends here-----------------------------------------------------------------------------	

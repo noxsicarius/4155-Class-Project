@@ -54,7 +54,7 @@
 						</tr>
 
 						<?php
-							$array = ST_PrintMaster_tablename($TableName,0);
+							$array = ST_PrintMaster_tablename_calcval($TableName);
 							$arrlength=sizeof($array);
 							for($x=0;$x<$arrlength;$x++){
 								echo '<tr>';
