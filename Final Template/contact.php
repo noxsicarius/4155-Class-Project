@@ -47,7 +47,9 @@
 					
 					<!-- Section content -->
 					<?php 
-						$action=$_REQUEST['action'];
+						if(isset($_REQUEST['action'])){
+							$action=$_REQUEST['action'];
+						}else {$action="";}
 						if ($action=="")    /* display the contact form */ 
 						{?>
 							<form  action="" method="POST" enctype="multipart/form-data"> 
