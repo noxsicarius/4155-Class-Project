@@ -26,9 +26,11 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>X Note Plus</title>
-	<link rel="stylesheet" href="styles.css" type="text/css" />
+	
+	
+	<link rel="stylesheet" href="styles.css">
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+	
 </head>
 
 <body>
@@ -46,10 +48,18 @@
 			<section id="content">
 				<article>
 
-					<h2>Your Files</h2><br>
-
-					<table border="1" style="width:100%">
+					<br>
+					<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading"><h2>Your Files</h2></div>
+					<table>
+						<tr>							
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
 						<tr>
+							
 							<td><b>File Title</b></td>
 							<td><b>File Name</b></td>
 							<td><b>Action</b></td>
@@ -74,6 +84,7 @@
 							}
 						?>
 					</table>
+				</div>
 				</article>
 					<article>
 					<?php
@@ -83,6 +94,8 @@
 							echo 'Click View to see the content of your notes.';
 						}
 					?>
+					
+					
 					
 					</article>
 			</section>
