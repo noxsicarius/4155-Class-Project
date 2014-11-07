@@ -237,6 +237,31 @@
        		}
     }
 
+
+
+
+    // pass this function a school, class and a value and it will dispalay all sentences from this class that have a hit value  = or > than $val
+	Function ST_PrintMaster($School,$Class,$val){
+        $tablename=ST_ClassTableName($School,$Class);
+        //$query="SELECT * FROM `$tablename`";
+        $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
+        if($result = mysql_query($query)){
+            $num_of_rows=mysql_num_rows($result);
+            for($i=0;$i<$num_of_rows;$i++){
+            	$content=mysql_result($result,$i,'Sentence');
+          		$File_Field[$i][0]= $content;
+          		$content=mysql_result($result,$i,'Hits');
+          		$File_Field[$i][1] = $content;
+       		}
+            for($i=0;$i<$num_of_rows;$i++){
+				if ($File_Field[$i][1] >=val){
+
+					echo $File_Field[$i][0] .'<br>';
+				}
+            }
+        }
+    }
+	
 	
 //---------------------------------------------------Hits Function ends here-----------------------------------------------------------------------------	
 	
