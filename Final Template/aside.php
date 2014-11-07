@@ -9,6 +9,7 @@
 					echo '<li class=""><a href="logout.php">Log Out</a></li>';
 				}
 			?>
+			<li class=""><a href="contact.php">Contact Us</a></li>
 		</ul>
 	</li>
 

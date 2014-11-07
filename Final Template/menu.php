@@ -89,9 +89,9 @@
 
 			// contact page
 			if($currentPage == "contact.php"){
-				echo '<li class="start selected"><a href="index.php">upload</a></li>';
+				echo '<li class="start selected"><a href="contact.php">Contact Us</a></li>';
 			} else {
-				echo '<li class=""><a href="index.php">Contact</a></li>';
+				echo '<li class=""><a href="contact.php">Contact Us</a></li>';
 			}
 		?>
 	</ul>
