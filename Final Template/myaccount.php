@@ -49,16 +49,14 @@
 				<article>
 
 					<br>
-					<div class="panel panel-default">
+			<div class="panel panel-default">
 			  <!-- Default panel contents -->
-			  <div class="panel-heading"><h2>Your Files</h2></div>
-					<table>
-						<tr>							
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
+			  <!--<div class="panel-heading">Your Files</div>-->
+			  <h2> Your Files</h2>
+			  <div class="panel-body">
+			  <table class="table">
+										
+						<tr >
 							
 							<td><b>File Title</b></td>
 							<td><b>File Name</b></td>
@@ -83,7 +81,8 @@
 								echo '</tr>';
 							}
 						?>
-					</table>
+				</table>
+				</div>
 				</div>
 				</article>
 					<article>
