@@ -56,7 +56,7 @@
 			  <div class="panel-body">
 			  <table class="table">
 										
-						<tr >
+						<tr bgcolor="#FFFFF0">
 							
 							<td><b>File Title</b></td>
 							<td><b>File Name</b></td>
