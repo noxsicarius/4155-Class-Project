@@ -77,7 +77,8 @@
 								//Third Column
 								$href='deletefile.php?id='.$Files_ID[$x];
 								$view='myaccount.php?id='.$Files_ID[$x];
-								echo '<td>';echo "<a href='".$href."'>Delete</a>";echo '   '."<a href='".$view."'>View</a>"; 
+								$similarfile='similar.php?id='.$Files_ID[$x];
+								echo '<td>';echo "<a href='".$href."'>Delete</a>";echo '   '."<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
 								
 								echo '</td>';
 								echo '</tr>';
