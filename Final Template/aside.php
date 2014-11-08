@@ -5,7 +5,10 @@
 			<?php
 				if(!loggedin()){
 					echo '<li class=""><a href="login.php">Log in</a></li>';
+					
 				}else{
+					
+					echo '<li class=""><a href="similar.php">Similar Notes</a></li>';
 					echo '<li class=""><a href="logout.php">Log Out</a></li>';
 				}
 			?>
@@ -26,7 +29,7 @@
 			<li class="text">
 				<form action="search.php" method="get">
 					<label>Document Title:
-						<input type="text" name="searchparams" style="width:100%;height:auto;"/>
+						<input type="text" name="searchparams" style="width:95%;height:auto;"/>
 					</label>
 					<input type="submit" value="Search" />
 				</form>
