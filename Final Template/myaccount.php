@@ -29,10 +29,9 @@
 
 <head>
 	
-	
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-	
+	<script src="js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -45,90 +44,113 @@
 			<?php include 'menu.php'; ?>
 		</nav>
 
-		<div id="body">
-
 			<section id="content">
-				<article>
-
-					<br>
-			<div class="panel panel-default">
-			  <!-- Default panel contents -->
-			  <!--<div class="panel-heading">Your Files</div>-->
-			  <h2> Your Files</h2>
-			  <div class="panel-body">
-			  <table class="table">
-										
-						<tr bgcolor="#FFFFF0">
-							
-							<td><b>File Title</b></td>
-							<td><b>File Name</b></td>
-							<td><b>Action</b></td>
-						</tr>
-
-						<?php
-							$arrlength=count($Files_Title);
-
-							for($x=0;$x<$arrlength;$x++){
-								echo '<tr>';
-								//First column
-								echo '<td>'."$Files_Title[$x]".'</td>';
-								//Second column 
-								echo '<td>'."$Files_Names[$x]".'</td>';
-								//Third Column
-								$href='deletefile.php?id='.$Files_ID[$x];
-								$view='myaccount.php?id='.$Files_ID[$x];
-								$similarfile='similar.php?id='.$Files_ID[$x];
-								echo '<td>';echo "<a href='".$href."'>Delete</a>";echo '   '."<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
-								
-								echo '</td>';
-								echo '</tr>';
-							}
-						?>
-						</table>
-						<table>
-						<h2>Your classes</h2><br>
-						<tr bgcolor="#FFFFF0">
-							<td><b>School</b></td>
-							<td><b>Class</b></td>
-							<td><b>Action</b></td>
-						</tr>
-						<?php
-							$arrlength=count($Student_Classes);
-							for($x=0;$x<$arrlength;$x++){
-								echo '<tr>';
-								//First column
-								echo '<td>'.$Student_Classes[$x][0].'</td>';
-								//Second column 
-								echo '<td>'.$Student_Classes[$x][1].'</td>';
-								$table[$x] = ST_ClassTableName($Student_Classes[$x][0],$Student_Classes[$x][1]);
-								$view='ST_view.php?Name='.$table[$x];
-								//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
-								echo '<td>';
-								//echo "<a href='".$href."'>Delete</a>";
-								echo '   '."<a href='".$view."'>View study guide</a>"; 
-								
-								echo '</td>';
-								echo '</tr>';
-							}
-						?>
-
-				</table>
-				</div>
-				</div>
-				</article>
-
-					<article>
-					<?php
-						if($CurrentFileID!=null){
-							CreateSpoilerByFileID($CurrentFileID);
-						}else{
-							echo 'Click View to see the content of your notes.';
-						}
-					?>
+				<br><br>
+				<ul class="nav nav-tabs">
+				<!-- Tabs go here -->
+					<li class="active"><a href="#myFiles" data-toggle="tab">My Files<i class="fa"></i></a></li>
+					<li><a href="#profile" data-toggle="tab">Profile<i class="fa"></i></a></li>
+					<li><a href="#studyGuide" data-toggle="tab">Study Guide<i class="fa"></i></a></li>
+				</ul>
+				<form id="accountForm" method="post" class="form-horizontal">
+					<div class="tab-content">
 					
-					
-					
-					</article>
+<!------------------------------- My files tab ------------------------------->
+						<div class="tab-pane active" id="myFiles">
+							<article><br>
+							<div class="panel panel-default">
+								<!-- Default panel contents -->
+								<!--<div class="panel-heading">Your Files</div>-->
+								<div class="panel-heading" style=><font size="6"><b>Your Files</b></font></div>
+								<table class="table">
+									<tr>
+										<td><font size="4"><b>File Title</b></font></td>
+										<td><font size="4"><b>File Name</b></font></td>
+										<td><font size="4"><b>Action</b></font></td>
+									</tr>
+									<?php
+										$arrlength=count($Files_Title);
+
+										for($x=0;$x<$arrlength;$x++){
+											echo '<tr>';
+											//First column
+											echo '<td>'."$Files_Title[$x]".'</td>';
+											//Second column 
+											echo '<td>'."$Files_Names[$x]".'</td>';
+											//Third Column
+											$href='deletefile.php?id='.$Files_ID[$x];
+											$view='myaccount.php?id='.$Files_ID[$x];
+											$similarfile='similar.php?id='.$Files_ID[$x];
+											echo '<td>';echo "<a href='".$href."'>Delete</a>";echo '   '."<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
+											
+											echo '</td>';
+											echo '</tr>';
+										}
+									?>
+								</table>
+							</div>
+							<br>
+							<article><br>
+								<div class="panel panel-default">
+									<!-- Default panel contents -->
+									<!--<div class="panel-heading">Your Files</div>-->
+									<div class="panel-heading"><font size="6"><b>Your Classes</b></font></div>
+									<table class="table">
+										<tr>
+											<td><font size="4"><b>School</b></font></td>
+											<td><font size="4"><b>Class</b></font></td>
+											<td><font size="4"><b>Action</b></font></td>
+										</tr>
+										<?php
+											$arrlength=count($Student_Classes);
+											for($x=0;$x<$arrlength;$x++){
+												echo '<tr>';
+												//First column
+												echo '<td>'.$Student_Classes[$x][0].'</td>';
+												//Second column 
+												echo '<td>'.$Student_Classes[$x][1].'</td>';
+												$table[$x] = ST_ClassTableName($Student_Classes[$x][0],$Student_Classes[$x][1]);
+												$view='ST_view.php?Name='.$table[$x];
+												//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
+												echo '<td>';
+												//echo "<a href='".$href."'>Delete</a>";
+												echo '   '."<a href='".$view."'>View study guide</a>"; 
+												
+												echo '</td>';
+												echo '</tr>';
+											}
+										?>
+									</table>
+								</div>
+							</article>
+
+							<article>
+								<?php
+									if($CurrentFileID!=null){
+										CreateSpoilerByFileID($CurrentFileID);
+									}else{
+										echo 'Click View to see the content of your notes.';
+									}
+								?>
+							</article>
+						</div>
+
+<!------------------------------- Profile tab ------------------------------->
+						<div class="tab-pane active" id="profile">
+							<article><br>
+								<h2> PROFILE <h2>
+							</article>
+						</div>
+						
+<!------------------------------- Study Guide tab ------------------------------->						
+						<div class="tab-pane active" id="studyGuide">
+							<article><br>
+								<h2> Study Guide <h2>
+							</article>
+						</div>
+					</div>
+				</form>
+				
 			</section>
 
 			<aside class="sidebar">
@@ -136,7 +158,6 @@
 			</aside>
 			
 			<div class="clear"></div>
-		</div>
 		
 		<footer>
 			<?php include 'footer.php' ?>;
