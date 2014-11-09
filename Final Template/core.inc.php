@@ -1,3 +1,8 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+
+</head>
 <?php
 
 	ob_start();
@@ -55,8 +60,25 @@
 		return $id;
 	}
 	
-	function createSpoiler($title, $content, $rateUp, $rateDown){
-		echo "<div style=\"padding:3px;background-color:#FFFFFF;border:1px solid #d8d8d8;\">
+	function createSpoiler($title, $content, $rateUp, $rateDown){ ?>
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="false" aria-controls='<?php echo"$title";?>'>
+							<?php echo"$title";?>
+						</a>
+					</h4>
+				</div>
+				<div id='<?php echo"$title";?>' class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<?php echo"$content";?>
+					</div>
+				</div>
+			</div>
+		</div>
+<?php
+/*		echo "<div style=\"padding:3px;background-color:#FFFFFF;border:1px solid #d8d8d8;\">
 				<input 
 					type=\"button\" class=\"button2\" style=\"min-width:20px;\" 
 					value=\"+\" onclick=\"var container=this.parentNode.getElementsByTagName('div')[0];
@@ -75,7 +97,8 @@
 				</span>
 				
 				<div style=\"display:none;word-wrap:break-word;overflow:hidden;\">{$content}</div>
-			</div>";
+			</div>";*/
+
 	}
 	//Does it exactly the thing as createSpoiler just by using FileID
 	function CreateSpoilerByFileID($FileID){
