@@ -1,3 +1,7 @@
+<head>
+	<link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
 <ul>
 	<li>
 		<h4>Links</h4>
@@ -28,11 +32,13 @@
 		<ul>
 			<li class="text">
 				<form action="search.php" method="get">
-					<label>Document Title:
-						<input type="text" name="searchparams" style="width:95%;height:auto;"/>
-					</label>
-					<input type="submit" value="Search" />
-				</form>
+					<div class="input-group">
+					  	<label>Document Title:
+							<input type="text" name="searchDoc" class="form-control" placeholder="">
+						</label>
+					</div>
+					<button class="btn btn-default" type="submit">Search</button>
+				</form><br>
 			</li>
 		</ul>
 	</li>
