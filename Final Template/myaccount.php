@@ -22,6 +22,7 @@
 	$Files_ID=FilesInDataBase_ID('FileID',$ID);
 	$Student_Classes=ST_Student_Classes($ID);
 	
+
 ?>
 
 <!doctype html>
@@ -136,14 +137,14 @@
 						</div>
 
 <!------------------------------- Profile tab ------------------------------->
-						<div class="tab-pane active" id="profile">
+						<div class="tab-pane" id="profile">
 							<article><br>
 								<h2> PROFILE <h2>
 							</article>
 						</div>
 						
 <!------------------------------- Study Guide tab ------------------------------->						
-						<div class="tab-pane active" id="studyGuide">
+						<div class="tab-pane" id="studyGuide">
 							<article><br>
 								<h2> Study Guide <h2>
 							</article>
