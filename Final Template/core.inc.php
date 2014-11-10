@@ -44,8 +44,8 @@
 		}
 	}
 
-	function searchDB($searchText){
-		$query = "SELECT * FROM uploadinfo WHERE NotesTitle LIKE '%$searchText%'";
+	function searchDB($searchText,$field){
+		$query = "SELECT * FROM uploadinfo WHERE ".$field." LIKE '%$searchText%'";
 		$searchResults=mysql_query($query);
 		
 		return $searchResults;
@@ -61,16 +61,16 @@
 	}
 	
 	function createSpoiler($title, $content, $rateUp, $rateDown){ ?>
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="false" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo"$title";?>
 						</a>
 					</h4>
 				</div>
-				<div id='<?php echo"$title";?>' class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$title";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
