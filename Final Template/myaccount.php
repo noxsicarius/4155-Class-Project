@@ -139,7 +139,16 @@
 <!------------------------------- Profile tab ------------------------------->
 						<div class="tab-pane" id="profile">
 							<article><br>
-								<h2> PROFILE <h2>
+									<form action="register.php" method="POST">
+									Username:<br> <input type="text" name ="username" value="Asubhan"><br><br>
+									Password:<br> <input type="password" name ="password"><br><br>
+									Retype Password:<br> <input type="password" name ="password_again"><br><br>
+									Full Name:<br> <input type="text" name ="name"><br><br>
+									School:<br> <input type="text" name ="school"><br><br>
+									<input type="submit" value ="Update">
+								</form>
+								
+								
 							</article>
 						</div>
 						
