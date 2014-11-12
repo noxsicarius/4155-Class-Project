@@ -24,7 +24,7 @@
 	}
     // return name of current user
 	function getfield($field){
-		$query = "SELECT name FROM `users` WHERE Id=". $_SESSION['user_id'];		
+		$query = "SELECT * FROM `users` WHERE Id=". $_SESSION['user_id'];		
 
 		if ($query_run=mysql_query($query)){
 			if($query_result=mysql_result($query_run, 0, $field)){

@@ -137,16 +137,59 @@
 						</div>
 
 <!------------------------------- Profile tab ------------------------------->
+						<?php
+	
+							$OldUsername='value='.getfield("username");
+							$oldname=getfield('name');$OldFullname='value='."'$oldname'";
+							$Schooll=getfield('school');$OldSchool='value='."'$Schooll'";
+							$OldPassword='value='.getfield("password");
+							$StringMessage=' ';
+							
+							if(loggedin()){
+								if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password_again']) && isset($_POST['name']) && isset($_POST['school']) ){
+									$username = $_POST['username'];
+									$password = $_POST['password'];
+									$password_again = $_POST['password_again'];
+									$name = $_POST['name'];
+									$school = $_POST['school'];
+									$database=DatabaseName();
+									$StudentID=$_SESSION['user_id'];
+									
+									
+									
+									if(!empty($username) && !empty($password) && !empty($password_again) && !empty($name) && !empty($school)){
+										if($password!=$password_again){
+											$StringMessage= 'Password do not match.';
+										}else{
+												
+											$query="UPDATE `$database`.`users` SET `username` = '$username', `password` = '$password', `name` = '$name', `school` = '$school' WHERE `users`.`Id` = $StudentID";
+											if($query_run = mysql_query($query)){
+												$StringMessage='Profile Updated';
+											}
+										}
+									}else{
+										$StringMessage= 'All fields are required';
+									}
+								}
+							} else if(!loggedin()){
+								$StringMessage= 'Log in Before updating your profile';								
+								
+							}
+							
+
+						?>
 						<div class="tab-pane" id="profile">
 							<article><br>
-									<form action="register.php" method="POST">
-									Username:<br> <input type="text" name ="username" value="Asubhan"><br><br>
-									Password:<br> <input type="password" name ="password"><br><br>
-									Retype Password:<br> <input type="password" name ="password_again"><br><br>
-									Full Name:<br> <input type="text" name ="name"><br><br>
-									School:<br> <input type="text" name ="school"><br><br>
+									<form action="myaccount.php" method="POST">
+									Username:<br> <input type="text" name ="username" <?php echo $OldUsername; ?> ><br><br>
+									Password:<br> <input type="password" name ="password" <?php echo $OldPassword; ?> ><br><br>
+									Retype Password:<br> <input type="password" name ="password_again" <?php echo $OldPassword; ?> ><br><br>
+									Full Name:<br> <input type="text" name ="name" <?php echo $OldFullname; ?> ><br><br>
+									School:<br> <input type="text" name ="school" <?php echo $OldSchool; ?> ><br><br>
 									<input type="submit" value ="Update">
 								</form>
+								<br>
+								<?php echo $StringMessage ?>
 								
 								
 							</article>
