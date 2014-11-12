@@ -136,26 +136,53 @@
 			<h2>Upload text files</h2>
 		</article>
 
-	    <article class="expanded">
+	    <article class="expanded"></b>
+		<div class="alert alert-info" role="alert"><?php echo "$Sring_Message".'<br>'; ?></div>
+
+		
+		
 			<?php
 				if($logged_in==1){
-					echo '<article>';
-					echo "$Sring_Message".'<br>';
-					echo '</article>';
 					echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
-
-						Title:<br> <input type="text" name ="title"><br><br>
-						Chapter:<br> <input type="text" name ="chapter"><br><br>
-						Class Name:<br> <input type="text" name ="classname"><br><br>
-						Teacher Name:<br> <input type="text" name ="teacher"><br><br>
-						School:<br> <input type="text" name ="school" value="UNCC"><br><br>
-						Comments:<br> <input type="text" name ="comments" value="None"><br><br>
-								
-						<input type="file" name="file"><br><br>
-						<input type="submit" name="submit" value ="Upload">
-
-						</form>';
+							<div class="input-group">
+							  <input type="text" class="form-control" placeholder="Enter Title for your notes" name ="title">
+							  <span class="input-group-addon">Title</span>
+							</div>
+							<br>
+							<div class="input-group">
+							    <input type="text" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
+								<span class="input-group-addon">Chapter</span>
+							</div>
+							<br>
+							<div class="input-group">
+							    <input type="text" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
+								<span class="input-group-addon">Class Name</span>
+							</div>
+							<br>
+							<div class="input-group">
+							    <input type="text" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
+								<span class="input-group-addon">Teacher Name</span>
+							</div>
+							<br>
+							<div class="input-group">
+							  	  <input type="text" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
+								  <span class="input-group-addon">School   </span>
+							</div>
+							<br>
+							<div class="input-group">
+							  	  <input type="text" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
+								  <span class="input-group-addon">Comments</span>
+							</div>
+							<br>
+							<input type="file" name="file"><br><br>
 							
+							<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+							  <button type="submit" class="btn btn-default" name="submit" >Upload</button>
+							</div>
+						  </div>
+						</form>';
+												
 					$arrlength=count($File_names);
 					echo 'My Files in DataBase'.'<br>';
 					for($x=0;$x<$arrlength;$x++){
