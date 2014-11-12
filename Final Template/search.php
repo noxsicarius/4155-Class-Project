@@ -62,7 +62,7 @@
 					?>
 <!----------------------------- END Advanced Search ----------------------------->
 
-					<button class="btn btn-default" type="submit">Search</button>
+					<button class="btn btn-default" type="submit" name="btnSubmit">Search</button>
 				</form><br>
 				
 				<h2><?php if(isset($_GET['searchDoc'])){echo 'Search Results: ';}?></h2>
@@ -101,7 +101,6 @@
 							$init=($init==1)?0:$init;
 						}
 					}
-
 					if(($searchTitle!="")||($searchCourse!="")||($searchInstructor!="")||($searchUniversity!="")){
 						$searchResults = searchDB($searchQuery);
 						if((mysql_num_rows($searchResults)) > 0) {
@@ -115,14 +114,25 @@
 							echo "No match found.";
 						}
 					} else {
-						echo "No search entered";
+						// Check if the button has been pressed
+						// if so then display a search has not been entered
+						if (isset($_GET['submit'])) {
+							echo "No search entered";
+						}
+					}
+					// Reset search after each search
+					if (isset($_GET['submit'])) {
+						$searchTitle="";
+						$searchCourse="";
+						$searchInstructor="";
+						$searchUniversity="";
 					}
 				?>
 				<br>
 			</section>
 			
 			<aside class="sidebar">
-				<?php include 'aside.php'; ?>			
+				<?php include 'aside.php'; ?>
 			</aside>
 	
 			<div class="clear"></div>
