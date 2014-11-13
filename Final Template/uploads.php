@@ -145,33 +145,39 @@
 				if($logged_in==1){
 					echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
 							<div class="input-group">
-							  <input type="text" class="form-control" placeholder="Enter Title for your notes" name ="title">
-							  <span class="input-group-addon">Title</span>
+								<span class="input-group-addon">Title &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+								<input type="text" class="form-control" placeholder="Enter Title for your notes" name ="title">
+							  
 							</div>
 							<br>
 							<div class="input-group">
+								<span class="input-group-addon">Chapter&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
 							    <input type="text" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
-								<span class="input-group-addon">Chapter</span>
+								
 							</div>
 							<br>
 							<div class="input-group">
+								<span class="input-group-addon">Class Name&nbsp&nbsp&nbsp&nbsp</span>
 							    <input type="text" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
-								<span class="input-group-addon">Class Name</span>
+								
 							</div>
 							<br>
 							<div class="input-group">
-							    <input type="text" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
 								<span class="input-group-addon">Teacher Name</span>
+							    <input type="text" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
+								
 							</div>
 							<br>
 							<div class="input-group">
-							  	  <input type="text" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
-								  <span class="input-group-addon">School   </span>
+								<span class="input-group-addon">School &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  </span>
+							  	<input type="text" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
+								  
 							</div>
 							<br>
 							<div class="input-group">
-							  	  <input type="text" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
-								  <span class="input-group-addon">Comments</span>
+								<span class="input-group-addon">Comments&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+							  	<input type="text" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
+								  
 							</div>
 							<br>
 							<input type="file" name="file"><br><br>
