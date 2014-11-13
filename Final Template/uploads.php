@@ -145,41 +145,35 @@
 				if($logged_in==1){
 					echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
 							<div class="input-group">
-								<span class="input-group-addon">Title &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-								<input type="text" class="form-control" placeholder="Enter Title for your notes" name ="title">
-							  
-							</div>
-							<br>
+								<span class="input-group-addon" style="width:120px;">Title</span>
+								<input type="text" style="width:500px;" class="form-control" placeholder="Enter Title for your notes" name ="title">
+							</div><br>
+
 							<div class="input-group">
-								<span class="input-group-addon">Chapter&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-							    <input type="text" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
-								
-							</div>
-							<br>
+								<span class="input-group-addon" style="width:120px;">Chapter</span>
+							    <input type="text" style="width:500px;" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
+							</div><br>
+
 							<div class="input-group">
-								<span class="input-group-addon">Class Name&nbsp&nbsp&nbsp&nbsp</span>
-							    <input type="text" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
-								
-							</div>
-							<br>
+								<span class="input-group-addon" style="width:120px;">Class Name</span>
+							    <input type="text" style="width:500px;" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
+							</div><br>
+
 							<div class="input-group">
-								<span class="input-group-addon">Teacher Name</span>
-							    <input type="text" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
-								
-							</div>
-							<br>
+								<span class="input-group-addon" style="width:120px;">Teacher Name</span>
+							    <input type="text" style="width:500px;" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
+							</div><br>
+
 							<div class="input-group">
-								<span class="input-group-addon">School &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  </span>
-							  	<input type="text" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
-								  
-							</div>
-							<br>
+								<span class="input-group-addon" style="width:120px;">School</span>
+							  	<input type="text" style="width:500px;" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
+							</div><br>
+
 							<div class="input-group">
-								<span class="input-group-addon">Comments&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-							  	<input type="text" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
-								  
-							</div>
-							<br>
+								<span class="input-group-addon" style="width:120px;">Comments</span>
+							  	<input type="text" style="width:500px;" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
+							</div><br>
+
 							<input type="file" name="file"><br><br>
 							
 							<div class="form-group">
@@ -188,7 +182,7 @@
 							</div>
 						  </div>
 						</form>';
-												
+						
 					$arrlength=count($File_names);
 					echo 'My Files in DataBase'.'<br>';
 					for($x=0;$x<$arrlength;$x++){

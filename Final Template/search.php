@@ -38,24 +38,24 @@
 <!----------------------------- Normal Search ----------------------------->
 				<form action="search.php" method="get">
 					<div class="input-group">
-					  <span class="input-group-addon">Document</span>
-					  <input type="text" name="searchDoc" class="form-control" placeholder="Search document title">
+					  <span class="input-group-addon" style='width:100px;'>Document</span>
+					  <input type="text" style='width:550px;' name="searchDoc" class="form-control" placeholder="Search document title">
 					</div><br>
 
 <!----------------------------- Advanced Search ----------------------------->
 					<?php
 						$spoilerContent= "
 						<div class='input-group'>
-						  <span class='input-group-addon'>Course</span>
-						  <input type='text' name='searchCourse' class='form-control' placeholder='Search a course'>
+						  <span class='input-group-addon' style='width:100px;'>Course</span>
+						  <input type='text' style='width:550px;' name='searchCourse' class='form-control' placeholder='Search a course'>
 						</div><br>
 						<div class='input-group'>
-						  <span class='input-group-addon'>Instructor</span>
-						  <input type='text' name='searchInstructor' class='form-control' placeholder='Search an instructor'>
+						  <span class='input-group-addon' style='width:100px;'>Instructor</span>
+						  <input type='text' style='width:550px;' name='searchInstructor' class='form-control' placeholder='Search an instructor'>
 						</div><br>
 						<div class='input-group'>
-						  <span class='input-group-addon'>University</span>
-						  <input type='text' name='searchUni' class='form-control' placeholder='Search a university'>
+						  <span class='input-group-addon' style='width:100px;'>University</span>
+						  <input type='text' style='width:550px;' name='searchUni' class='form-control' placeholder='Search a university'>
 						</div><br>";
 						$title="Advanced-Search";
 						createSpoiler($title, $spoilerContent, $rateUp, $rateDown);
