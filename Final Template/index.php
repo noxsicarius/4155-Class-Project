@@ -48,7 +48,13 @@
 				</article>
 
 				<article class="expanded">
-					<h2>&nbsp;</h2>
+					<h2>First Notice Here</h2>
+					<br>
+					<p>Date: 11/13/2014</p>
+					<p>We can put different information here for notices to users.</p>
+					<p>This is simply a place holder to show how it will look.</p>
+					<p>Dates can be added to each notice.</p>
+					<br>
 				</article>
 			</section>
 			

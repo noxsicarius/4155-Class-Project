@@ -9,9 +9,7 @@
 			<?php
 				if(!loggedin()){
 					echo '<li class=""><a href="login.php">Log in</a></li>';
-					
 				}else{
-					
 					echo '<li class=""><a href="similar.php">Similar Notes</a></li>';
 					echo '<li class=""><a href="logout.php">Log Out</a></li>';
 				}
@@ -33,8 +31,8 @@
 			<li class="text">
 				<form action="search.php" method="get">
 					<div class="input-group">
-					  	<label>Document Title:
-							<input type="text" name="searchDoc" class="form-control" placeholder="">
+					  	<label style="font-weight:normal;">Document Title:
+							<input type="text" name="searchDoc" class="form-control">
 						</label>
 					</div>
 					<button class="btn btn-default" type="submit">Search</button>
