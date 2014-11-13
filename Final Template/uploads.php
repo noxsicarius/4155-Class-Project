@@ -137,8 +137,23 @@
 		</article>
 
 	    <article class="expanded"></b>
-		<div class="alert alert-info" role="alert"><?php echo "$Sring_Message".'<br>'; ?></div>
-
+		<?php
+			if($Sring_Message=='All fields are required'){
+				echo '<div class="alert alert-danger" role="alert">'.$Sring_Message.'</div>';
+			}else if($Sring_Message=="<strong>Please upload text files only. </strong>"){
+				echo '<div class="alert alert-info" role="alert">'.$Sring_Message.'<br></div>';
+			}else if($Sring_Message== "$name".' Uploaded'){
+				echo '<div class="alert alert-success" role="alert">'.$Sring_Message.'<br></div>';
+			}else if($Sring_Message= 'The File '.$name. ' already exists.'){
+				echo '<div class="alert alert-warning" role="alert">'.$Sring_Message.'<br></div>';
+			}else if(empty($name) OR $type!='text/plain'){
+				echo '<div class="alert alert-warning" role="alert">'.$Sring_Message.'<br></div>';
+			}else{
+				echo '<div class="alert alert-danger" role="alert">'.$Sring_Message.'</div>';
+			}
+			
+			
+		?>
 		
 		
 			<?php
