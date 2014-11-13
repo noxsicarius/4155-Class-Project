@@ -160,33 +160,33 @@
 				if($logged_in==1){
 					echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
 							<div class="input-group">
-								<span class="input-group-addon" style="width:120px;">Title</span>
-								<input type="text" style="width:500px;" class="form-control" placeholder="Enter Title for your notes" name ="title">
+								<span class="input-group-addon" style="min-width:120px;">Title</span>
+								<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Title for your notes" name ="title">
 							</div><br>
 
 							<div class="input-group">
-								<span class="input-group-addon" style="width:120px;">Chapter</span>
-							    <input type="text" style="width:500px;" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
+								<span class="input-group-addon" style="min-width:120px;">Chapter</span>
+							    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
 							</div><br>
 
 							<div class="input-group">
-								<span class="input-group-addon" style="width:120px;">Class Name</span>
-							    <input type="text" style="width:500px;" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
+								<span class="input-group-addon" style="min-width:120px;">Class Name</span>
+							    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
 							</div><br>
 
 							<div class="input-group">
-								<span class="input-group-addon" style="width:120px;">Teacher Name</span>
-							    <input type="text" style="width:500px;" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
+								<span class="input-group-addon" style="min-width:120px;">Teacher Name</span>
+							    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
 							</div><br>
 
 							<div class="input-group">
-								<span class="input-group-addon" style="width:120px;">School</span>
-							  	<input type="text" style="width:500px;" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
+								<span class="input-group-addon" style="min-width:120px;">School</span>
+							  	<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
 							</div><br>
 
 							<div class="input-group">
-								<span class="input-group-addon" style="width:120px;">Comments</span>
-							  	<input type="text" style="width:500px;" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
+								<span class="input-group-addon" style="min-width:120px;">Comments</span>
+							  	<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
 							</div><br>
 
 							<input type="file" name="file"><br><br>
