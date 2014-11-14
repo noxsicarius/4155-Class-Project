@@ -2,6 +2,7 @@
 	require 'connect.inc.php';
 	require 'core.inc.php';
 	require('WriteHTML.php');
+	require 'comparison.php';
 	
 	
 	
@@ -23,11 +24,17 @@
 		$content=FileInfo($FileID,'content');
 		PDF_TitleContent ($title,$content);
 	}
+	Function ArrayTOSentence($School,$Class){		
+		$Array=ST_GetMasterSentences($School,$Class);		
+		$content=implode($Array,". ");
+		$title=$Class.' Study Guide ';
+		PDF_TitleContent ($title,$content);
+	}
 	
 	
 	if (isset($_REQUEST['download'])) {
 		$content='This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo.';
-		PDF_TitleContent_ByFileID (11);
+		ArrayTOSentence('uncc','ITCS-1600');
 	}
 
 ?>
