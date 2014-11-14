@@ -60,23 +60,46 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 }
 
 // ---------------------------------------------------------
+//function
 
+
+//function titleSentences($title, $sentences){
+
+//}
+
+
+//--------------------------------------------
 // set font
 $pdf->SetFont('times', 'BI', 20);
 
 // add a page
 $pdf->AddPage();
-$title = "This is where the title is!" ;
-$content = "The contents goes here!";
-// set some text to print
-$txt = /*<<<EOD
-EOD*/
- $title." \n\n".$content
-;
+
+// Function set some text to print
+function titleContent($title, $content){
+	$GLOBALS['txt'] = $title."\n\n".$content;
+}
+
+function arraySentences(){
+	$array[0] = "This";
+	$array[1] = "is";
+	$array[2] = "where";
+	$array[3] = "the";
+	$array[4] = "array";
+	$array[5] = "sentences";
+	$array[6] = "is";
+	$array[7] = "!";
+	return $array;
+}
+$arrayBeforeImplode = arraySentences();
+titleContent("This is the title!", "This is the content!\n");
+$arrayImplode = implode(" ", $arrayBeforeImplode);
+$txtTe = $arrayImplode;
+
 
 // print a block of text using Write()
-$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
-
+$pdf->Write(0, $txt,  '', 0, 'C', true, 0, false, false, 0);
+$pdf->Write(0, $txtTe,   '', 0, 'C', true, 0, false, false, 0);
 // ---------------------------------------------------------
 
 //Close and output PDF document
