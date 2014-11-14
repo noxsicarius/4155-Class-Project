@@ -18,12 +18,16 @@
 		$pdf->Write(5,$content);
 		$pdf->Output($name,'D');
 	}
-	
+	Function PDF_TitleContent_ByFileID ($FileID){
+		$title=FileInfo($FileID,'NotesTitle');
+		$content=FileInfo($FileID,'content');
+		PDF_TitleContent ($title,$content);
+	}
 	
 	
 	if (isset($_REQUEST['download'])) {
 		$content='This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo. This is the content of the demo.';
-		PDF_TitleContent ('Demo',$content);
+		PDF_TitleContent_ByFileID (11);
 	}
 
 ?>
