@@ -121,7 +121,7 @@
 						}
 					}
 					// Reset search after each search
-					if (isset($_GET['submit'])) {
+					if (isset($_GET['btnSubmit'])) {
 						$searchTitle="";
 						$searchCourse="";
 						$searchInstructor="";
