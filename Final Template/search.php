@@ -3,12 +3,49 @@
 	require 'core.inc.php';
 	require 'connect.inc.php';
 	require 'rate.inc.php';
+
+	$searchQuery = "SELECT * FROM uploadinfo WHERE ";
+	$init=1;
 	
-	// Initialize variables
-	$searchTitle="";
-	$searchCourse="";
-	$searchInstructor="";
-	$searchUniversity="";
+	if(isset($_GET['searchDoc'])){
+		$searchTitle = $_GET['searchDoc'];
+		if($searchTitle != ""){
+			$searchQuery .= "NotesTitle LIKE '%$searchTitle%' ";
+			$init=($init==1)?0:$init;
+		}
+	} else {
+		$searchTitle="";
+	}
+	if(isset($_GET['searchCourse'])){
+		$searchCourse = $_GET['searchCourse'];
+		if($searchCourse != ""){
+			if($init==1){$medium="";} else {$medium=" AND ";}
+			$searchQuery .= $medium."ClassName LIKE '%$searchCourse%' ";
+			$init=($init==1)?0:$init;
+		}
+	} else {
+		$searchCourse="";
+	}
+	if(isset($_GET['searchInstructor'])){
+		$searchInstructor = $_GET['searchInstructor'];
+		if($searchInstructor != ""){
+			if($init==1){$medium="";} else {$medium=" AND ";}
+			$searchQuery .= $medium."Teacher LIKE '%$searchInstructor%' ";
+			$init=($init==1)?0:$init;
+		}
+	} else {
+		$searchInstructor="";
+	}
+	if(isset($_GET['searchUni'])){
+		$searchUniversity = $_GET['searchUni'];
+		if($searchUniversity != ""){
+			if($init==1){$medium="";} else {$medium=" AND ";}
+			$searchQuery .= $medium."Teacher LIKE '%$searchUniversity%' ";
+			$init=($init==1)?0:$init;
+		}
+	} else {
+		$searchUniversity="";
+	}
 
 ?>
 
@@ -39,7 +76,7 @@
 				<form action="search.php" method="get">
 					<div class="input-group">
 					  <span class="input-group-addon" style='min-width:100px;'>Document</span>
-					  <input type="text" style='max-width:550px;' name="searchDoc" class="form-control" placeholder="Search document title">
+					  <input type="text" style='max-width:550px;' value="<?php if(!($searchTitle == '')){print "$searchTitle";}?>" name="searchDoc" class="form-control" placeholder="Search document title">
 					</div><br>
 
 <!----------------------------- Advanced Search ----------------------------->
@@ -47,15 +84,15 @@
 						$spoilerContent= "
 						<div class='input-group'>
 						  <span class='input-group-addon' style='min-width:100px;'>Course</span>
-						  <input type='text' style='max-width:550px;' name='searchCourse' class='form-control' placeholder='Search a course'>
+						  <input type='text' style='max-width:550px;' value='$searchCourse' name='searchCourse' class='form-control' placeholder='Search a course'>
 						</div><br>
 						<div class='input-group'>
 						  <span class='input-group-addon' style='min-width:100px;'>Instructor</span>
-						  <input type='text' style='max-width:550px;' name='searchInstructor' class='form-control' placeholder='Search an instructor'>
+						  <input type='text' style='max-width:550px;' value='$searchInstructor' name='searchInstructor' class='form-control' placeholder='Search an instructor'>
 						</div><br>
 						<div class='input-group'>
 						  <span class='input-group-addon' style='min-width:100px;'>University</span>
-						  <input type='text' style='max-width:550px;' name='searchUni' class='form-control' placeholder='Search a university'>
+						  <input type='text' style='max-width:550px;' value='$searchUniversity' name='searchUni' class='form-control' placeholder='Search a university'>
 						</div><br>";
 						$title="Advanced-Search";
 						createSpoiler($title, $spoilerContent, $rateUp, $rateDown);
@@ -68,39 +105,6 @@
 				<h2><?php if(isset($_GET['searchDoc'])){echo 'Search Results: ';}?></h2>
 				
 				<?php
-					$searchQuery = "SELECT * FROM uploadinfo WHERE ";
-					$init=1;
-					if(isset($_GET['searchDoc'])){
-						$searchTitle = $_GET['searchDoc'];
-						if($searchTitle != ""){
-							$searchQuery .= "NotesTitle LIKE '%$searchTitle%' ";
-							$init=($init==1)?0:$init;
-						}
-					}
-					if(isset($_GET['searchCourse'])){
-						$searchCourse = $_GET['searchCourse'];
-						if($searchCourse != ""){
-							if($init==1){$medium="";} else {$medium=" AND ";}
-							$searchQuery .= $medium."ClassName LIKE '%$searchCourse%' ";
-							$init=($init==1)?0:$init;
-						}
-					}
-					if(isset($_GET['searchInstructor'])){
-						$searchInstructor = $_GET['searchInstructor'];
-						if($searchInstructor != ""){
-							if($init==1){$medium="";} else {$medium=" AND ";}
-							$searchQuery .= $medium."Teacher LIKE '%$searchInstructor%' ";
-							$init=($init==1)?0:$init;
-						}
-					}
-					if(isset($_GET['searchUni'])){
-						$searchUniversity = $_GET['searchUni'];
-						if($searchUniversity != ""){
-							if($init==1){$medium="";} else {$medium=" AND ";}
-							$searchQuery .= $medium."Teacher LIKE '%$searchUniversity%' ";
-							$init=($init==1)?0:$init;
-						}
-					}
 					if(($searchTitle!="")||($searchCourse!="")||($searchInstructor!="")||($searchUniversity!="")){
 						$searchResults = searchDB($searchQuery);
 						if((mysql_num_rows($searchResults)) > 0) {
