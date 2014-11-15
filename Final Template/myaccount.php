@@ -88,17 +88,23 @@
 											echo '<form action="myaccount.php">';
 											echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'">
 														  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+													</button>'; echo '   ';
+											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'">
+														  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 													</button>';
 											echo '</Form>';
 											echo '</td>';
 											if (isset($_REQUEST['download'.$x])) {												
 												header('Location:pdfFunction.php?id='.$Files_ID[$x]);
 											}
+											if (isset($_REQUEST['delete'.$x])) {												
+												header('Location:deletefile.php?id='.$Files_ID[$x]);
+											}
 											//Third Column
 											$href='deletefile.php?id='.$Files_ID[$x];
 											$view='myaccount.php?id='.$Files_ID[$x];
 											$similarfile='similar.php?id='.$Files_ID[$x];
-											echo '<td>';echo "<a href='".$href."'>Delete</a>";echo '   '."<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
+											echo '<td>';echo "<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
 											
 											echo '</td>';
 											echo '</tr>';
