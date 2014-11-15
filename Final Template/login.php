@@ -36,7 +36,7 @@
 			<section id="content">
 
 				<article>
-					<h1>Welcome to NotePlus</h1>
+					<h1>Please Login</h1>
 				</article>
 				<br>
 
