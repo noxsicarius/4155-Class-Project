@@ -63,15 +63,17 @@
 <!------------------------------- My files tab ------------------------------->
 						<div class="tab-pane active" id="myFiles">
 							<article><br>
+							
 							<div class="panel panel-default">
 								<!-- Default panel contents -->
 								<!--<div class="panel-heading">Your Files</div>-->
+								
 								<div class="panel-heading" style=><font size="6"><b>Your Files</b></font></div>
 								<table class="table">
 									<tr>
 										<td><font size="4"><b>File Title</b></font></td>
 										<td><font size="4"><b>File Name</b></font></td>
-										<td><font size="4"><b> </b></font></td>
+										
 										<td><font size="4"><b>Action</b></font></td>
 									</tr>
 									<?php
@@ -86,11 +88,18 @@
 											//Second column 
 											echo '<td>'."$Files_Names[$x]".'</td>'.'<td>';
 											echo '<form action="myaccount.php">';
-											echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'">
+											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="view'.$x.'" title="Display this file">
+														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+													</button>'; echo '   ';
+											echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'" title="Download this file as PDF">
 														  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 													</button>'; echo '   ';
-											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'">
+											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this file">
 														  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+													</button>'; echo '   ';
+											
+											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="similar'.$x.'" title="view similar Notes to this File">
+														  <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 													</button>';
 											echo '</Form>';
 											echo '</td>';
@@ -100,11 +109,17 @@
 											if (isset($_REQUEST['delete'.$x])) {												
 												header('Location:deletefile.php?id='.$Files_ID[$x]);
 											}
+											if (isset($_REQUEST['view'.$x])) {												
+												header('Location:myaccount.php?id='.$Files_ID[$x]);
+											}
+											if (isset($_REQUEST['similar'.$x])) {												
+												header('Location:similar.php?id='.$Files_ID[$x]);
+											}
 											//Third Column
 											$href='deletefile.php?id='.$Files_ID[$x];
 											$view='myaccount.php?id='.$Files_ID[$x];
 											$similarfile='similar.php?id='.$Files_ID[$x];
-											echo '<td>';echo "<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
+											//echo '<td>';echo "<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
 											
 											echo '</td>';
 											echo '</tr>';
@@ -124,8 +139,6 @@
 								<?php
 									if($CurrentFileID!=null){
 										CreateSpoilerByFileID($CurrentFileID);
-									}else{
-										echo 'Click View to see the content of your notes.';
 									}
 								?>
 							</article>
