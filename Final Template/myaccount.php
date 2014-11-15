@@ -2,6 +2,10 @@
 	require 'core.inc.php';
 	require 'connect.inc.php';
 	require 'comparison.php';
+	require('WriteHTML.php');
+	
+	
+	
 	
 	if(isset($_GET['id'])){
 		$CurrentFileID=$_GET['id'];
@@ -22,7 +26,7 @@
 	$Files_ID=FilesInDataBase_ID('FileID',$ID);
 	$Student_Classes=ST_Student_Classes($ID);
 	
-
+	
 ?>
 
 <!doctype html>
@@ -67,17 +71,29 @@
 									<tr>
 										<td><font size="4"><b>File Title</b></font></td>
 										<td><font size="4"><b>File Name</b></font></td>
+										<td><font size="4"><b> </b></font></td>
 										<td><font size="4"><b>Action</b></font></td>
 									</tr>
 									<?php
+										
+										
 										$arrlength=count($Files_Title);
-
+										
 										for($x=0;$x<$arrlength;$x++){
 											echo '<tr>';
 											//First column
 											echo '<td>'."$Files_Title[$x]".'</td>';
 											//Second column 
-											echo '<td>'."$Files_Names[$x]".'</td>';
+											echo '<td>'."$Files_Names[$x]".'</td>'.'<td>';
+											echo '<form action="myaccount.php">';
+											echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'">
+														  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+													</button>';
+											echo '</Form>';
+											echo '</td>';
+											if (isset($_REQUEST['download'.$x])) {												
+												header('Location:pdfFunction.php?id='.$Files_ID[$x]);
+											}
 											//Third Column
 											$href='deletefile.php?id='.$Files_ID[$x];
 											$view='myaccount.php?id='.$Files_ID[$x];
@@ -87,43 +103,16 @@
 											echo '</td>';
 											echo '</tr>';
 										}
+										
+										
+										
+																	
+										
 									?>
 								</table>
 							</div>
 							<br>
-							<article><br>
-								<div class="panel panel-default">
-									<!-- Default panel contents -->
-									<!--<div class="panel-heading">Your Files</div>-->
-									<div class="panel-heading"><font size="6"><b>Your Classes</b></font></div>
-									<table class="table">
-										<tr>
-											<td><font size="4"><b>School</b></font></td>
-											<td><font size="4"><b>Class</b></font></td>
-											<td><font size="4"><b>Action</b></font></td>
-										</tr>
-										<?php
-											$arrlength=count($Student_Classes);
-											for($x=0;$x<$arrlength;$x++){
-												echo '<tr>';
-												//First column
-												echo '<td>'.$Student_Classes[$x][0].'</td>';
-												//Second column 
-												echo '<td>'.$Student_Classes[$x][1].'</td>';
-												$table[$x] = ST_ClassTableName($Student_Classes[$x][0],$Student_Classes[$x][1]);
-												$view='ST_view.php?Name='.$table[$x];
-												//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
-												echo '<td>';
-												//echo "<a href='".$href."'>Delete</a>";
-												echo '   '."<a href='".$view."'>View study guide</a>"; 
-												
-												echo '</td>';
-												echo '</tr>';
-											}
-										?>
-									</table>
-								</div>
-							</article>
+							
 
 							<article>
 								<?php
@@ -197,8 +186,40 @@
 						
 <!------------------------------- Study Guide tab ------------------------------->						
 						<div class="tab-pane" id="studyGuide">
-							<article><br>
-								<h2> Study Guide <h2>
+							<article><br>							
+					
+								<div class="panel panel-default">
+									<!-- Default panel contents -->
+									<!--<div class="panel-heading">Your Files</div>-->
+									<div class="panel-heading"><font size="6"><b>Your Classes</b></font></div>
+									<table class="table">
+										<tr>
+											<td><font size="4"><b>School</b></font></td>
+											<td><font size="4"><b>Class</b></font></td>
+											<td><font size="4"><b>Action</b></font></td>
+										</tr>
+										<?php
+											$arrlength=count($Student_Classes);
+											for($x=0;$x<$arrlength;$x++){
+												echo '<tr>';
+												//First column
+												echo '<td>'.$Student_Classes[$x][0].'</td>';
+												//Second column 
+												echo '<td>'.$Student_Classes[$x][1].'</td>';
+												$table[$x] = ST_ClassTableName($Student_Classes[$x][0],$Student_Classes[$x][1]);
+												$view='ST_view.php?Name='.$table[$x];
+												//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
+												echo '<td>';
+												//echo "<a href='".$href."'>Delete</a>";
+												echo '   '."<a href='".$view."'>View study guide</a>"; 
+												
+												echo '</td>';
+												echo '</tr>';
+											}
+										?>
+									</table>
+								</div>
+							</article>
 							</article>
 						</div>
 					</div>
