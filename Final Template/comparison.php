@@ -339,7 +339,7 @@
 
 //accepts a user ID and returns all classes and school's that the user is enrolled in 
     Function ST_Student_Classes($ID){
-		$query="SELECT DISTINCT `School`,`ClassName` FROM `uploadInfo` WHERE `StudentID` = $ID";
+		$query="SELECT DISTINCT `School`,`ClassName` FROM `uploadinfo` WHERE `StudentID` = $ID";
 		if($result = mysql_query($query)){
 			$num_of_rows=mysql_num_rows($result);
 			for($i=0;$i<$num_of_rows;$i++){
@@ -356,7 +356,7 @@
 
 	
 	Function ST_PrintMaster_tablename_calcval($tablename){
-        $tablename=$tablename;
+        $tablename=strtolower($tablename);
         $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
         if($result = mysql_query($query)){
             $num_of_rows=mysql_num_rows($result);
