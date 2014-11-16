@@ -129,7 +129,7 @@
 									Passwords do not match
 								</div>
 					<?php	} ?>
-
+							<br>
 							<form action="register.php" method="POST">
 								<div class="input-group">
 								  <span class="input-group-addon" style='min-width:100px;'>Username</span>
