@@ -154,6 +154,7 @@
     // this function takes a class and school name and returns the sentencenumber that has the highest hits
 
     Function ST_TOPHighestHits($School,$Class){
+		$School=strtolower($School);$Class=strtolower($Class);
         $tablename='class_' .$School.'_'.$Class;
         //$query="SELECT * FROM `$tablename`";
         $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
@@ -189,6 +190,7 @@
     // pass this function a school, class name and sentence number and it will return a sentences rank
 	//echo ST_GetSentenceRank('uncc','itcs-1600',4);	
 	Function ST_GetSentenceRank($School,$Class,$SentenceNo){
+		$School=strtolower($School);$Class=strtolower($Class);
       	$TableName=ST_ClassTableName($School,$Class);
 	  	$rowNumber=$SentenceNo-1;
         $query="SELECT * FROM `$TableName` ";
@@ -200,6 +202,7 @@
 
 
 	Function ST_IncreaseHITbyTEN($School,$Class,$SentenceNo){
+		$School=strtolower($School);$Class=strtolower($Class);
 		$TableName=ST_ClassTableName($School,$Class);
         $query="SELECT * FROM `$TableName` ";
         if($result = mysql_query($query)){
@@ -234,6 +237,7 @@
 	//pass this function a school, calls and sentence number and it will Decrease the hit value by one
     //NOTE IT IS POSSIBLE TO GET A NEGATIVE NUMBER 
 	Function ST_DecreaseHITbyONE($School,$Class,$SentenceNo){
+		$School=strtolower($School);$Class=strtolower($Class);
     	$TableName=ST_ClassTableName($School,$Class);
         $query="SELECT * FROM `$TableName` ";
         if($result = mysql_query($query)){
@@ -252,6 +256,7 @@
     // pass this function a school, class and a value and it will dispalay all sentences from this class that have a hit value  = or > than $val
 	
 	Function ST_PrintMaster($School,$Class,$val){
+		$School=strtolower($School);$Class=strtolower($Class);
         $tablename=ST_ClassTableName($School,$Class);
         $query="SELECT * FROM `$tablename` ORDER BY `$tablename`.`Hits` DESC";
         if($result = mysql_query($query)){
@@ -389,6 +394,7 @@
 	
 	//-----------------------------------------------Working with Tables------------------------------------------------------------------------------
 	Function ST_CreateClassTable($university,$class){
+		$university=strtolower($university);$class=strtolower($class);
 		$String='class_'.$university.'_'.$class;
 		$query="CREATE TABLE IF NOT EXISTS `$String` (
 				  `SentenceNo` int(11) NOT NULL AUTO_INCREMENT,
@@ -426,11 +432,12 @@
 	//This Function searches for a class and school 
 	//if found returns 1 else returns 0
 	
-	Function ST_SearchClass($School,$class){
+	Function ST_SearchClass($School,$Class){
+		$School=strtolower($School);$Class=strtolower($Class);
 		//echo $School. ' '.$class;
 		$Array=ST_AllCLasses();
 		for($x=0;$x<sizeof($Array);$x++){
-			if($School==$Array[$x][0] && $class==$Array[$x][1]){
+			if($School==$Array[$x][0] && $Class==$Array[$x][1]){
 				return 1;break;
 			}
 		}
@@ -439,12 +446,14 @@
 	
 	//Returns table name for a class and school
 	Function ST_ClassTableName($School,$Class){
+		$School=strtolower($School);$Class=strtolower($Class);
 		$String='class_'.$School.'_'.$Class;
 		return $String;	
 	}
 	
 	//Writes to Class table
 	Function ST_WriteToClass($School,$class,$sentence,$keywords){
+		$School=strtolower($School);$class=strtolower($class);
 		$TableName=ST_ClassTableName($School,$class);
 		$database=DatabaseName();
 		$query="INSERT INTO `$database`.`$TableName` VALUES (NULL, '$keywords', '$sentence', '0')";
@@ -454,6 +463,7 @@
 	
 	//Pulls keywords from Class table
 	Function ST_GetClassKeyWords($School,$Class){
+		$School=strtolower($School);$Class=strtolower($Class);
 		$tablename=$String='class_'.$School.'_'.$Class;
 		$query="SELECT * FROM `$tablename`";
 		if($result = mysql_query($query)){
@@ -477,6 +487,7 @@
 		
 	}
 	function ST_GetMasterSentences($School,$Class){
+		$School=strtolower($School);$Class=strtolower($Class);
 		$tablename=$String='class_'.$School.'_'.$Class;
 		$query="SELECT * FROM `$tablename`";
 		if($result = mysql_query($query)){
