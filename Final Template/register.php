@@ -21,8 +21,9 @@
 			$password_again = $_POST['password_again'];
 			$name = $_POST['name'];
 			$school = $_POST['school'];
+			$email = $_POST['email'];
 			
-			if(!empty($username) && !empty($password) && !empty($password_again) && !empty($name) && !empty($school)){
+			if(!empty($username) && !empty($password) && !empty($password_again) && !empty($name) && !empty($school) && !empty($email)){
 				$ALL_fields = true;
 
 				if($password!=$password_again){
@@ -41,7 +42,7 @@
 				} else {
 					$user_name_exists = false;
 					if($password_match){
-						$query = "INSERT INTO users VALUES (id,'".mysql_real_escape_string($username)."','".mysql_real_escape_string($password)."','".mysql_real_escape_string($name)."','".mysql_real_escape_string($school)."')";
+						$query = "INSERT INTO users VALUES (id,'".mysql_real_escape_string($username)."','".mysql_real_escape_string($password)."','".mysql_real_escape_string($name)."','".mysql_real_escape_string($school)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string('')."')";
 						if ($query_run = mysql_query($query)){
 							$successful = true;
 						}
@@ -129,11 +130,15 @@
 									Passwords do not match
 								</div>
 					<?php	} ?>
-							<br>
+
 							<form action="register.php" method="POST">
 								<div class="input-group">
 								  <span class="input-group-addon" style='min-width:100px;'>Username</span>
 								  <input type="text" style='max-width:250px;' value="<?php if(!($username == '')){print "$username";}?>" name="username" class="form-control" placeholder="Choose a username"><br>
+								</div><br>
+								<div class="input-group">
+								  <span class="input-group-addon" style='min-width:100px;'>Email</span>
+								  <input type="text" style='max-width:250px;' value="<?php if(!($username == '')){print "$username";}?>" name="email" class="form-control" placeholder="Enter your Email"><br>
 								</div><br>
 								<div class="input-group">
 								  <span class="input-group-addon" style='min-width:100px;'>Password</span>
