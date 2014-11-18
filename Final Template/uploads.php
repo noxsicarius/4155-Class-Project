@@ -47,8 +47,11 @@
 					
 					$location ='uploads/';
 					$query = "SELECT * from uploadinfo WHERE FileName='$name' AND StudentID=$StudentID";
+					$query="SELECT * FROM `uploadinfo` WHERE `StudentID` = $StudentID AND `FileName` LIKE '$name'";
+					
 					$query_run = mysql_query($query);
 					$num_of_rows=mysql_num_rows($query_run);
+					
 					
 					if($num_of_rows>0){
 						$File_Student_ID = mysql_result($query_run, 0,'StudentID');
@@ -61,7 +64,8 @@
 					//echo 'Database: '.$File_Student_ID.'<br>';
 					//echo 'Current: '.$StudentID.'<br>';
 					if($num_of_rows==1 && $File_Student_ID==$StudentID) {
-						$Sring_Message= 'The File '.$name. ' already exists.';
+						$Sring_Message= 'The File '.$name. ' already !!exists.345435345345  '.$StudentID;
+						
 					} else{
 						//sql query
 						$query = "INSERT INTO uploadinfo VALUES ('$StudentID',
@@ -74,7 +78,8 @@
 									'".mysql_real_escape_string($chapter)."',
 									'".mysql_real_escape_string($title)."',
 									'".mysql_real_escape_string($comments)."',
-									'".mysql_real_escape_string($content)."')";
+									'".mysql_real_escape_string($content)."',
+									0,0,0,0)";
 
 						if ($query_run = mysql_query($query)){
 							if(move_uploaded_file($tmp_name, $location.$name)){
@@ -144,7 +149,7 @@
 				echo '<div class="alert alert-info" role="alert">'.$Sring_Message.'<br></div>';
 			}else if($Sring_Message== "$name".' Uploaded'){
 				echo '<div class="alert alert-success" role="alert">'.$Sring_Message.'<br></div>';
-			}else if($Sring_Message= 'The File '.$name. ' already exists.'){
+			}else if($Sring_Message== 'The File '.$name. ' already exists.'){
 				echo '<div class="alert alert-warning" role="alert">'.$Sring_Message.'<br></div>';
 			}else if(empty($name) OR $type!='text/plain'){
 				echo '<div class="alert alert-warning" role="alert">'.$Sring_Message.'<br></div>';

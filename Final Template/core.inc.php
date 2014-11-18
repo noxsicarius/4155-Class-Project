@@ -247,7 +247,9 @@
 	
 	// This Function will return an Array of all the keywords of a file
 	function GetFileKeywords($FileID){
-	$result=mysql_query("SELECT * FROM `keywords` WHERE `FileID` = $FileID");
+	$query="SELECT * FROM `keywords` WHERE `FileID` = $FileID";
+	$result=mysql_query($query);
+	;
 	$content=mysql_result($result,0,'Keyword');
 	$contentArray=preg_split('/,/', $content );	
 	return $contentArray;
@@ -327,6 +329,125 @@
 		}
 		return $Array;
 	}
+//------------------------------------------------------File Rating-----------------------------------------------------------------------------
+//This Will Increase the Rate of a file by one
+	Function File_VoteUp_UploadInfo_Save($FileID){
+		$database=DatabaseName();$StudentID=getuserid();
+		$Vote=File_VoteUp_UploadInfo_Get($FileID);
+		$Vote++;
+		$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+		mysql_query($query);
+		$CurrentRate=File_Check_Userrate($FileID); 
+		if($CurrentRate=='no'){			
+			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '1')";
+			mysql_query($query1);
+		}else{
+			if($CurrentRate<1 ){
+				$CurrentRate++;
+				$query1="UPDATE `$database`.`filerating` SET `Rate` = '$CurrentRate' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+				mysql_query($query1);
+			}
+		}
+		
+		
+	
+	}
+	//This Function will Decrease the file rating by one
+	Function File_VoteDown_UploadInfo_Save($FileID){
+		$database=DatabaseName();$StudentID=getuserid();
+		$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
+		$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
+		mysql_query($query);
+		$CurrentRate=File_Check_Userrate($FileID); 
+		
+		if($CurrentRate=='no'){			
+			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '-1')";
+			mysql_query($query1);
+		}else{
+			if($CurrentRate>-1 ){
+				$CurrentRate--;
+				$query1="UPDATE `$database`.`filerating` SET `Rate` = '$CurrentRate' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+				mysql_query($query1);
+			}
+		}
+	}
+	//returns the Total vote up for a file
+	Function File_VoteUp_UploadInfo_Get($FileID){
+		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";		
+		if ($query_run=mysql_query($query)){
+			if($query_result=mysql_result($query_run, 0, 'VoteUp')){
+				$temp=intval($query_result);
+				return $temp;
+			}
+		}else{
+			return 'Wrong field or query not executed right';
+		}
+	
+	}
+	//returns the Total vote down for a file
+	Function File_VoteDown_UploadInfo_Get($FileID){
+		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";		
+		if ($query_run=mysql_query($query)){
+			if($query_result=mysql_result($query_run, 0, 'VoteDown')){
+				$temp=intval($query_result);
+				return $temp;
+			}
+		}else{
+			return 'Wrong field or query not executed right';
+		}
+	}
+	//returns average rating of a file
+	Function File_SetAverage($FileID){		
+		$VoteUp  =File_VoteUp_UploadInfo_Get($FileID);
+		$VoteDown=File_VoteDown_UploadInfo_Get($FileID);		
+		$sum=($VoteUp+$VoteDown);
+		if($sum==0){
+			$sum=1;
+		}
+		$Average=($VoteUp/$sum)*10;
+		$Average=round($Average,2);
+		
+		echo $VoteUp.' - '.$VoteDown.' = '.$sum.'<br>';
+		
+		$query="UPDATE `a_database`.`uploadinfo` SET `VoteAverage` = '$Average' WHERE `uploadinfo`.`FileID` = $FileID";
+		mysql_query($query);
+		Return $Average;
+	}
+	
+	Function File_GetAverage($FileID){
+			$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";		
+		if ($query_run=mysql_query($query)){
+			if($query_result=mysql_result($query_run, 0, 'VoteAverage')){
+				$temp=intval($query_result);
+				return $temp;
+			}
+		}else{
+			return 'Wrong field or query not executed right';
+		}
+	}
+	
+	//Pass File ID 
+	//Returns a 'no' if there is no record of current student for the file id passed
+	//Reruns the value of rate if there is data for the user	
+	Function File_Check_Userrate($FileID){
+		$StudentID=getuserid();
+		$query="SELECT * FROM `filerating` WHERE `FileID` = $FileID AND `StudentID` = $StudentID";
+		$query_run = mysql_query($query);
+		$num_of_rows=mysql_num_rows($query_run);
+		if($num_of_rows==0){
+			return 'no';
+		}else{
+			$query_result=mysql_result($query_run, 0, 'Rate');
+			return $query_result;
+		}
+		
+	}
+
+
+
+//------------------------------------------------------File Rating End--------------------------------------------------------------------------	
+	
+	
 	
 //---------------------------------------------------------------------------------------------------------------------------------	
 	function DatabaseName(){

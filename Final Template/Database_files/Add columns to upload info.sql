@@ -1,0 +1,1 @@
+ALTER TABLE `uploadinfo` ADD `VoteUp` INT NOT NULL , ADD `VoteDown` INT NOT NULL , ADD `VoteAverage` DOUBLE NOT NULL , ADD `Abuse` INT NOT NULL ;
