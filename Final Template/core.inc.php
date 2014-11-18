@@ -76,6 +76,36 @@
 						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo"$title";?>
 						</a>
+							<?php
+								if(isset($_GET['id'])){
+									$FileID=$_GET['id'];					
+									
+								}
+								
+								echo 	'<form action="myaccount.php?id='."$FileID".'" method="POST">';
+								echo	'<button type="submit" class="btn btn-default" aria-label="Left Align" name="Down" title="Vote Down">
+											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">'.$rateDown.'</span>
+										</button>';
+								echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="Up" title="Vote Up">
+											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">'.$rateUp.'</span>
+										</button>';
+								echo '</form>';
+								
+								if(isset($_GET['id'])){
+									$FileID=$_GET['id'];
+								
+									if (isset($_REQUEST['Down'])) {												
+									File_VoteDown_UploadInfo_Save($FileID);								
+									}
+									if (isset($_REQUEST['Up'])) {												
+										File_VoteUp_UploadInfo_Save($FileID);
+									}
+								}
+								
+								
+							
+						
+							?>
 					</h4>
 				</div>
 				<div id='<?php echo"$title";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
@@ -91,8 +121,8 @@
 	function CreateSpoilerByFileID($FileID){
 		$title=FileInfo($FileID,'NotesTitle');
 		$content=FileInfo($FileID,'content');
-		$rateDown=0;
-		$rateUp=5;
+		$rateDown=File_VoteDown_UploadInfo_Get($FileID);
+		$rateUp=File_VoteUp_UploadInfo_Get($FileID);
 		createSpoiler($title, $content, $rateUp, $rateDown);
 	}
 	
@@ -100,7 +130,8 @@
 	// this function will delete a File and also drop the table of sentences and keywords
 	function Drop_Table($id){
 		$database=DatabaseName();
-		$name='table_'.$id;
+		$name='table_'.$id; $StudentID=getuserid();
+		mysql_query("DELETE FROM `$database`.`filerating` WHERE `filerating`.`FileID` = $id AND `filerating`.`StudentID` = $StudentID");
 		mysql_query("DROP TABLE IF EXISTS `$database`.`$name`");		
 		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
