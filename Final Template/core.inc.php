@@ -339,12 +339,13 @@
 		if($CurrentRate=='no'){			
 			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '1')";
 			mysql_query($query1);	
-			
-			$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '1' WHERE `uploadinfo`.`FileID` = $FileID";		
+			$Vote=File_VoteUp_UploadInfo_Get($FileID);
+			$Vote++;
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
 			mysql_query($query);
 			
-		}else{
-			if($CurrentRate==-1 ){				
+		}else if($CurrentRate==-1 ){ 
+							
 				$query1="UPDATE `$database`.`filerating` SET `Rate` = '1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
 				mysql_query($query1);
 				
@@ -359,7 +360,7 @@
 				mysql_query($query);
 				
 				
-			}
+			
 		}
 		
 		
@@ -377,16 +378,19 @@
 			$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
 			$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
 			mysql_query($query);
-		}else{
-			if($CurrentRate>-1 ){
+		}else if($CurrentRate==1 ){
 				
 				$query1="UPDATE `$database`.`filerating` SET `Rate` = '-1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
 				mysql_query($query1);
-				$Vote=File_VoteUp_UploadInfo_Get($FileID);
-				$Vote--;
+				// Decrease Vote up by 1
+				$Vote=File_VoteUp_UploadInfo_Get($FileID);$Vote--;
 				$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
 				mysql_query($query);
-			}
+				// Increase Vote Down by 1
+				$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
+				$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
+				mysql_query($query);
+			
 		}
 	}
 	//returns the Total vote up for a file
