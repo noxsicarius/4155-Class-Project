@@ -1,8 +1,8 @@
 <?php
 	require('WriteHTML.php');
-	 require 'comparison.php';
+	require 'comparison.php';
 	require 'connect.inc.php';
-	require 'core.inc.php';
+	
 	
 
 	Function PDF_TitleContent ($title,$content) {
@@ -17,8 +17,8 @@
 		$pdf->Output($name,'D');
 	}
 	Function PDF_TitleContent_ByFileID ($FileID){
-		$title=FileInfo($FileID,'NotesTitle');
-		$content=FileInfo($FileID,'content');
+		$title=FileInfoo($FileID,'NotesTitle');
+		$content=FileInfoo($FileID,'content');
 		PDF_TitleContent ($title,$content);
 	}
 	Function ArrayTOSentence($School,$Class){		
@@ -27,7 +27,7 @@
 		$title=$Class.' Study Guide ';
 		PDF_TitleContent ($title,$content);
 	}
-	$PreviousPage=Backpage();
+	$PreviousPage=$_SERVER['HTTP_REFERER'];
 	if(isset($_GET['id'])){
 		$FileID=$_GET['id'];
 		PDF_TitleContent_ByFileID ($FileID);		
@@ -35,6 +35,15 @@
 		$Class=$_GET['id'];
 	}else{
 		header('Location:'.$PreviousPage);
+	}
+	
+	function FileInfoo($FileID,$Column){
+		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";
+		if($result = mysql_query($query)){			
+			$content=mysql_result($result,0,$Column);
+			$File_Field= $content;			
+			return $File_Field;
+		}
 	}
 	
 	

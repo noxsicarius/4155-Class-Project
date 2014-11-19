@@ -100,7 +100,8 @@
 	// this function will delete a File and also drop the table of sentences and keywords
 	function Drop_Table($id){
 		$database=DatabaseName();
-		$name='table_'.$id;
+		$name='table_'.$id;$StudentID=getuserid();
+		mysql_query("DELETE FROM `$database`.`filerating` WHERE `filerating`.`FileID` = $id AND `filerating`.`StudentID` = $StudentID");
 		mysql_query("DROP TABLE IF EXISTS `$database`.`$name`");		
 		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
