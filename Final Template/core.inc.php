@@ -470,18 +470,31 @@ function createSpoilerbutton($FileID){
 		$content=FileInfo($FileID,'content');
 		$rateUp=File_VoteUp_UploadInfo_Get($FileID);		
 		$rateDown=File_VoteDown_UploadInfo_Get($FileID);
+		
 		$currentfile=basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+		
 		if($currentfile=='myaccount.php'){
 			$link=$currentfile.'?id='.$FileID;
-		}
-		if (isset($_REQUEST['down'])) {												
+			if (isset($_REQUEST['down'])) {												
 			File_VoteDown_UploadInfo_Save($FileID);
 			header('Location:myaccount.php?id='.$FileID);
+			}
+			if (isset($_REQUEST['Up'])) {												
+				File_VoteUp_UploadInfo_Save($FileID);
+				header('Location:myaccount.php?id='.$FileID);
+			}
+		}else if($currentfile=='search.php'){
+			$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+			if (isset($_REQUEST['down'])) {												
+			File_VoteDown_UploadInfo_Save($FileID);
+			header('Location:'.$link);
+			}
+			if (isset($_REQUEST['Up'])) {												
+				File_VoteUp_UploadInfo_Save($FileID);
+				header('Location:'.$link);
+			}
 		}
-		if (isset($_REQUEST['Up'])) {												
-			File_VoteUp_UploadInfo_Save($FileID);
-			header('Location:myaccount.php?id='.$FileID);
-		}
+		
 
 
 

@@ -111,8 +111,10 @@
 							while($row = mysql_fetch_array($searchResults)) {
 								$docTitle = $row['NotesTitle'];
 								$docContent = $row['Content'];
+								$FileID = $row['FileID'];
 
-								createSpoiler($docTitle, $docContent, $rateUp, $rateDown);
+								//createSpoiler($docTitle, $docContent, $rateUp, $rateDown);
+								createSpoilerbutton($FileID);
 							}
 						} else {
 							echo "No match found.";
