@@ -333,20 +333,32 @@
 //------------------------------------------------------File Rating-----------------------------------------------------------------------------
 //This Will Increase the Rate of a file by one
 	Function File_VoteUp_UploadInfo_Save($FileID){
+		$CurrentRate=File_Check_Userrate($FileID);
 		$database=DatabaseName();$StudentID=getuserid();
-		$Vote=File_VoteUp_UploadInfo_Get($FileID);
-		$Vote++;
-		$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
-		mysql_query($query);
-		$CurrentRate=File_Check_Userrate($FileID); 
+		 
 		if($CurrentRate=='no'){			
 			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '1')";
-			mysql_query($query1);
+			mysql_query($query1);	
+			
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '1' WHERE `uploadinfo`.`FileID` = $FileID";		
+			mysql_query($query);
+			
 		}else{
-			if($CurrentRate<1 ){
-				$CurrentRate++;
-				$query1="UPDATE `$database`.`filerating` SET `Rate` = '$CurrentRate' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+			if($CurrentRate==-1 ){				
+				$query1="UPDATE `$database`.`filerating` SET `Rate` = '1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
 				mysql_query($query1);
+				
+				$Vote=File_VoteDown_UploadInfo_Get($FileID);
+				$Vote--;
+				$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+				mysql_query($query);
+				
+				$Vote=File_VoteUp_UploadInfo_Get($FileID);
+				$Vote++;
+				$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+				mysql_query($query);
+				
+				
 			}
 		}
 		
@@ -356,19 +368,24 @@
 	//This Function will Decrease the file rating by one
 	Function File_VoteDown_UploadInfo_Save($FileID){
 		$database=DatabaseName();$StudentID=getuserid();
-		$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
-		$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
-		mysql_query($query);
+		
 		$CurrentRate=File_Check_Userrate($FileID); 
 		
 		if($CurrentRate=='no'){			
 			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '-1')";
 			mysql_query($query1);
+			$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
+			mysql_query($query);
 		}else{
 			if($CurrentRate>-1 ){
-				$CurrentRate--;
-				$query1="UPDATE `$database`.`filerating` SET `Rate` = '$CurrentRate' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+				
+				$query1="UPDATE `$database`.`filerating` SET `Rate` = '-1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
 				mysql_query($query1);
+				$Vote=File_VoteUp_UploadInfo_Get($FileID);
+				$Vote--;
+				$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+				mysql_query($query);
 			}
 		}
 	}
@@ -460,6 +477,8 @@
 	function currentPage() {
 		return substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 	}
+	
+
 
 ?>
 
@@ -469,8 +488,7 @@ function createSpoilerbutton($FileID){
 		$title=FileInfo($FileID,'NotesTitle');
 		$content=FileInfo($FileID,'content');
 		$rateUp=File_VoteUp_UploadInfo_Get($FileID);		
-		$rateDown=File_VoteDown_UploadInfo_Get($FileID);
-		
+		$rateDown=File_VoteDown_UploadInfo_Get($FileID);		
 		$currentfile=basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 		
 		if($currentfile=='myaccount.php'){
@@ -494,8 +512,21 @@ function createSpoilerbutton($FileID){
 				header('Location:'.$link);
 			}
 		}
+		$UserRate=File_Check_Userrate($FileID);
+		if($UserRate=='no'){
+			$voteupcolor='default';
+			$votedowncolor='default';
+		}else if($UserRate=='-1'){
+			$voteupcolor='default';
+			$votedowncolor='danger';		
+		}else if($UserRate=='1'){
+			$voteupcolor='success';
+			$votedowncolor='default';		
+		}else if ($UserRate=='0'){
+			$voteupcolor='default';
+			$votedowncolor='default';
+		}
 		
-
 
 
 ?>
@@ -509,10 +540,10 @@ function createSpoilerbutton($FileID){
 						</a>
 							<?php	
 								
-								echo 	'<button type="submit" class="btn btn-default btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down" title="Click to vote down">
+								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down" title="Click to vote down">
 											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
 										</button>'; 
-								echo 	'<button type="submit" class="btn btn-default btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up" title="Click to vote Up">
+								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up" title="Click to vote Up">
 											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
 										</button>'; 
 								
