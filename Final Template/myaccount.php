@@ -138,7 +138,7 @@
 							<article>
 								<?php
 									if($CurrentFileID!=null){
-										CreateSpoilerByFileID($CurrentFileID);
+										createSpoilerbutton($CurrentFileID);
 									}
 								?>
 							</article>
