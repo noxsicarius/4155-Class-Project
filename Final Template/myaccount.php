@@ -26,6 +26,10 @@
 	$Files_ID=FilesInDataBase_ID('FileID',$ID);
 	$Student_Classes=ST_Student_Classes($ID);
 	
+		$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
+                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
+                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
+	
 	
 ?>
 
@@ -49,7 +53,11 @@
 			<?php include 'menu.php'; ?>
 		</nav>
 
-			<section id="content">
+		<?php if($isMobile==false){ echo
+
+    '<div id="body">'.
+
+	  '<section id="content">';} ?>
 				<br><br>
 				<ul class="nav nav-tabs">
 				<!-- Tabs go here -->
@@ -244,13 +252,16 @@
 					</div>
 				</form>
 				
-			</section>
+			<?php if($isMobile==false){
+       echo '</section>';
+       
+       echo '<aside class="sidebar">';	
+             include 'aside.php'; 	
+       echo '</aside>';
+		echo '<div class="clear"></div>';
 
-			<aside class="sidebar">
-				<?php include 'aside.php'; ?>		
-			</aside>
-			
-			<div class="clear"></div>
+  '</div>';}
+  ?>
 		
 		<footer>
 			<?php include 'footer.php' ?>;
