@@ -10,6 +10,9 @@
 	}else{
 		$logged_in=0;
 	}	
+	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
+                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
+                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
 
 ?>
 
@@ -32,8 +35,11 @@
 			<?php include 'menu.php'; ?>
 		</nav>
 
-		<div id="body">
-			<section id="content">
+<?php if($isMobile==false){ echo
+
+    '<div id="body">'.
+
+	  '<section id="content">';} ?>
 
 				<article>
 					<h1>Please Login</h1>
@@ -49,15 +55,16 @@
 				?>
 
 				<article></article>
-			</section>
-			
-			<aside class="sidebar">	
-				<?php include 'aside.php'; ?>
-			</aside>
+<?php if($isMobile==false){
+       echo '</section>';
+       
+       echo '<aside class="sidebar">';	
+             include 'aside.php'; 	
+       echo '</aside>';
+		echo '<div class="clear"></div>';
 
-			<div class="clear"></div>
-		</div>
-		
+  '</div>';}
+  ?>
 		<footer>
 			<?php include 'footer.php' ?>;
 		</footer>
