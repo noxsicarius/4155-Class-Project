@@ -218,7 +218,7 @@
 									'','')";
 		
 		
-		echo $query;
+		
 		mysql_query($query);
 	}
 	
