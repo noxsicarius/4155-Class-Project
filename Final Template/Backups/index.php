@@ -11,10 +11,6 @@
 		//include 'login.inc.php';
 		$logged_in=0;
 	}
-	
-	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
-                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
-                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] );
 ?>
 
 <!doctype html>
@@ -37,12 +33,10 @@
 		
 		
 		<img class="header-image" src="images/image.jpg" alt="Buildings" style="width:100%;height:auto;"/>
-	<?php 
-	     if($isMobile==false){
-		echo '<div id="body">
-	   
-			<section id="content">';  }
-	  ?>
+
+		<div id="body">
+
+			<section id="content">
 				<article>
 					<h1>Welcome to NotePlus</h1>
 					<h2>&nbsp;</h2>
@@ -63,27 +57,14 @@
 					<br>
 				</article>
 			</section>
-		
-
-
 			
-				<?php 
-				if($isMobile==false){
-					echo '<aside class="sidebar">';
-					include 'aside.php'; 
-					echo '</aside>';
-				}
-				
-				
-				?>
-			
+			<aside class="sidebar">
+				<?php include 'aside.php'; ?>
+			</aside>
 
 			<div class="clear"></div>
-	    <?php 
-	       if($isMobile==false){	
-		echo '</div>';
-		}
-	      ?>
+		</div>
+		
 		<footer>
 			<?php include 'footer.php' ?>;
 		</footer>
