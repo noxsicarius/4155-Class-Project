@@ -119,7 +119,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>X Note Plus</title>
+<title>Upload Notes to X Note Plus</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
@@ -223,7 +223,7 @@
        echo '<aside class="sidebar">';	
              include 'aside.php'; 	
        echo '</aside>';
- echo '<div class="clear"></div>';
+		echo '<div class="clear"></div>';
 
   '</div>';}
   ?>

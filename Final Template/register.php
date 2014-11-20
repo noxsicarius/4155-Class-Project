@@ -12,6 +12,9 @@
 	$password_again = '';
 	$name = '';
 	$school = '';
+	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
+                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
+                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
 
 	if(!loggedin()){
 		$already_register = false;
@@ -63,7 +66,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>X Note Plus</title>
+	<title>Register with X Note Plus</title>
 	<link rel="stylesheet" href="styles.css" type="text/css" />
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 </head>
@@ -79,8 +82,11 @@
 			<?php include 'menu.php'; ?>
 		</nav>
 
-		<div id="body">
-			<section id="content">
+<?php if($isMobile==false){ echo
+
+    '<div id="body">'.
+
+	  '<section id="content">';} ?>
 
 				<br>
 				<?php
@@ -164,15 +170,16 @@
 				?>
 			
 			<article></article>
+<?php if($isMobile==false){
+       echo '</section>';
+       
+       echo '<aside class="sidebar">';	
+             include 'aside.php'; 	
+       echo '</aside>';
+		echo '<div class="clear"></div>';
 
-			</section>
-			
-			<aside class="sidebar">		
-				<?php include 'aside.php'; ?>
-			</aside>
-			
-			<div class="clear"></div>
-		</div>
+  '</div>';}
+  ?>
 		
 		<footer>
 			<?php include 'footer.php'; ?>
