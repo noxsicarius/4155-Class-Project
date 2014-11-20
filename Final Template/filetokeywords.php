@@ -61,6 +61,7 @@
 	fclose($keywords_file);
 	$All_File_keywords=array_unique($All_File_keywords);
 	Save_FileKeywords($FileID,$All_File_keywords);
+	
 	//comparing
 	if(NumberofRows('keywords')>1){
 		CompareFileToAll($FileID);

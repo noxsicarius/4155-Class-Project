@@ -101,7 +101,7 @@
 	function Drop_Table($id){
 		$database=DatabaseName();
 		$name='table_'.$id;$StudentID=getuserid();
-		mysql_query("DELETE FROM `$database`.`filerating` WHERE `filerating`.`FileID` = $id AND `filerating`.`StudentID` = $StudentID");
+		mysql_query("DELETE FROM `$database`.`filerating` WHERE `filerating`.`FileID` = $id");
 		mysql_query("DROP TABLE IF EXISTS `$database`.`$name`");		
 		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
@@ -209,8 +209,16 @@
 	function Save_FileKeywords($FileID,$Array){
 		$Keyword=ArrayToString($Array);
 		$Keyword=strtolower($Keyword);
+		
 		$database=DatabaseName();
-		$query="INSERT INTO `$database`.`keywords` (`FileID`, `Keyword`, `ComparedTO`, `MatchedTO`) VALUES ('$FileID', '$Keyword', '', '')";		
+		
+		$query = "INSERT INTO `$database`.`keywords` VALUES (
+									'".mysql_real_escape_string($FileID)."',
+									'".mysql_real_escape_string($Keyword)."',
+									'','')";
+		
+		
+		echo $query;
 		mysql_query($query);
 	}
 	
@@ -249,8 +257,7 @@
 	// This Function will return an Array of all the keywords of a file
 	function GetFileKeywords($FileID){
 	$query="SELECT * FROM `keywords` WHERE `FileID` = $FileID";
-	$result=mysql_query($query);
-	;
+	$result=mysql_query($query);	
 	$content=mysql_result($result,0,'Keyword');
 	$contentArray=preg_split('/,/', $content );	
 	return $contentArray;
@@ -430,8 +437,9 @@
 		$Average=round($Average,2);
 		
 		echo $VoteUp.' - '.$VoteDown.' = '.$sum.'<br>';
+		$database=DatabaseName();
 		
-		$query="UPDATE `a_database`.`uploadinfo` SET `VoteAverage` = '$Average' WHERE `uploadinfo`.`FileID` = $FileID";
+		$query="UPDATE `$database`.`uploadinfo` SET `VoteAverage` = '$Average' WHERE `uploadinfo`.`FileID` = $FileID";
 		mysql_query($query);
 		Return $Average;
 	}
