@@ -146,7 +146,7 @@
 							<article>
 								<?php
 									if($CurrentFileID!=null){
-										createSpoilerbutton($CurrentFileID);
+										createSpoilerbuttonmyaccount($CurrentFileID);										
 									}
 								?>
 							</article>
