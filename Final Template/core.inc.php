@@ -524,19 +524,21 @@ function createSpoilerbutton($FileID){
 				header('Location:'.$link);
 			}
 		}
-		$UserRate=File_Check_Userrate($FileID);
-		if($UserRate=='no'){
-			$voteupcolor='default';
-			$votedowncolor='default';
-		}else if($UserRate=='-1'){
-			$voteupcolor='default';
-			$votedowncolor='danger';		
-		}else if($UserRate=='1'){
-			$voteupcolor='success';
-			$votedowncolor='default';		
-		}else if ($UserRate=='0'){
-			$voteupcolor='default';
-			$votedowncolor='default';
+		if(loggedin()){
+			$UserRate=File_Check_Userrate($FileID);
+			if($UserRate=='no'){
+				$voteupcolor='default';
+				$votedowncolor='default';
+			}else if($UserRate=='-1'){
+				$voteupcolor='default';
+				$votedowncolor='danger';		
+			}else if($UserRate=='1'){
+				$voteupcolor='success';
+				$votedowncolor='default';		
+			}else if ($UserRate=='0'){
+				$voteupcolor='default';
+				$votedowncolor='default';
+			}
 		}
 		
 
@@ -551,7 +553,13 @@ function createSpoilerbutton($FileID){
 							echo"$title";?>
 						</a>
 							<?php	
-								
+							if(loggedin()){
+								if($rateDown==0){
+									$rateDown=0;
+								}
+								if($rateUp==0){
+									$rateUp=0;
+								}								
 								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
 											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
 										</button>'; 
@@ -560,6 +568,19 @@ function createSpoilerbutton($FileID){
 										</button>'; 
 								
 								echo 	'</Form>';
+							}else{
+								if($rateDown==0){
+									$rateDown=0;
+								}
+								if($rateUp==0){
+									$rateUp=0;
+								}
+								
+								echo '<span class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"> '.$rateDown.'&nbsp;</span>';
+								echo '<span class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true">&nbsp;'.$rateUp.'&nbsp;&nbsp;</span>';
+							
+							
+							}
 							?>
 					</h4>
 				</div>
@@ -628,6 +649,12 @@ function createSpoilerbuttonmyaccount($FileID){
 							echo"$title";?>
 						</a>
 							<?php	
+								if($rateDown==0){
+									$rateDown=0;
+								}
+								if($rateUp==0){
+									$rateUp=0;
+								}
 								
 								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down" title="Click to vote down">
 											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
