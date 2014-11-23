@@ -5,17 +5,13 @@
 	
 	if(isset($_GET['Name'])){
 	$TableName=$_GET['Name'];
+	$ClassID=ST_Get_ClassID_ByTableName($TableName);
+	
+	
 	}else{
 		$TableName=null;
 	}
-	
-	if(loggedin()) {
-		$user_fullname =getfield('name').' ,you are logged in';
-		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
-	}else{
-		$logged_in=0;
-	}
+		
 	$ID=getuserid();
 	
 ?>
@@ -60,23 +56,39 @@
 
 						<?php
 							$array = ST_PrintMaster_tablename_calcval($TableName);
-							$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+							$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];							
 							$arrlength=sizeof($array);
 							for($x=0;$x<$arrlength;$x++){
+								$currentRate=ST_Get_Sentence_Rating($ClassID,$array[$x][1]);
 								echo '<tr>';
 								//First column
-								echo '<td>'.$array[$x][0].'</td>';
+								if($currentRate!=-10){
+									echo '<td>'.$array[$x][0].'</td>';
+								}
 								//Second column 
+								
+								
+								if($currentRate==1){
+									$voteupcolor='success';
+									$votedowncolor='default';
+								} else if($currentRate==-1){
+									$voteupcolor='default';
+									$votedowncolor='danger';
+								} else {
+									$voteupcolor='default';
+									$votedowncolor='default';								
+								}
 								
 								$Like='LikeSentence.php?id='.$TableName.','.$array[$x][1];
 								$DisLike='DisLikeSentence.php?id='.$TableName.','.$array[$x][1];
 								$Abuse ='Abuse.php?id='.$TableName.','.$array[$x][1];
+								if($currentRate!=-10){
 								echo '<td><form action="'.$link.'" method="Post">';
 								
-								echo 	'<button type="submit" class="btn btn-default btn-sm  pull-right" aria-label="Left Align" name="Down'.$x.'" title="Click to vote down">
+								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm  pull-right" aria-label="Left Align" name="Down'.$x.'" title="Click to vote down">
 											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> </span>
 										</button>'; 
-								echo 	'<button type="submit" class="btn btn-default btn-sm  pull-right" aria-label="Left Align" name="Up'.$x.'" title="Click to vote Up">
+								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm  pull-right" aria-label="Left Align" name="Up'.$x.'" title="Click to vote Up">
 											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> </span>
 										</button>'; 
 								echo 	'<button type="submit" class="btn btn-default btn-sm  pull-right" aria-label="Left Align" name="abuse'.$x.'" title="Click to report abuse">
@@ -84,15 +96,35 @@
 										</button>';
 								
 								echo 	'</Form>';
-								
-								if (isset($_REQUEST['abuse'.$x])) {												
-									header('Location:'.$Abuse);
 								}
-								if (isset($_REQUEST['Up'.$x])) {												
-									header('Location:'.$Like);
+								if (isset($_REQUEST['abuse'.$x])) {	
+									if($currentRate!=-10){
+										ST_ReportAbuse_tablename($TableName,$array[$x][1]);
+										ST_Set_Sentence_Rating_Abuse($ClassID,$array[$x][1]);
+										header('Location:'.$link);
+									}
 								}
-								if (isset($_REQUEST['Down'.$x])) {												
-									header('Location:'.$DisLike);
+								if (isset($_REQUEST['Up'.$x])) {
+									if($currentRate==-1){
+										ST_IncreaseHITbyTWO_tablename($TableName,$array[$x][1]);
+										ST_Set_Sentence_Rating_Up($ClassID,$array[$x][1]);
+										header('Location:'.$link);
+									} else if ($currentRate=='no'){
+										ST_IncreaseHITbyONE_tablename($TableName,$array[$x][1]);
+										ST_Set_Sentence_Rating_Up($ClassID,$array[$x][1]);
+										header('Location:'.$link);
+									}
+								}
+								if (isset($_REQUEST['Down'.$x])) {
+									if($currentRate==1){
+										ST_DecreaseHITbyTWO_tablename($TableName,$array[$x][1]);
+										ST_Set_Sentence_Rating_Down($ClassID,$array[$x][1]);
+										header('Location:'.$link);
+									} else if ($currentRate=='no'){
+										ST_DecreaseHITbyONE_tablename($TableName,$array[$x][1]);
+										ST_Set_Sentence_Rating_Down($ClassID,$array[$x][1]);
+										header('Location:'.$link);
+									}									
 								}
 								
 								//echo "<a href='".$Like."'>Like</a>".'<br>'; 

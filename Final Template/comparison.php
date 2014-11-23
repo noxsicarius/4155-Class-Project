@@ -316,6 +316,18 @@
 				mysql_query($query);
        		}
     }
+    // Takes a table name and a sentencenumber and increases the hit value by 2
+	Function ST_IncreaseHITbyTWO_tablename($TableName,$SentenceNo){
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+				$rowNumber=$SentenceNo-1;
+            	$content=mysql_result($result,$rowNumber,'Hits');
+       			$content =$content+2;
+       			$database=DatabaseName();
+				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
+				mysql_query($query);
+       		}
+    }
  // Takes a table name and a sentencenumber and decreases the hit value by -1
     	Function ST_DecreaseHITbyONE_tablename($TableName,$SentenceNo){
         $query="SELECT * FROM `$TableName` ";
@@ -323,6 +335,19 @@
 				$rowNumber=$SentenceNo-1;
             	$content=mysql_result($result,$rowNumber,'Hits');
        			$content --;
+       			$database=DatabaseName();
+				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
+				mysql_query($query);
+       		}
+    }
+	
+	 // Takes a table name and a sentencenumber and decreases the hit value by -2
+    	Function ST_DecreaseHITbyTWO_tablename($TableName,$SentenceNo){
+        $query="SELECT * FROM `$TableName` ";
+        if($result = mysql_query($query)){
+				$rowNumber=$SentenceNo-1;
+            	$content=mysql_result($result,$rowNumber,'Hits');
+       			$content=$content-2;
        			$database=DatabaseName();
 				$query="UPDATE `$database`.`$TableName` SET `Hits` = '$content' WHERE `$TableName`.`SentenceNo` = '$SentenceNo'";
 				mysql_query($query);
@@ -393,9 +418,18 @@
 	
 	
 	//-----------------------------------------------Working with Tables------------------------------------------------------------------------------
+	Function ST_Add_ClassNames($Class,$School,$TableName){
+		$database=DatabaseName();
+		$query="INSERT INTO `$database`.`st_class_names`  VALUES (NULL, '$Class', '$School', '$TableName', '-1')";
+		mysql_query($query);
+		//echo $query;
+	}
+	
+	
 	Function ST_CreateClassTable($university,$class){
 		$university=strtolower($university);$class=strtolower($class);
 		$String='class_'.$university.'_'.$class;
+		ST_Add_ClassNames($class,$university,$String);		
 		$query="CREATE TABLE IF NOT EXISTS `$String` (
 				  `SentenceNo` int(11) NOT NULL AUTO_INCREMENT,
 				  `Keywords` text NOT NULL,
@@ -499,5 +533,77 @@
 			return $File_Field;
 		}
 	}
+	
+	//--------------------Study Guide View Functions------------------------------------------------------------
+	
+	//This function returns class id by passing the class table name
+	
+	Function ST_Get_ClassID_ByTableName($TableName){
+		$query="SELECT * FROM `st_class_names` WHERE `TableName` = '$TableName'";
+		$result=mysql_query($query);
+		$content=mysql_result($result,0,'ClassID');
+		return $content;	
+	}
+	
+	Function ST_Get_Sentence_Rating($ClassID,$SentenceID){
+		$StudentID=getuserid();
+		$query="SELECT * FROM `sentencerating` WHERE `ClassID` = $ClassID AND `SentenceID` = $SentenceID AND `StudentID` = $StudentID";
+		$query_run = mysql_query($query);
+		$num_of_rows=mysql_num_rows($query_run);
+		if($num_of_rows==0){
+			return 'no';
+		}else{
+			$query_result=mysql_result($query_run, 0, 'Rate');
+			return $query_result;
+		}
+		
+	}
+	
+	Function ST_Set_Sentence_Rating_Up($ClassID,$SentenceID){
+		$StudentID=getuserid();
+		$database=DatabaseName();
+		$CurrentRate=ST_Get_Sentence_Rating($ClassID,$SentenceID);
+		if($CurrentRate=='no'){		
+			$query="INSERT INTO `$database`.`sentencerating` (`ClassID`, `SentenceID`, `StudentID`, `Rate`) VALUES ('$ClassID', '$SentenceID', '$StudentID', '1')";
+			mysql_query($query);
+		}else if ($CurrentRate==-1){
+			$query="UPDATE `$database`.`sentencerating` SET `Rate` = '1' WHERE `sentencerating`.`ClassID` = $ClassID AND `sentencerating`.`SentenceID` = $SentenceID AND `sentencerating`.`StudentID` = $StudentID";
+			mysql_query($query);
+		}	
+		
+	
+	}
+	
+	Function ST_Set_Sentence_Rating_Down($ClassID,$SentenceID){
+		$StudentID=getuserid();
+		$database=DatabaseName();
+		$CurrentRate=ST_Get_Sentence_Rating($ClassID,$SentenceID);
+		if($CurrentRate=='no'){		
+			$query="INSERT INTO `$database`.`sentencerating` (`ClassID`, `SentenceID`, `StudentID`, `Rate`) VALUES ('$ClassID', '$SentenceID', '$StudentID', '-1')";
+			mysql_query($query);
+		}else if ($CurrentRate==1){
+			$query="UPDATE `$database`.`sentencerating` SET `Rate` = '-1' WHERE `sentencerating`.`ClassID` = $ClassID AND `sentencerating`.`SentenceID` = $SentenceID AND `sentencerating`.`StudentID` = $StudentID";
+			mysql_query($query);
+		}	
+		
+	
+	}
+	
+		Function ST_Set_Sentence_Rating_Abuse($ClassID,$SentenceID){
+		$StudentID=getuserid();
+		$database=DatabaseName();
+		$CurrentRate=ST_Get_Sentence_Rating($ClassID,$SentenceID);
+		if($CurrentRate=='no'){		
+			$query="INSERT INTO `$database`.`sentencerating` (`ClassID`, `SentenceID`, `StudentID`, `Rate`) VALUES ('$ClassID', '$SentenceID', '$StudentID', '-10')";
+			mysql_query($query);
+		}else if ($CurrentRate==1){
+			$query="UPDATE `$database`.`sentencerating` SET `Rate` = '-10' WHERE `sentencerating`.`ClassID` = $ClassID AND `sentencerating`.`SentenceID` = $SentenceID AND `sentencerating`.`StudentID` = $StudentID";
+			mysql_query($query);
+		}	
+		
+	
+	}
+	
+	
 	
 ?>
