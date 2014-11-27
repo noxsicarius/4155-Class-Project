@@ -338,6 +338,20 @@
 		return $Array;
 	}
 //------------------------------------------------------File Rating-----------------------------------------------------------------------------
+Function File_Vote_Abuse($FileID){
+	$StudentID=getuserid();
+	$database=DatabaseName();
+	if($CurrentRate=='no'){			
+			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '-10')";
+			mysql_query($query1);			
+			
+	}else {
+		$query1="UPDATE `$database`.`filerating` SET `Rate` = '-10' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+		mysql_query($query1);
+	}
+
+}
+
 //This Will Increase the Rate of a file by one
 	Function File_VoteUp_UploadInfo_Save($FileID){
 		$CurrentRate=File_Check_Userrate($FileID);
@@ -523,9 +537,13 @@ function createSpoilerbutton($FileID){
 				File_VoteUp_UploadInfo_Save($FileID);
 				header('Location:'.$link);
 			}
+			if (isset($_REQUEST['abuse'.$FileID])) {												
+				File_Vote_Abuse($FileID);
+				header('Location:'.$link);
+			}
 		}
 		if(loggedin()){
-			$UserRate=File_Check_Userrate($FileID);
+			$UserRate=File_Check_Userrate($FileID);$abusevote='default';
 			if($UserRate=='no'){
 				$voteupcolor='default';
 				$votedowncolor='default';
@@ -538,9 +556,14 @@ function createSpoilerbutton($FileID){
 			}else if ($UserRate=='0'){
 				$voteupcolor='default';
 				$votedowncolor='default';
+			}else if($UserRate=='-10'){
+				$abusevote='danger';
+				$voteupcolor='default';
+				$votedowncolor='default';
 			}
 		}
-		
+			
+			
 
 
 ?>
@@ -559,13 +582,16 @@ function createSpoilerbutton($FileID){
 								}
 								if($rateUp==0){
 									$rateUp=0;
-								}								
+								}									
 								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
 											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
 										</button>'; 
 								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up'.$FileID.'" title="Click to vote Up">
 											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
-										</button>'; 
+										</button>';
+								echo 	'<button type="submit" class="btn btn-'.$abusevote.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="abuse'.$FileID.'" title="Click to vote Up">
+											<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+										</button>';
 								
 								echo 	'</Form>';
 							}else{

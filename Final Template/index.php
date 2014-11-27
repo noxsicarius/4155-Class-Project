@@ -23,6 +23,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>X Note Plus</title>
 	<link rel="stylesheet" href="styles.css" type="text/css" />
+	<link rel="shortcut icon" href="http://faviconist.com/icons/2651b49d7a0290b4dea7941fae50d25e/favicon.ico" />
 </head>
 
 <body>
