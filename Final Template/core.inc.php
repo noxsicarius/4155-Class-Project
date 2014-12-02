@@ -1,12 +1,15 @@
+
+<?php
+
+	ob_start();
+	session_start();
+?>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 
 </head>
 <?php
-
-	ob_start();
-	session_start();
 	$current_file = $_SERVER['SCRIPT_NAME'];
 	
 	if(isset($_SERVER['HTTP_REFERER'])) {
