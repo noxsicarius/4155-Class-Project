@@ -513,9 +513,17 @@ Function File_Vote_Abuse($FileID){
 function createSpoilerbutton($FileID){ 
 		$title=FileInfo($FileID,'NotesTitle');
 		$content=FileInfo($FileID,'content');
+		$owner=FileInfo($FileID,'StudentID');
+		$currentuser=getuserid();		
 		$rateUp=File_VoteUp_UploadInfo_Get($FileID);		
 		$rateDown=File_VoteDown_UploadInfo_Get($FileID);		
 		$currentfile=basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+		
+		if($owner==$currentuser){
+			$showabuse=false;
+		}else{
+			$showabuse=true;
+		}
 		
 		if($currentfile=='myaccount.php'){
 			$link=$currentfile.'?id='.$FileID;
@@ -589,9 +597,11 @@ function createSpoilerbutton($FileID){
 								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up'.$FileID.'" title="Click to vote Up">
 											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
 										</button>';
+								if($showabuse==true){
 								echo 	'<button type="submit" class="btn btn-'.$abusevote.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="abuse'.$FileID.'" title="Click to vote Up">
 											<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 										</button>';
+								}
 								
 								echo 	'</Form>';
 							}else{
