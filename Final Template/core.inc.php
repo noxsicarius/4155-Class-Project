@@ -297,6 +297,17 @@
 		$OverAllSimilitry=($count/$AverageKeyWord)*100;   
 		$First_TO_Secound=($count/sizeof($KeyFirstFile))*100; //percent of FirstFile keywords found in Second File
 		$Secound_To_First=($count/sizeof($KeySecountFile))*100;//percent of SecoundFile keywords found in First File
+		
+		if($OverAllSimilitry>100){
+			$OverAllSimilitry=100;		
+		}
+		if($First_TO_Secound>100){
+			$First_TO_Secound=100;		
+		}
+		if($Secound_To_First>100){
+			$Secound_To_First=100;		
+		}
+		
 		$Similitry=array($First_TO_Secound,$Secound_To_First,$OverAllSimilitry);
 		return $Similitry;
 	}
@@ -647,7 +658,7 @@ function createSpoilerbuttonmyaccount($FileID){
 				File_VoteUp_UploadInfo_Save($FileID);
 				header('Location:myaccount.php?id='.$FileID);
 			}
-		}else if($currentfile=='search.php'){
+		}else if($currentfile=='similar.php'){
 			$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
 			if (isset($_REQUEST['down'])) {												
 			File_VoteDown_UploadInfo_Save($FileID);

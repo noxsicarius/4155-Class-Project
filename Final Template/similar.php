@@ -68,7 +68,7 @@
 			echo		  '<div class="panel-heading">Similar Notes to <b>'.$FileTitle. '</b></div>';				  
 			echo			  '<div class="panel-body">';
 			echo			  '<table class="table">';												
-			echo						'<tr bgcolor="#FFFFF0">';								
+			echo						'<tr>';								
 			echo							'<td><b>Notes Title</b></td>';
 			echo							'<td><b>Match</b></td>';
 			echo							'<td><b>Class Name</b></td>';
@@ -80,7 +80,9 @@
 											$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
 											$Nname=FileInfo($Array[$x][0],'NotesTitle');$Sschool=FileInfo($Array[$x][0],'School');$Cclass=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
 											$x5='hey';
-												echo MakeTable($Nname,$Match,$Cclass,$Sschool,$Link);									
+											if ($Match>69){
+												echo MakeTable($Nname,$Match,$Cclass,$Sschool,$Link);
+											}
 											
 										}
 									
@@ -92,7 +94,7 @@
 
 			if(isset($_GET['view'])){
 				$viewsim=$_GET['view'];
-				CreateSpoilerByFileID($viewsim);	
+				createSpoilerbuttonmyaccount($viewsim);	
 			}
 		}else{
 			echo '<article>';
