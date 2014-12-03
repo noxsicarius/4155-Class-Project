@@ -83,6 +83,9 @@
 											$Name=FileInfo($Array[$x][0],'NotesTitle');$School=FileInfo($Array[$x][0],'School');$Class=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
 											$x5='hey';
 											if ($Match>69){
+												if($Match>100){
+													$Match=100;												
+												}
 												$forml=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
 												
 												echo "<tr><td>$Name </td><td>$Match %</td><td>$Class</td><td>$School</td>";
