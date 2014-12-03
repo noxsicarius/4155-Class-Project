@@ -1,8 +1,8 @@
-
 <?php
 
 	ob_start();
 	session_start();
+	
 ?>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -71,7 +71,7 @@
 		return $id;
 	}
 	
-	function createSpoiler($title, $content, $rateUp, $rateDown){ ?>
+	function createSpoiler($title, $content){ ?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
@@ -94,9 +94,7 @@
 	function CreateSpoilerByFileID($FileID){
 		$title=FileInfo($FileID,'NotesTitle');
 		$content=FileInfo($FileID,'content');
-		$rateDown=0;
-		$rateUp=5;
-		createSpoiler($title, $content, $rateUp, $rateDown);
+		createSpoiler($title, $content);
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------------------
@@ -517,8 +515,6 @@ Function File_Vote_Abuse($FileID){
 	function currentPage() {
 		return substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 	}
-	
-
 
 ?>
 
@@ -585,8 +581,6 @@ function createSpoilerbutton($FileID){
 				$votedowncolor='default';
 			}
 		}
-			
-			
 
 
 ?>
@@ -606,16 +600,16 @@ function createSpoilerbutton($FileID){
 								if($rateUp==0){
 									$rateUp=0;
 								}									
-								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
-											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
-										</button>'; 
-								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up'.$FileID.'" title="Click to vote Up">
-											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
-										</button>';
+								echo '<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
+										<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
+									 </button>'; 
+								echo '<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up'.$FileID.'" title="Click to vote Up">
+										<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
+									 </button>';
 								if($showabuse==true){
-								echo 	'<button type="submit" class="btn btn-'.$abusevote.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="abuse'.$FileID.'" title="Click to vote Up">
+									echo '<button type="submit" class="btn btn-'.$abusevote.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="abuse'.$FileID.'" title="Click to vote Up">
 											<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-										</button>';
+										 </button>';
 								}
 								
 								echo 	'</Form>';
@@ -629,7 +623,6 @@ function createSpoilerbutton($FileID){
 								
 								echo '<span class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"> '.$rateDown.'&nbsp;</span>';
 								echo '<span class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true">&nbsp;'.$rateUp.'&nbsp;&nbsp;</span>';
-							
 							
 							}
 							?>
@@ -726,6 +719,3 @@ function createSpoilerbuttonmyaccount($FileID){
 			</div>
 		</div>
 <?php } ?>
-
-
-
