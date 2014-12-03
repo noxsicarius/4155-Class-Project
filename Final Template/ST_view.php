@@ -21,12 +21,13 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>X Note Plus</title>	
+	<title>Study Guide --X Note Plus</title>	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 	<script src="js/bootstrap.js"></script>
+	<link rel="shortcut icon" href="http://faviconist.com/icons/2651b49d7a0290b4dea7941fae50d25e/favicon.ico" />
 </head>
 
 <body>

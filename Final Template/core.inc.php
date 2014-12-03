@@ -532,6 +532,7 @@ function createSpoilerbutton($FileID){
 		$rateUp=File_VoteUp_UploadInfo_Get($FileID);		
 		$rateDown=File_VoteDown_UploadInfo_Get($FileID);		
 		$currentfile=basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+		$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
 		
 		if($owner==$currentuser){
 			$showabuse=false;

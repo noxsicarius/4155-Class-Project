@@ -37,9 +37,11 @@
 <!doctype html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>X Note Plus</title>
-	<link rel="stylesheet" href="styles.css" type="text/css" />
+	<link rel="shortcut icon" href="http://faviconist.com/icons/2651b49d7a0290b4dea7941fae50d25e/favicon.ico" />
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+	<script src="js/bootstrap.js"></script>
+	<title>Similar Files</title>
 </head>
 
 <body>
@@ -78,11 +80,28 @@
 										
 										for($x=0;$x<sizeof($Array);$x++){
 											$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
-											$Nname=FileInfo($Array[$x][0],'NotesTitle');$Sschool=FileInfo($Array[$x][0],'School');$Cclass=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
+											$Name=FileInfo($Array[$x][0],'NotesTitle');$School=FileInfo($Array[$x][0],'School');$Class=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
 											$x5='hey';
 											if ($Match>69){
-												echo MakeTable($Nname,$Match,$Cclass,$Sschool,$Link);
+												$forml=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+												
+												echo "<tr><td>$Name </td><td>$Match %</td><td>$Class</td><td>$School</td>";
+												echo '<td>';$Link='similar.php?id='.$CurrentFileID;
+												echo '<form action="'.$forml.'" method="Post">';
+												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="show'.$x.'" title="Display this file">
+														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+													</button>';
+												echo '</Form>';												
+												echo '</td></tr>';
+												
 											}
+											
+											if (isset($_REQUEST['show'.$x])) {
+												$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
+												header('Location:'.$Link);
+												}
+											
+											
 											
 										}
 									
@@ -94,7 +113,7 @@
 
 			if(isset($_GET['view'])){
 				$viewsim=$_GET['view'];
-				createSpoilerbuttonmyaccount($viewsim);	
+				createSpoilerbutton($viewsim);	
 			}
 		}else{
 			echo '<article>';
