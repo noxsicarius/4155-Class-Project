@@ -1,8 +1,8 @@
+
 <?php
 
 	ob_start();
 	session_start();
-	
 ?>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -55,6 +55,23 @@
 			return $File_Field;
 		}
 	}
+	// Returns all the visible feeds for index page
+	Function GetVisibleFeed(){
+		$database=DatabaseName();
+		$query="SELECT * FROM `feeds` WHERE `FeedShow` = 1 ORDER BY `FeedID` DESC";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			for($i=0;$i<$num_of_rows;$i++){
+				$Feeds[$i][0]=mysql_result($result,$i,'FeedID');
+				$Feeds[$i][1]=mysql_result($result,$i,'FeedTitle');
+				$Feeds[$i][2]=mysql_result($result,$i,'FeedAuthor');
+				$Feeds[$i][3]=mysql_result($result,$i,'FeedDate');
+				$Feeds[$i][4]=mysql_result($result,$i,'FeedContant');					
+				
+			}
+			return $Feeds;
+		}	
+	}
 
 	function searchDB($query){
 		$searchResults=mysql_query($query);
@@ -71,7 +88,7 @@
 		return $id;
 	}
 	
-	function createSpoiler($title, $content){ ?>
+	function createSpoiler($title, $content, $rateUp, $rateDown){ ?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
@@ -94,7 +111,9 @@
 	function CreateSpoilerByFileID($FileID){
 		$title=FileInfo($FileID,'NotesTitle');
 		$content=FileInfo($FileID,'content');
-		createSpoiler($title, $content);
+		$rateDown=0;
+		$rateUp=5;
+		createSpoiler($title, $content, $rateUp, $rateDown);
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------------------
@@ -515,6 +534,8 @@ Function File_Vote_Abuse($FileID){
 	function currentPage() {
 		return substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 	}
+	
+
 
 ?>
 
@@ -536,15 +557,19 @@ function createSpoilerbutton($FileID){
 			$showabuse=true;
 		}
 		
-		if($currentfile=='myaccount.php'){
-			$link=$currentfile.'?id='.$FileID;
-			if (isset($_REQUEST['down'])) {												
+		if($currentfile=='similar.php'){
+			$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];			
+			if (isset($_REQUEST['down'.$FileID])) {												
 			File_VoteDown_UploadInfo_Save($FileID);
-			header('Location:myaccount.php?id='.$FileID);
+			header('Location:'.$link);
 			}
-			if (isset($_REQUEST['Up'])) {												
+			if (isset($_REQUEST['Up'.$FileID])) {												
 				File_VoteUp_UploadInfo_Save($FileID);
-				header('Location:myaccount.php?id='.$FileID);
+				header('Location:'.$link);
+			}
+			if (isset($_REQUEST['abuse'.$FileID])) {												
+				File_Vote_Abuse($FileID);
+				header('Location:'.$link);
 			}
 		}else if($currentfile=='search.php'){
 			$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
@@ -581,6 +606,8 @@ function createSpoilerbutton($FileID){
 				$votedowncolor='default';
 			}
 		}
+			
+			
 
 
 ?>
@@ -600,16 +627,16 @@ function createSpoilerbutton($FileID){
 								if($rateUp==0){
 									$rateUp=0;
 								}									
-								echo '<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
-										<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
-									 </button>'; 
-								echo '<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up'.$FileID.'" title="Click to vote Up">
-										<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
-									 </button>';
+								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
+											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
+										</button>'; 
+								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up'.$FileID.'" title="Click to vote Up">
+											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
+										</button>';
 								if($showabuse==true){
-									echo '<button type="submit" class="btn btn-'.$abusevote.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="abuse'.$FileID.'" title="Click to vote Up">
+								echo 	'<button type="submit" class="btn btn-'.$abusevote.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="abuse'.$FileID.'" title="Click to vote Up">
 											<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-										 </button>';
+										</button>';
 								}
 								
 								echo 	'</Form>';
@@ -623,6 +650,7 @@ function createSpoilerbutton($FileID){
 								
 								echo '<span class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"> '.$rateDown.'&nbsp;</span>';
 								echo '<span class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true">&nbsp;'.$rateUp.'&nbsp;&nbsp;</span>';
+							
 							
 							}
 							?>
@@ -719,3 +747,6 @@ function createSpoilerbuttonmyaccount($FileID){
 			</div>
 		</div>
 <?php } ?>
+
+
+

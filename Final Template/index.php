@@ -11,6 +11,7 @@
 		//include 'login.inc.php';
 		$logged_in=0;
 	}
+	$AllFeeds=GetVisibleFeed();
 	
 	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
                     '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
@@ -53,16 +54,17 @@
 					<p>You can also upload your note by becoming a member of NotePlus.</p>
 					<p>&nbsp;</p>
 				</article>
-
-				<article class="expanded">
-					<h2>First Notice Here</h2>
-					<br>
-					<p>Date: 11/13/2014</p>
-					<p>We can put different information here for notices to users.</p>
-					<p>This is simply a place holder to show how it will look.</p>
-					<p>Dates can be added to each notice.</p>
-					<br>
-				</article>
+	<?php
+			for($x=0;$x<sizeof($AllFeeds);$x++){			
+				echo '<div class="panel panel-default">
+						  <div class="panel-heading"> Title: '.$AllFeeds[$x][1].'</div>
+						  <div class="panel-body">'.$AllFeeds[$x][4].' </div>
+						  <div class="panel-footer"><p style="text-align:left;">Author: '.$AllFeeds[$x][2].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
+					  </div>';
+				
+			}
+			
+	?>
 			</section>
 		
 

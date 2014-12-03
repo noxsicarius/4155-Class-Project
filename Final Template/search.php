@@ -2,6 +2,7 @@
 
 	require 'core.inc.php';
 	require 'connect.inc.php';
+	require 'rate.inc.php';
 
 	$searchQuery = "SELECT * FROM uploadinfo WHERE ";
 	$init=1;
