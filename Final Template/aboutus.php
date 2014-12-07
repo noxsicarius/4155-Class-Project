@@ -91,11 +91,12 @@
         <hr>
 
         <!-- Footer -->
+	</div>
        <footer>
-			<?php include 'footer.php' ?>;
+			 <?php include 'newfooter.php'; ?> 
 		</footer>
 
-    </div>
+    
     <!-- /.container -->
 
     <!-- jQuery -->

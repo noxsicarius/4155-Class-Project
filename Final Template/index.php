@@ -57,9 +57,8 @@
 	<?php
 			for($x=0;$x<sizeof($AllFeeds);$x++){			
 				echo '<div class="panel panel-default">
-						  <div class="panel-heading"> Title: '.$AllFeeds[$x][1].'</div>
-						  <div class="panel-body">'.$AllFeeds[$x][4].' </div>
-						  <div class="panel-footer"><p style="text-align:left;">Author: '.$AllFeeds[$x][2].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
+						  <div class="panel-heading"><p style="text-align:left;">Title: '.$AllFeeds[$x][1].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
+						  <div class="panel-body">'.$AllFeeds[$x][4].' </div>						  
 					  </div>';
 				
 			}
@@ -87,9 +86,9 @@
 		echo '</div>';
 		}
 	      ?>
-		<footer>
-			<?php include 'footer.php' ?>;
+</div>
+       <footer>
+			<?php include 'newfooter.php'; ?> 
 		</footer>
-	</div>
 </body>
 </html>
