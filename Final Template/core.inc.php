@@ -521,7 +521,33 @@ Function File_Vote_Abuse($FileID){
 
 
 //------------------------------------------------------File Rating End--------------------------------------------------------------------------	
+	//Mail Functions---	
 	
+	Function SendMail($To,$From,$Subject,$ReplayTO,$Message){
+		
+		$headers = "From: " . $From . "\r\n";
+		$headers .= "Reply-To: ". $ReplayTO . "\r\n";
+		$headers .= "MIME-Version: 1.0\r\n";
+		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+		mail($To, $Subject, $Message, $headers);	
+	
+	}	
+	
+	Function RegisterEmail($To,$Name,$Username){
+		$From	 	='admin@xnoteplus.com ';
+		$Subject 	='Registration Successfull';
+		$ReplayTO	='no-replay@xnoteplus.com';
+		$Message	='<html><body><h3>Dear '.$Name.',</h3>
+						<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Thank you for joning our website. We are&nbsp;excited to welcome&nbsp;you. We hope&nbsp;you&nbsp;will use this&nbsp;site&nbsp;to achieve your goals.</p>
+						<p>Your Username is '.$Username.'</p>
+						<p>Thank you</p>
+						<p><a href="http://xnoteplus.com">xnoteplus.com</a></p>
+						<p>&nbsp;</p></html></body>';
+		SendMail($To,$From,$Subject,$ReplayTO,$Message);
+	}
+	
+
 	
 	
 //---------------------------------------------------------------------------------------------------------------------------------	

@@ -48,6 +48,7 @@
 						$query = "INSERT INTO users VALUES (id,'".mysql_real_escape_string($username)."','".mysql_real_escape_string($password)."','".mysql_real_escape_string($name)."','".mysql_real_escape_string($school)."','".mysql_real_escape_string($email)."','".mysql_real_escape_string('0')."','".mysql_real_escape_string('Student')."')";
 						if ($query_run = mysql_query($query)){
 							$successful = true;
+							RegisterEmail($email,$name,$username);
 						}
 					}
 				}

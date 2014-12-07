@@ -149,7 +149,7 @@
 		$query1="DELETE FROM `$database`.`sentencerating` WHERE `sentencerating`.`StudentID` =  $StudentID";
 		mysql_query($query1);
 		
-		$query2="DELETE FROM `a_database`.`uploadinfo` WHERE `uploadinfo`.`StudentID` = $StudentID";
+		$query2="DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`StudentID` = $StudentID";
 		mysql_query($query2);
 		
 		$query3="DELETE FROM `$database`.`users` WHERE `users`.`Id` = $StudentID";
