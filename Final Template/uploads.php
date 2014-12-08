@@ -206,9 +206,9 @@
 						</form>';
 						
 					$arrlength=count($File_names);
-					echo 'My Files in DataBase'.'<br>';
+					//echo 'My Files in DataBase'.'<br>';
 					for($x=0;$x<$arrlength;$x++){
-						echo $File_names[$x].'<br>';
+						//echo $File_names[$x].'<br>';
 					}
 				}else{
 					echo 'Please '.'<a href="register.php">Register</a>'.' or '.'<a href="login.php">Log in</a>'.' before uploading a file';
@@ -227,9 +227,9 @@
 
   '</div>';}
   ?>
-    <footer>
-        <?php include 'footer.php' ?>;
-    </footer>
-</div>
+</div></div>
+       <footer>
+			 <?php include 'newfooter.php'; ?> 
+		</footer>
 </body>
 </html>

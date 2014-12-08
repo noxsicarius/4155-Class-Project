@@ -183,11 +183,11 @@
 
 			<div class="clear"></div>
 		</div>
-		
+	</div>	
 		<!-- footer at botom of page -->
 		<footer>
-			<?php include 'footer.php' ?>;
+			<?php include 'newfooter.php' ?>;
 		</footer>
-	</div>
+	
 </body>
 </html>

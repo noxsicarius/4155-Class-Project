@@ -182,9 +182,9 @@
   '</div>';}
   ?>
 		
-		<footer>
-			<?php include 'footer.php'; ?>
+	</div></div></div>
+       <footer>
+			 <?php include 'newfooter.php'; ?> 
 		</footer>
-	</div>
 </body>
 </html>

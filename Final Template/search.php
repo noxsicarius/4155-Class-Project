@@ -144,9 +144,9 @@
 	
 			<div class="clear"></div>
 		</div>
-		
-		<footer>
-			<?php include 'footer.php' ?>;
+	</div>
+       <footer>
+			 <?php include 'newfooter.php'; ?> 
 		</footer>
 	</div>
 </body>

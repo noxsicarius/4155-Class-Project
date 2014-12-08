@@ -156,11 +156,10 @@
 			<div class="clear"></div>
 		</div>
 		
-		<footer>
-			<?php include 'footer.php' ?>;
-		</footer>
-
 	</div>
+       <footer>
+			 <?php include 'newfooter.php'; ?> 
+		</footer>
 </body>
 </html>
 
