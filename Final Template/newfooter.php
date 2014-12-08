@@ -1,6 +1,6 @@
 <div class="container">
 				<div class="row">
-					<div class="col-md-6 footer-left">
+					<div class="col-md-6 col-md-offset-3">
 						<ul class="list-inline">
 							<li>
 								<a href="index.php">Home</a>
