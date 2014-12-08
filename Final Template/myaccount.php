@@ -238,7 +238,14 @@
 												//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
 												echo '<td>';
 												//echo "<a href='".$href."'>Delete</a>";
-												echo '   '."<a href='".$view."'>View study guide</a>"; 
+												
+												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="view'.$x.'" title="View Study Guide">
+														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+													</button>'; echo '   ';
+
+													if (isset($_REQUEST['view'.$x])) {												
+												header('Location:ST_view.php?Name='.$table[$x]);
+											}
 												
 												echo '</td>';
 												echo '</tr>';
