@@ -242,10 +242,19 @@
 												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="view'.$x.'" title="View Study Guide">
 														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 													</button>'; echo '   ';
+												echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'" title="Download this file as PDF">
+														  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+													</button>'; echo '   ';
 
-													if (isset($_REQUEST['view'.$x])) {												
-												header('Location:ST_view.php?Name='.$table[$x]);
-											}
+												if (isset($_REQUEST['view'.$x])) {												
+													header('Location:ST_view.php?Name='.$table[$x]);
+												}
+												if (isset($_REQUEST['download'.$x])) {
+													$Class=strtolower($Student_Classes[$x][1]);
+													$School=strtolower($Student_Classes[$x][0]);
+													header('Location:pdfFunction.php?class='.$Class.'&school='.$School);
+												}
+												
 												
 												echo '</td>';
 												echo '</tr>';

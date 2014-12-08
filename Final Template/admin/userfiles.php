@@ -102,18 +102,19 @@
 											echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this file">
 															  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 														</button>'; echo '   ';
-											echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="edit'.$x.'" title="Edit this user Profile">
+											echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'" title="Edit this user Profile">
 															  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 														</button>'; echo '   ';						
 											echo 		'</Form>';
 											echo        '</td>';
 											echo	'</tr>';
 											
-											if (isset($_REQUEST['delete'.$x])) {												
+											if (isset($_REQUEST['delete'.$x])) {
+												Delete_File($AllFiles[$x][0]);
 												header('Location:'.$link);
-											}
-											if (isset($_REQUEST['edit'.$x])) {												
-												header('Location:userfiles.php?id='.$AllFiles[$x][0]);
+											}											
+											if (isset($_REQUEST['download'.$x])) {												
+												header('Location:../pdfFunction.php?id='.$AllFiles[$x][0]);
 											}
 											
 										}

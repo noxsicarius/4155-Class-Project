@@ -73,7 +73,7 @@
                 <p>Student of Computer Science college</p>
             </div> 
             <div class="col-lg-3 col-sm-6 text-center">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+                <img class="img-circle img-responsive img-center" src="TeamPictures/evan.jpg" alt="">
                 <h3>Evan Simmons
                 </h3>
                 <p>Student of Computer Science college</p>

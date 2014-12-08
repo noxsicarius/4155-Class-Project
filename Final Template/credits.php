@@ -71,18 +71,18 @@
                 <h3>Asif Subhan</h3>
                 <p>Student of Computer Science college</p>
             </div>
-            <div class="col-lg-3 col-sm-6 text-center">
+            <div class="col-lg-3 col-sm-3 text-center">
                 <img class="img-circle img-responsive img-center" src="TeamPictures/ricky.jpg" alt="">
                 <a href="https://github.com/noxsicarius" target="_blank"><h3>Ricky Sanders</h3></a>
                 <p>Student of Computer Science college</p>
             </div> 
-            <div class="col-lg-3 col-sm-6 text-center">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
+            <div class="col-lg-3 col-sm-3 text-center">
+                <img class="img-circle img-responsive img-center" src="TeamPictures/evan.jpg" alt="">
                 <h3>Evan Simmons
                 </h3>
                 <p>Student of Computer Science college</p>
             </div> 
-			<div class="col-lg-3 col-sm-6 text-center">
+			<div class="col-lg-3 col-sm-3 text-center">
                 <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="">
                 <h3>Meng Qi
                 </h3>
@@ -95,11 +95,10 @@
         <hr>
 
         <!-- Footer -->
+      </div>
        <footer>
-			<?php include 'footer.php' ?>;
+			 <?php include 'newfooter.php'; ?> 
 		</footer>
-
-    </div>
     <!-- /.container -->
 
     <!-- jQuery -->

@@ -73,7 +73,7 @@
                             <a href="#"><i class="fa fa-file-text fa-fw"></i> Notes Files <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">User Files</a>
+                                    <a href="userfiles.php">User Files</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">Study Guides</a>

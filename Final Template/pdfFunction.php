@@ -21,19 +21,22 @@
 		$content=FileInfoo($FileID,'content');
 		PDF_TitleContent ($title,$content);
 	}
+	
 	Function ArrayTOSentence($School,$Class){		
 		$Array=ST_GetMasterSentences($School,$Class);		
-		$content=implode($Array,". ");
+		$content=implode($Array,".");
 		$title=$Class.' Study Guide ';
 		PDF_TitleContent ($title,$content);
-	}
-	$PreviousPage=$_SERVER['HTTP_REFERER'];
+	}	
+	
 	if(isset($_GET['id'])){
 		$FileID=$_GET['id'];
 		PDF_TitleContent_ByFileID ($FileID);		
-	}else if(isset($_GET['class'])){
-		$Class=$_GET['id'];
+	}else if(isset($_GET['class']) && isset($_GET['school'])){	
+		$School=$_GET['school'];$Class=$_GET['class'];				
+		ArrayTOSentence($School,$Class);		
 	}else{
+		$PreviousPage=$_SERVER['HTTP_REFERER'];
 		header('Location:'.$PreviousPage);
 	}
 	
@@ -44,8 +47,7 @@
 			$File_Field= $content;			
 			return $File_Field;
 		}
-	}
-	
+	}	
 	
 
 ?>

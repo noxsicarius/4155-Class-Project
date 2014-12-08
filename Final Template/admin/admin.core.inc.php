@@ -323,13 +323,23 @@
 			$num_of_rows=mysql_num_rows($result);
 			for($i=0;$i<$num_of_rows;$i++){
 			$File_Field[$i][0]=mysql_result($result,$i,'FileID');
-			$File_Field[$i][1]=mysql_result($result,$i,'NotesTitle');
-			$File_Field[$i][2]=mysql_result($result,$i,'StudentID');
+			$File_Field[$i][1]=mysql_result($result,$i,'NotesTitle');			
+			$File_Field[$i][2]=getfield('name',(mysql_result($result,$i,'StudentID')));
 			$File_Field[$i][3]=mysql_result($result,$i,'ClassName');
 			$File_Field[$i][4]=mysql_result($result,$i,'School');					
 			}
 			return $File_Field;		
 		}
+	}
+	
+	// this function will delete a File and also drop the table of sentences and keywords
+	function Delete_File($id){
+		$database=DatabaseName();
+		$name='table_'.$id;
+		mysql_query("DELETE FROM `$database`.`filerating` WHERE `filerating`.`FileID` = $id");
+		mysql_query("DROP TABLE IF EXISTS `$database`.`$name`");		
+		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
+		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
 	}
 
 
@@ -340,86 +350,3 @@
 	
 
 ?>
-<!---My account spoiler----->
-<?php
-function createSpoilerbuttonmyaccount($FileID){ 
-		$title=FileInfo($FileID,'NotesTitle');
-		$content=FileInfo($FileID,'content');
-		$rateUp=File_VoteUp_UploadInfo_Get($FileID);		
-		$rateDown=File_VoteDown_UploadInfo_Get($FileID);		
-		$currentfile=basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
-		
-		if($currentfile=='userfiles.php'){
-			$link=$currentfile.'?id='.$FileID;
-			if (isset($_REQUEST['down'])) {												
-			File_VoteDown_UploadInfo_Save($FileID);
-			header('Location:userfiles.php?id='.$FileID);
-			}
-			if (isset($_REQUEST['Up'])) {												
-				File_VoteUp_UploadInfo_Save($FileID);
-				header('Location:userfiles.php?id='.$FileID);
-			}
-		}else if($currentfile=='similar.php'){
-			$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
-			if (isset($_REQUEST['down'])) {												
-			File_VoteDown_UploadInfo_Save($FileID);
-			header('Location:'.$link);
-			}
-			if (isset($_REQUEST['Up'])) {												
-				File_VoteUp_UploadInfo_Save($FileID);
-				header('Location:'.$link);
-			}
-		}
-		$UserRate=File_Check_Userrate($FileID);
-		if($UserRate=='no'){
-			$voteupcolor='default';
-			$votedowncolor='default';
-		}else if($UserRate=='-1'){
-			$voteupcolor='default';
-			$votedowncolor='danger';		
-		}else if($UserRate=='1'){
-			$voteupcolor='success';
-			$votedowncolor='default';		
-		}else if ($UserRate=='0'){
-			$voteupcolor='default';
-			$votedowncolor='default';
-		}
-		
-
-
-?>
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingOne">
-					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
-							<?php echo 	'<form action="'.$link.'" method="Post">'; 
-							echo"$title";?>
-						</a>
-							<?php	
-								if($rateDown==0){
-									$rateDown=0;
-								}
-								if($rateUp==0){
-									$rateUp=0;
-								}
-								
-								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down" title="Click to vote down">
-											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
-										</button>'; 
-								echo 	'<button type="submit" class="btn btn-'.$voteupcolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up" title="Click to vote Up">
-											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
-										</button>'; 
-								
-								echo 	'</Form>';
-							?>
-					</h4>
-				</div>
-				<div id='<?php echo"$title";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
-						<?php echo"$content";?>
-					</div>
-				</div>
-			</div>
-		</div>
-<?php } ?>
