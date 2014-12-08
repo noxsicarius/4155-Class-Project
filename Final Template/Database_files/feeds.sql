@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `feeds` (
 `FeedID` int(11) NOT NULL,
-  `FeedDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `FeedDate` datetime,
   `FeedTitle` varchar(60) NOT NULL,
   `FeedAuthor` varchar(100) NOT NULL,
   `FeedContant` text NOT NULL,
