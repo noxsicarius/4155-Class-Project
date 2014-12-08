@@ -4,14 +4,15 @@
 	require 'comparison.php';
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
-		$logged_in=1;							
+		$logged_in=1;
+		$user_fullname=getfield('name');
+		$StudentID=getuserid();
 		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
 		$logged_in=0;
 	}	
 
-	$user_fullname=getfield('name');
-	$StudentID=getuserid();
+	
 	$Sring_Message='<strong>Please upload text files only. </strong>';
 
 	if(isset($_POST['submit'])){
