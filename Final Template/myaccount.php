@@ -239,14 +239,14 @@
 												echo '<td>';
 												//echo "<a href='".$href."'>Delete</a>";
 												
-												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="view'.$x.'" title="View Study Guide">
+												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="ST_view'.$x.'" title="View Study Guide">
 														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 													</button>'; echo '   ';
 												echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'" title="Download this file as PDF">
 														  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 													</button>'; echo '   ';
 
-												if (isset($_REQUEST['view'.$x])) {												
+												if (isset($_REQUEST['ST_view'.$x])) {												
 													header('Location:ST_view.php?Name='.$table[$x]);
 												}
 												if (isset($_REQUEST['download'.$x])) {
