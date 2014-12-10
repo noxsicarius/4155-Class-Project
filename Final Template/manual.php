@@ -3,53 +3,6 @@
 	require 'core.inc.php';
 	require 'connect.inc.php';
 
-	$searchQuery = "SELECT * FROM uploadinfo WHERE ";
-	$init=1;
-	
-/************	Check if variables are set 	*************/
-	if(isset($_GET['searchDoc'])){
-		$searchTitle = $_GET['searchDoc'];
-		if($searchTitle != ""){
-			$searchQuery .= "NotesTitle LIKE '%$searchTitle%' ";
-			$init=($init==1)?0:$init;
-		}
-	} else {
-		$searchTitle="";
-	}
-
-	if(isset($_GET['searchCourse'])){
-		$searchCourse = $_GET['searchCourse'];
-		if($searchCourse != ""){
-			if($init==1){$medium="";} else {$medium=" AND ";}
-			$searchQuery .= $medium."ClassName LIKE '%$searchCourse%' ";
-			$init=($init==1)?0:$init;
-		}
-	} else {
-		$searchCourse="";
-	}
-
-	if(isset($_GET['searchInstructor'])){
-		$searchInstructor = $_GET['searchInstructor'];
-		if($searchInstructor != ""){
-			if($init==1){$medium="";} else {$medium=" AND ";}
-			$searchQuery .= $medium."Teacher LIKE '%$searchInstructor%' ";
-			$init=($init==1)?0:$init;
-		}
-	} else {
-		$searchInstructor="";
-	}
-
-	if(isset($_GET['searchUni'])){
-		$searchUniversity = $_GET['searchUni'];
-		if($searchUniversity != ""){
-			if($init==1){$medium="";} else {$medium=" AND ";}
-			$searchQuery .= $medium."Teacher LIKE '%$searchUniversity%' ";
-			$init=($init==1)?0:$init;
-		}
-	} else {
-		$searchUniversity="";
-	}
-
 ?>
 
 <!doctype html>
