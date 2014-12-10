@@ -40,17 +40,16 @@
 					<!-- Page title -->
 					<h1>Contact Us</h1>
 					
-					
 					<!-- Section separator -->
 					<article class="expanded"></article>
 					<br>
 
-					
 					<!-- Section content -->
 					<?php 
 						if(isset($_REQUEST['action'])){
 							$action=$_REQUEST['action'];
 						}else {$action="";}
+
 						if ($action=="")    /* display the contact form */ 
 						{?>
 							<form  action="" method="POST" enctype="multipart/form-data"> 
@@ -113,7 +112,7 @@
 										<span class="sr-only">Error:</span>
 										ALL fields are required
 									</div>
-						<?php 
+							<?php 
 								}
 								
 								if($nameErr){
@@ -184,10 +183,11 @@
 			<div class="clear"></div>
 		</div>
 	</div>	
-		<!-- footer at botom of page -->
-		<footer>
-			<?php include 'newfooter.php' ?>;
-		</footer>
+
+	<!-- footer at botom of page -->
+	<footer>
+		<?php include 'newfooter.php' ?>;
+	</footer>
 	
 </body>
 </html>

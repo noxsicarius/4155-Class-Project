@@ -5,15 +5,15 @@
 	if(UserRole()!='Admin'){
 		header('Location:unarth.php');	
 	}
-	//$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+
 	$link='userfiles.php';
 	$AllFiles=FilesInDataBase();
+
 	if(isset($_GET['id'])){
 		$CurrentFileID=$_GET['id'];
 	}else{
 		$CurrentFileID=null;
 	}
-
 	
 ?>
 
@@ -21,7 +21,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,7 +83,7 @@
                                         <tr>
                                             <th>Title</th>
                                             <th>Student</th>
-                                            <th>Class</th>											
+                                            <th>Class</th>
                                             <th>School</th>
                                             <th>Action</th>
                                         </tr>
@@ -98,13 +97,13 @@
                                             echo		'<td>'.$AllFiles[$x][3].'</td>';
                                             echo		'<td class="center">'.$AllFiles[$x][4].'</td>';
 											echo 		'<form action="'.$link.'">';
-                                            echo		'<td width="300">';											
+                                            echo		'<td width="300">';
 											echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this file">
 															  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 														</button>'; echo '   ';
 											echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'" title="Edit this user Profile">
 															  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-														</button>'; echo '   ';						
+														</button>'; echo '   ';
 											echo 		'</Form>';
 											echo        '</td>';
 											echo	'</tr>';
@@ -112,18 +111,16 @@
 											if (isset($_REQUEST['delete'.$x])) {
 												Delete_File($AllFiles[$x][0]);
 												header('Location:'.$link);
-											}											
-											if (isset($_REQUEST['download'.$x])) {												
-												header('Location:../pdfFunction.php?id='.$AllFiles[$x][0]);
 											}
 											
+											if (isset($_REQUEST['download'.$x])) {
+												header('Location:../pdfFunction.php?id='.$AllFiles[$x][0]);
+											}
 										}
-									?>                                        
+									?>
                                        
-                                        
                                     </tbody>
                                 </table>
-								
                             </div>
                             <!-- /.table-responsive -->                           
                         </div>
@@ -134,9 +131,6 @@
                 <!-- /.col-lg-12 -->
             </div>
 			<!-- Update table-->
-			
-		
-			
             
     <!-- /#wrapper -->
 

@@ -6,14 +6,12 @@
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
 		$logged_in=0;
 	}	
 	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
                     '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
                     '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
-
 ?>
 
 <!doctype html>
@@ -40,30 +38,29 @@
     '<div id="body">'.
 
 	  '<section id="content">';} ?>
+			<article>
+				<h1>Please Login</h1>
+			</article>
+			<br>
 
-				<article>
-					<h1>Please Login</h1>
-				</article>
-				<br>
+			<?php
+				if($logged_in==0){
+					include 'login.inc.php';
+				}else{
+					echo $user_fullname;
+				}
+			?>
 
-				<?php
-					if($logged_in==0){
-						include 'login.inc.php';
-					}else{
-						echo $user_fullname;
-					}
-				?>
-
-				<article></article>
-<?php if($isMobile==false){
-       echo '</section>';
-       
-       echo '<aside class="sidebar">';	
-             include 'aside.php'; 	
-       echo '</aside>';
-		echo '<div class="clear"></div>';
-
-  '</div>';}
+			<article></article>
+<?php 
+		if($isMobile==false){
+			echo '</section>';	   
+			echo '<aside class="sidebar">';	
+			include 'aside.php'; 	
+			echo '</aside>';
+			echo '<div class="clear"></div>';
+			echo '</div>';
+		}
   ?>
 	</div></div>
 		<footer>

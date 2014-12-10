@@ -6,5 +6,4 @@
 	Drop_Table($File_ID);
 	header("Location:myaccount.php");
 	
-	
 ?>

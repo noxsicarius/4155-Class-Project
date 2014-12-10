@@ -110,6 +110,7 @@
 												DeleteFeed($Feeds[$x][0]);
 												header('Location:'.$link);
 											}
+
 											if (isset($_REQUEST['edit'.$x])) {												
 												header('Location:feeds.php?view='.$Feeds[$x][0]);
 											}
@@ -174,19 +175,11 @@
 								</form>
 							</div>
 						</div>
-
 	<?php
-			echo $StringMessage;		
-				
-						
-					}
-			}			
+					echo $StringMessage;
+				}
+			}
 	?>
-			
-				
-			
-			
-			
         </div>
 	</div>
     <!-- /#wrapper -->
@@ -209,9 +202,9 @@
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-    $(document).ready(function() {
-        $('#dataTables-example').dataTable();
-    });
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
     </script>
 
 </body>

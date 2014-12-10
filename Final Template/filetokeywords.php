@@ -1,11 +1,8 @@
 <?php
 	require 'connect.inc.php';
-	
-	
 
 	$wordstoignore=array("is","was","are","they","can","a","i");
 	$filetostring = 'what is my name?.   what is your name....';
-	//$name='text1.txt';
 	$StudentID=$_SESSION['user_id'];
 	$queryx="SELECT * FROM `uploadinfo` WHERE `FileName` = '$name' AND `StudentID` = '$StudentID'"  ;
 	$All_File_keywords=array();
@@ -14,7 +11,6 @@
 		$filetostring=mysql_result($query_runx,0,"content");
 		$FileID=mysql_result($query_runx,0,"FileID");
 		make_table($FileID);
-		//echo $filetostring;
 	}
 
 	$sentencesarray = preg_split('/[.?]/', $filetostring );
@@ -25,7 +21,6 @@
 
 	for($x=0;$x<$numberofsentences;$x++){
 		$sentencesarray[$x]=trim($sentencesarray[$x]);
-		//echo $x.' '.$sentencesarray[$x].'  '.Strlen($sentencesarray[$x]).'  <br>';
 		if(Strlen($sentencesarray[$x])>0){
 			fwrite($fp,($sentencesarray[$x].PHP_EOL));
 			
@@ -36,7 +31,6 @@
 					if($string_to_array[$j]==$wordstoignore[$k]){
 						$count++;
 						break;
-						//echo "$string_to_array[$j]".' '."$wordstoignore[$k]".' Count:'."$count".' <br>';
 					}
 				}
 				if($count==0){					
@@ -66,9 +60,9 @@
 	if(NumberofRows('keywords')>1){
 		CompareFileToAll($FileID);
 	}
+
 	//calling Study guide comparison 
 	ST_CompareFileTOMaster($FileID);
-	
 	
 	function make_table($File_ID){
 		$sql="CREATE TABLE table_$File_ID ( SentenceNO int NOT NULL AUTO_INCREMENT, Sentence text NOT NULL, Keywords text NOT NULL, PRIMARY KEY (SentenceNO) )";
@@ -84,6 +78,5 @@
 			$Sring_Message= 'Row saved to database <br>'; 
 		}
 	}
-	
 	
 ?>

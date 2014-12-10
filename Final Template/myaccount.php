@@ -4,9 +4,6 @@
 	require 'comparison.php';
 	require('WriteHTML.php');
 	
-	
-	
-	
 	if(isset($_GET['id'])){
 		$CurrentFileID=$_GET['id'];
 	}else{
@@ -16,20 +13,19 @@
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
 		$logged_in=0;
 	}
+
 	$ID=getuserid();
 	$Files_Title=FilesInDataBase_ID('NotesTitle',$ID);
 	$Files_Names=FilesInDataBase_ID('FileName',$ID);
 	$Files_ID=FilesInDataBase_ID('FileID',$ID);
 	$Student_Classes=ST_Student_Classes($ID);
 	
-		$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
-                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
-                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
-	
+	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
+                '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
+                '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
 	
 ?>
 
@@ -127,15 +123,10 @@
 											$href='deletefile.php?id='.$Files_ID[$x];
 											$view='myaccount.php?id='.$Files_ID[$x];
 											$similarfile='similar.php?id='.$Files_ID[$x];
-											//echo '<td>';echo "<a href='".$view."'>View</a>";echo '<br> ';echo "<a href='".$similarfile."'>Similar Notes</a>"; 
 											
 											echo '</td>';
 											echo '</tr>';
 										}
-										
-										
-										
-																	
 										
 									?>
 								</table>
@@ -171,8 +162,6 @@
 									$database=DatabaseName();
 									$StudentID=$_SESSION['user_id'];
 									
-									
-									
 									if(!empty($username) && !empty($password) && !empty($password_again) && !empty($name) && !empty($school)){
 										if($password!=$password_again){
 											$StringMessage= 'Password do not match.';
@@ -189,14 +178,12 @@
 								}
 							} else if(!loggedin()){
 								$StringMessage= 'Log in Before updating your profile';								
-								
 							}
-							
-
 						?>
+
 						<div class="tab-pane" id="profile">
 							<article><br>
-									<form action="myaccount.php" method="POST">
+								<form action="myaccount.php" method="POST">
 									Username:<br> <input type="text" name ="username" <?php echo $OldUsername; ?> ><br><br>
 									Password:<br> <input type="password" name ="password" <?php echo $OldPassword; ?> ><br><br>
 									Retype Password:<br> <input type="password" name ="password_again" <?php echo $OldPassword; ?> ><br><br>
@@ -206,8 +193,6 @@
 								</form>
 								<br>
 								<?php echo $StringMessage ?>
-								
-								
 							</article>
 						</div>
 						
@@ -235,9 +220,7 @@
 												echo '<td>'.$Student_Classes[$x][1].'</td>';
 												$table[$x] = ST_ClassTableName($Student_Classes[$x][0],$Student_Classes[$x][1]);
 												$view='ST_view.php?Name='.$table[$x];
-												//$view=ST_PrintMaster('$Student_Classes[$x][0]','$Student_Classes[$x][1]','0');
 												echo '<td>';
-												//echo "<a href='".$href."'>Delete</a>";
 												
 												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="ST_view'.$x.'" title="View Study Guide">
 														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -255,7 +238,6 @@
 													header('Location:pdfFunction.php?class='.$Class.'&school='.$School);
 												}
 												
-												
 												echo '</td>';
 												echo '</tr>';
 											}
@@ -268,15 +250,15 @@
 					</div>
 				</form>
 				
-			<?php if($isMobile==false){
-       echo '</section>';
-       
-       echo '<aside class="sidebar">';	
-             include 'aside.php'; 	
-       echo '</aside>';
-		echo '<div class="clear"></div>';
-
-  '</div>';}
+		<?php 
+			if($isMobile==false){
+				echo '</section>';
+				echo '<aside class="sidebar">';	
+				include 'aside.php'; 	
+				echo '</aside>';
+				echo '<div class="clear"></div>';
+				echo '</div>';
+			}
   ?>
 	</div></div></div>
        <footer>

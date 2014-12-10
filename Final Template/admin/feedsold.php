@@ -2,9 +2,7 @@
 	require 'connect.inc.php';
 	require 'admin.core.inc.php';
 	
-	if(UserRole()=='Admin' OR UserRole()=='Teacher'){
-		
-	}else {
+	if(!(UserRole()=='Admin' OR UserRole()=='Teacher')){
 		header('Location:unarth.php');	
 	}
 	
@@ -94,9 +92,6 @@
 											echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this file">
 															  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 														</button>'; echo '   ';
-											//echo 		'<button type="submit" class="btn btn-default" aria-label="Left Align" name="edit'.$x.'" title="Edit this user Profile">
-											//				  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-											//			</button>'; echo '   ';						
 											echo 		'</Form>';
 											echo        '</td>';
 											echo	'</tr>';
@@ -105,14 +100,8 @@
 												DeleteFeed($Feeds[$x][0]);
 												header('Location:'.$link);
 											}
-											
-											
 										}
-										
-										
 									?>                                        
-                                       
-                                        
                                     </tbody>
                                 </table>
 								
@@ -126,13 +115,10 @@
                 <!-- /.col-lg-12 -->
             </div>
 			
-			
          <!-- /.container-fluid -->   
          </div>
       <!-- /#page-wrapper -->     
       </div>
-        
-
     
     <!-- /#wrapper -->
 
@@ -141,18 +127,18 @@
 
     <!-- Bootstrap Core JavaScript	-->
 	<script src="js/bootstrap.min.js"></script>
-    
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
-	 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-    $(document).ready(function() {
-        $('#dataTables-example').dataTable();
-    });
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
     </script>
 
 </body>

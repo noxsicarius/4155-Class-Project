@@ -1,7 +1,7 @@
 <?php
 	require 'connect.inc.php';
 	require 'admin.core.inc.php';
-	//$_SESSION['users_no']=0;
+
 	if(isset($_GET['no'])){
 		$NoOfUsers=$_GET['no'];
 		$_SESSION['users_no']=$NoOfUsers;
@@ -15,40 +15,39 @@
 	if(UserRole()!='Admin'){
 		header('Location:unarth.php');
 	}
-	//$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+
 	$link='studentaccounts.php';
 	$StudentsInfo=GetAllUsername();
-	//
-	for($x=0;$x<sizeof($StudentsInfo);$x++){
-		//echo $StudentsInfo[$x][0];
-	}
+
 	if (isset($_REQUEST['Addmore'])) {		
 		$_SESSION['users_no']++;
 		$NoOfUsers=$_SESSION['users_no'];
 		header('Location:addstudent.php');
 		
 	}
+	
 	if (isset($_REQUEST['MinusOne'])) {
 		if($_SESSION['users_no']>1){
 			$_SESSION['users_no']--;
 		}
 		$NoOfUsers=$_SESSION['users_no'];
-		header('Location:addstudent.php');
-		
+		header('Location:addstudent.php');		
 	}
+	
 	if (isset($_REQUEST['Reset'])) {		
 		$_SESSION['users_no']=1;
 		$NoOfUsers=0;
 		header('Location:addstudent.php');
 		
 	}
-	for($x=0;$x<$_SESSION['users_no'];$x++){
-			$username[$x] = '';			
-			$fullname[$x] = '';
-			$school[$x] = '';
-			$email[$x] = '';			
 	
-		}
+	for($x=0;$x<$_SESSION['users_no'];$x++){
+		$username[$x] = '';			
+		$fullname[$x] = '';
+		$school[$x] = '';
+		$email[$x] = '';			
+	}
+	
 	$ALL_fields=true;$AllDone=false;
 	if(isset($_POST['btnRegister'])){
 		for($x=0;$x<$_SESSION['users_no'];$x++){
@@ -62,15 +61,8 @@
 			}else{
 				$ALL_fields=false;
 			}
-			
-	
 		}
 	}
-	
-	
-	
-	
-	
 	
 ?>
 
@@ -147,9 +139,8 @@
 									<i class="fa fa-repeat"></i>
 								</button>
 							</form>
-							
-							
                         </div>
+
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -164,28 +155,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-					<?php
-						for($x=0;$x<$NoOfUsers;$x++){
-							echo '<form action="addadmin.php" method="POST">';
-                            echo        '<tr>';
-                            echo            '<td>'.($x+1).'</td>';
-                            echo            '<td width="300"><input class="form-control"  placeholder="Enter Name" name="fullname'.$x.'" value="'.$fullname[$x].'"></td>';
-                            echo            '<td width="300"><input class="form-control"  placeholder="Enter Username" name="username'.$x.'" value="'.$username[$x].'"></td>';
-                            echo            '<td width="400"><input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email'.$x.'" value="'.$email[$x].'"></td>';
-							echo			'<td width="400"><input class="form-control"  placeholder="Enter School name" name="school'.$x.'" value="'.$school[$x].'"></td>';
-                            echo        '</tr>';
-							
-						}
-					?>
+										<?php
+											for($x=0;$x<$NoOfUsers;$x++){
+												echo '<form action="addadmin.php" method="POST">';
+												echo        '<tr>';
+												echo            '<td>'.($x+1).'</td>';
+												echo            '<td width="300"><input class="form-control"  placeholder="Enter Name" name="fullname'.$x.'" value="'.$fullname[$x].'"></td>';
+												echo            '<td width="300"><input class="form-control"  placeholder="Enter Username" name="username'.$x.'" value="'.$username[$x].'"></td>';
+												echo            '<td width="400"><input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email'.$x.'" value="'.$email[$x].'"></td>';
+												echo			'<td width="400"><input class="form-control"  placeholder="Enter School name" name="school'.$x.'" value="'.$school[$x].'"></td>';
+												echo        '</tr>';
+											}
+										?>
                                     </tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
+
                         <!-- /.panel-body -->
 						<div class="panel-footer"><button class="btn btn-default pull-right" type="submit" name="btnRegister">Register</button><br><br></div>
 							</form>
-						
                     </div>
                     <!-- /.panel -->
                 </div>

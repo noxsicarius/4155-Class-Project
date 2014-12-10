@@ -2,9 +2,7 @@
 	require 'connect.inc.php';
 	require 'admin.core.inc.php';
 	
-	if(UserRole()=='Admin' OR UserRole()=='Teacher'){
-		
-	}else {
+	if(!(UserRole()=='Admin' OR UserRole()=='Teacher')){
 		header('Location:unarth.php');	
 	}
 	
@@ -61,51 +59,46 @@
                 <!-- /.col-lg-12 -->
             </div>
 			<div class="panel-body">
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover" id="dataTables-example">
-										<thead>
-											<tr>
-												<th>Title</th>
-												<th>ClassName</th>
-												<th>School</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody>
-										<?php
-											for($x=0;$x<sizeof($Allfiles);$x++){
-												$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];											
-												echo        '<tr class="odd gradeX">';
-												echo            '<td width="200">'.($Allfiles[$x][1]).'</td>';
-												echo            '<td width="90">'.$Allfiles[$x][2].'</td>';
-												echo            '<td width="50">'.$Allfiles[$x][3].'</td>';
-												echo 			'<form action="'.$link.'" method="POST">';
-												echo			'<td width="300">';											
-												echo 				'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this user">
-																  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-																	</button>'; echo '   ';											
-												echo 			'</Form>';
-												echo			'</td>';                    
-												echo        '</tr>';									
-												
-												if (isset($_REQUEST['delete'.$x])) {
-													Delete_File($Allfiles[$x][0]);
-													header('Location:'.$link);
-												}
-												
-											}
-										?>
-										</tbody>
-									</table>
-								</div>
-								<!-- /.table-responsive -->
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>ClassName</th>
+								<th>School</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								for($x=0;$x<sizeof($Allfiles);$x++){
+									$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+									echo        '<tr class="odd gradeX">';
+									echo            '<td width="200">'.($Allfiles[$x][1]).'</td>';
+									echo            '<td width="90">'.$Allfiles[$x][2].'</td>';
+									echo            '<td width="50">'.$Allfiles[$x][3].'</td>';
+									echo 			'<form action="'.$link.'" method="POST">';
+									echo			'<td width="300">';	
+									echo 				'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this user">
+															<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+														</button>'; echo '   ';
+									echo 			'</Form>';
+									echo			'</td>';
+									echo        '</tr>';
+									
+									if (isset($_REQUEST['delete'.$x])) {
+										Delete_File($Allfiles[$x][0]);
+										header('Location:'.$link);
+									}
+								}
+							?>
+						</tbody>
+					</table>
+				</div>
+				<!-- /.table-responsive -->
 			</div>
-           
-			
-			
                 <!-- /.row -->
         </div>
-         
 
     </div>
     <!-- /#wrapper -->
@@ -122,11 +115,12 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
-	 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-    $(document).ready(function() {
-        $('#dataTables-example').dataTable();
-    });
+		$(document).ready(function() {
+			$('#dataTables-example').dataTable();
+		});
     </script>
 
 </body>

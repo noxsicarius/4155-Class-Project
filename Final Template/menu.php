@@ -30,7 +30,6 @@
 <nav class = "clearfix">
 	<ul class = "clearfix">
 		<?php
-//			$currentPage = $_SERVER['REQUEST_URI'];
 			$currentPage = currentPage();
 			
 			// Index
@@ -63,8 +62,6 @@
 				}
 
 			}else{
-
-
 				// myaccount page
 				if($currentPage == "myaccount.php"){
 					echo '<li class="start selected"><a href="myaccount.php">My Account</a></li>';

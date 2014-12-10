@@ -6,13 +6,10 @@
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
-		//include 'login.inc.php';
 		$logged_in=0;
 	}
 	$AllFeeds=GetVisibleFeed();
-	
 	
 ?>
 
@@ -43,10 +40,7 @@
 		
 		<?php include 'menu.php'; ?>
 		
-		
     <!-- Page Content -->
-    
-
         <!-- Introduction Row -->
         <div class="row">
             <div class="col-lg-12">
@@ -88,8 +82,6 @@
                 </h3>
                 <p>Student of Computer Science college</p>
             </div>
-			
-			 			
         </div>	
 
         <hr>
