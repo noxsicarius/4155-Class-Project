@@ -1,6 +1,5 @@
 <?php
-	require 'connect.inc.php';
-	
+	require 'connect.inc.php';	
 	ob_start();
 	session_start();
 ?>
@@ -433,7 +432,14 @@
 		}
 		return $Success;
 	}
-	
+	Function DeleteRating($ClassID,$SenNo){
+		$database=DatabaseName();$Success=false;
+		$query="DELETE FROM `$database`.`sentencerating` WHERE `sentencerating`.`ClassID` = $ClassID AND `sentencerating`.`SentenceID` = $SenNo";
+		if(mysql_query($query)){
+			$Success=true;			
+		}
+		return $Success;
+	}
 	//Get a sentence
 	Function GetSentence($TableName,$SenNO){		
 		$database=DatabaseName();
