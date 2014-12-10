@@ -13,7 +13,7 @@
 	}
 	
 	if(UserRole()!='Admin'){
-		Die();
+		header('Location:unarth.php');
 	}
 	//$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
 	$link='studentaccounts.php';

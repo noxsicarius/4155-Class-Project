@@ -55,17 +55,7 @@
                                         </li>                                        
                                     </ul>
                                 </li>
-								<li>
-                                    <a href="#">Teacher Accounts <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="studentaccounts.php">View Accounts</a>
-                                        </li>
-                                        <li>
-                                            <a href="addstudent.php">Add Account</a>
-                                        </li>                                        
-                                    </ul>
-                                </li>
+							
                             </ul>
                             <!-- /.nav-second-level -->
                         </li> 
@@ -78,9 +68,6 @@
                                 <li>
                                     <a href="studygudie.php">Study Guides</a>
                                 </li>
-								<li>
-                                    <a href="morris.html">Courses</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li> 
@@ -88,10 +75,10 @@
                             <a href="#"><i class="fa fa-exclamation-triangle fa-fw"></i> Abuse <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Files</a>
+                                    <a href="filesabouse.php">Files</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Study Guides</a>
+                                    <a href="studyabuse.php">Study Guides</a>
                                 </li>								
                             </ul>
                             <!-- /.nav-second-level -->

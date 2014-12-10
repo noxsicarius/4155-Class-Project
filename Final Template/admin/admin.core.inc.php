@@ -52,12 +52,57 @@
 		if($result = mysql_query($query)){
 			$num_of_rows=mysql_num_rows($result);
 			for($i=0;$i<$num_of_rows;$i++){
-				$content=mysql_result($result,$i,'FileID');
-				$File_Field[$i]= $content;
+				$File_Field[$i][0]=mysql_result($result,$i,'FileID');
+				$ID=$File_Field[$i][0];
+				$File_Field[$i][1]=FileInfo('NotesTitle',$ID);
+				$File_Field[$i][2]=FileInfo('ClassName',$ID);
+				$File_Field[$i][3]=FileInfo('School',$ID);
 			}
 			return $File_Field;
 		}
 	}
+	
+	Function GetTotalStudyAbuse(){
+		$query="SELECT * FROM `sentencerating` WHERE `Rate` < -5";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			for($i=0;$i<$num_of_rows;$i++){
+				$ClassID=mysql_result($result,$i,'ClassID');$SenNo=mysql_result($result,$i,'SentenceID');$tablename=TableNameByID($ClassID);
+				$check=SenInSenRating($tablename,$SenNo);
+				if($check>0){
+					$File_Field[$i][0]=mysql_result($result,$i,'ClassID');
+					$ID=$File_Field[$i][0];
+					$File_Field[$i][1]=mysql_result($result,$i,'SentenceID');
+					$File_Field[$i][2]=TableNameByID($ID);
+					$File_Field[$i][3]=ClassColumn($ID,'ClassName');
+					$File_Field[$i][4]=ClassColumn($ID,'SchoolName');
+					$File_Field[$i][5]=GetSentence($File_Field[$i][2],$File_Field[$i][1]);
+				}
+				
+			}
+			return $File_Field;
+		}
+	}
+	
+	// Returns the total number of files been marked as abuse 
+	Function SenInSenRating($TableName,$Sen){
+		$query="SELECT * FROM `$TableName` WHERE `SentenceNo` = $Sen";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			return $num_of_rows;
+		}
+	}
+	
+	//return any value from upload table by passing FileID and column name
+	function FileInfo($Column,$FileID){
+		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";
+		if($result = mysql_query($query)){			
+			$content=mysql_result($result,0,$Column);
+			$File_Field= $content;			
+			return $File_Field;
+		}
+	}
+	
 	// Returns the total number of files been marked as abuse 
 	Function GetNOFileAbuse(){
 		$query="SELECT * FROM `filerating` WHERE `Rate` = -10";
@@ -203,6 +248,7 @@
 	//Pass the column name to get the data, for example: id,FileName, etc.
 	function FilesInDataBase_ID($Field,$ID){
 		$query="SELECT * FROM `uploadinfo` WHERE `StudentID` = $ID ORDER BY `FileID` DESC";
+		echo $query;
 		if($result = mysql_query($query)){
 			$num_of_rows=mysql_num_rows($result);
 			for($i=0;$i<$num_of_rows;$i++){
@@ -365,6 +411,14 @@
 			return $File_Field;
 		}
 	}
+	function ClassColumn($ID,$Field){		
+		$query="SELECT * FROM `st_class_names` WHERE `ClassID` = $ID";
+		if($result = mysql_query($query)){			
+			$content=mysql_result($result,0,$Field);
+			$File_Field= $content;			
+			return $File_Field;
+		}
+	}
 	
 	//This Function returns all sentences in a table
 	Function GetALlSentences($TableName){		
@@ -389,10 +443,21 @@
 		}
 		return $Success;
 	}
+	
+	//Delete a sentence
+	Function DeleteSentence($TableName,$SenNo){		
+		$database=DatabaseName();$Success=false;
+		$query="DELETE FROM `a_database`.`$TableName` WHERE `$TableName`.`SentenceNo` = $SenNo";
+		if(mysql_query($query)){
+			$Success=true;			
+		}
+		return $Success;
+	}
+	
 	//Get a sentence
 	Function GetSentence($TableName,$SenNO){		
 		$database=DatabaseName();
-		$query="SELECT * FROM `$TableName` WHERE `SentenceNo` = $SenNO";
+		$query="SELECT * FROM `$TableName` WHERE `SentenceNo` = $SenNO"; 
 		$result=mysql_query($query);
 		$content=mysql_result($result,0,'Sentence');
 		

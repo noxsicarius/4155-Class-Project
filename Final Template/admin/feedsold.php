@@ -5,7 +5,7 @@
 	if(UserRole()=='Admin' OR UserRole()=='Teacher'){
 		
 	}else {
-		Die();
+		header('Location:unarth.php');	
 	}
 	
 	$Feeds=GetAllFeed();

@@ -5,7 +5,7 @@
 	if(UserRole()=='Admin' OR UserRole()=='Teacher'){
 		
 	}else {
-		Die();
+		header('Location:unarth.php');
 	}
 ?>
 
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="filesabouse.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="filesabouse.php">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -106,29 +106,8 @@
                 </div>
             </div>
 			
-			<div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-envelope-o fa-fw"></i> Emails
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>                                
-                            <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-				</div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-            </div>
+			
+               
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->

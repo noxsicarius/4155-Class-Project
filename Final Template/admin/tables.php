@@ -3,7 +3,7 @@
 	require 'admin.core.inc.php';
 	
 	if(UserRole()!='Admin'){
-		Die();
+		header('Location:unarth.php');	
 	}
 ?>
 <!DOCTYPE html>
