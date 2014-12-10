@@ -11,6 +11,11 @@
 		//include 'login.inc.php';
 		$logged_in=0;
 	}
+	$AllFeeds=GetVisibleFeed();
+	
+	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
+                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
+                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] );
 ?>
 
 <!doctype html>
@@ -19,6 +24,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>X Note Plus</title>
 	<link rel="stylesheet" href="styles.css" type="text/css" />
+	<link rel="shortcut icon" href="http://faviconist.com/icons/2651b49d7a0290b4dea7941fae50d25e/favicon.ico" />
 </head>
 
 <body>
@@ -33,10 +39,12 @@
 		
 		
 		<img class="header-image" src="images/image.jpg" alt="Buildings" style="width:100%;height:auto;"/>
-
-		<div id="body">
-
-			<section id="content">
+	<?php 
+	     if($isMobile==false){
+		echo '<div id="body">
+	   
+			<section id="content">';  }
+	  ?>
 				<article>
 					<h1>Welcome to NotePlus</h1>
 					<h2>&nbsp;</h2>
@@ -46,22 +54,41 @@
 					<p>You can also upload your note by becoming a member of NotePlus.</p>
 					<p>&nbsp;</p>
 				</article>
-
-				<article class="expanded">
-					<h2>&nbsp;</h2>
-				</article>
-			</section>
+	<?php
+			for($x=0;$x<sizeof($AllFeeds);$x++){			
+				echo '<div class="panel panel-default">
+						  <div class="panel-heading"><p style="text-align:left;">Title: '.$AllFeeds[$x][1].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
+						  <div class="panel-body">'.$AllFeeds[$x][4].' </div>						  
+					  </div>';
+				
+			}
 			
-			<aside class="sidebar">
-				<?php include 'aside.php'; ?>
-			</aside>
+	?>
+			</section>
+		
+
+
+			
+				<?php 
+				if($isMobile==false){
+					echo '<aside class="sidebar">';
+					include 'aside.php'; 
+					echo '</aside>';
+				}
+				
+				
+				?>
+			
 
 			<div class="clear"></div>
-		</div>
-		
-		<footer>
-			<?php include 'footer.php' ?>;
+	    <?php 
+	       if($isMobile==false){	
+		echo '</div>';
+		}
+	      ?>
+</div>
+       <footer>
+			<?php include 'newfooter.php'; ?> 
 		</footer>
-	</div>
 </body>
 </html>

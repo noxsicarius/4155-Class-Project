@@ -1,0 +1,1 @@
+ALTER TABLE users ADD email varchar(50), ADD verified int(1), ADD role varchar(20) DEFAULT 'Student'

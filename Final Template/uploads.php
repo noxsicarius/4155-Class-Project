@@ -4,14 +4,15 @@
 	require 'comparison.php';
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
-		$logged_in=1;							
+		$logged_in=1;
+		$user_fullname=getfield('name');
+		$StudentID=getuserid();
 		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
 		$logged_in=0;
 	}	
 
-	$user_fullname=getfield('name');
-	$StudentID=getuserid();
+	
 	$Sring_Message='<strong>Please upload text files only. </strong>';
 
 	if(isset($_POST['submit'])){
@@ -20,7 +21,9 @@
 		$size = $_FILES['file']['size'];
 		$tmp_name = $_FILES['file']['tmp_name'];
 	}
-	  
+	$isMobile = (bool)preg_match('#\b(ip(hone|od)|android\b.+\bmobile|opera m(ob|in)i|windows (phone|ce)|blackberry'.
+                    '|s(ymbian|eries60|amsung)|p(alm|rofile/midp|laystation portable)|nokia|fennec|htc[\-_]'.
+                    '|up\.browser|[1-4][0-9]{2}x[1-4][0-9]{2})\b#i', $_SERVER['HTTP_USER_AGENT'] ); 
 	  
 	if(loggedin()){
 		if(isset($_POST['title']) && isset($_POST['chapter']) && isset($_POST['classname']) && isset($_POST['teacher'])  && isset($_POST['comments']) ){
@@ -47,8 +50,11 @@
 					
 					$location ='uploads/';
 					$query = "SELECT * from uploadinfo WHERE FileName='$name' AND StudentID=$StudentID";
+					$query="SELECT * FROM `uploadinfo` WHERE `StudentID` = $StudentID AND `FileName` LIKE '$name'";
+					
 					$query_run = mysql_query($query);
 					$num_of_rows=mysql_num_rows($query_run);
+					
 					
 					if($num_of_rows>0){
 						$File_Student_ID = mysql_result($query_run, 0,'StudentID');
@@ -61,7 +67,8 @@
 					//echo 'Database: '.$File_Student_ID.'<br>';
 					//echo 'Current: '.$StudentID.'<br>';
 					if($num_of_rows==1 && $File_Student_ID==$StudentID) {
-						$Sring_Message= 'The File '.$name. ' already exists.';
+						$Sring_Message= 'The File '.$name. ' already !!exists.345435345345  '.$StudentID;
+						
 					} else{
 						//sql query
 						$query = "INSERT INTO uploadinfo VALUES ('$StudentID',
@@ -74,7 +81,8 @@
 									'".mysql_real_escape_string($chapter)."',
 									'".mysql_real_escape_string($title)."',
 									'".mysql_real_escape_string($comments)."',
-									'".mysql_real_escape_string($content)."')";
+									'".mysql_real_escape_string($content)."',
+									0,0,0,0)";
 
 						if ($query_run = mysql_query($query)){
 							if(move_uploaded_file($tmp_name, $location.$name)){
@@ -112,9 +120,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>X Note Plus</title>
+<title>Upload Notes to X Note Plus</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
-
+<link rel="shortcut icon" href="http://faviconist.com/icons/2651b49d7a0290b4dea7941fae50d25e/favicon.ico" />
 </head>
 <body>
 <div id="container">
@@ -126,11 +134,11 @@
     	<?php include 'menu.php'; ?>
     </nav>
 
+<?php if($isMobile==false){ echo
 
+    '<div id="body">'.
 
-    <div id="body">
-
-	  <section id="content">
+	  '<section id="content">';} ?>
 
 	    <article>
 			<h2>Upload text files</h2>
@@ -144,7 +152,7 @@
 				echo '<div class="alert alert-info" role="alert">'.$Sring_Message.'<br></div>';
 			}else if($Sring_Message== "$name".' Uploaded'){
 				echo '<div class="alert alert-success" role="alert">'.$Sring_Message.'<br></div>';
-			}else if($Sring_Message= 'The File '.$name. ' already exists.'){
+			}else if($Sring_Message== 'The File '.$name. ' already exists.'){
 				echo '<div class="alert alert-warning" role="alert">'.$Sring_Message.'<br></div>';
 			}else if(empty($name) OR $type!='text/plain'){
 				echo '<div class="alert alert-warning" role="alert">'.$Sring_Message.'<br></div>';
@@ -199,9 +207,9 @@
 						</form>';
 						
 					$arrlength=count($File_names);
-					echo 'My Files in DataBase'.'<br>';
+					//echo 'My Files in DataBase'.'<br>';
 					for($x=0;$x<$arrlength;$x++){
-						echo $File_names[$x].'<br>';
+						//echo $File_names[$x].'<br>';
 					}
 				}else{
 					echo 'Please '.'<a href="register.php">Register</a>'.' or '.'<a href="login.php">Log in</a>'.' before uploading a file';
@@ -210,18 +218,19 @@
 			?>
 		  <h2>&nbsp;</h2>
 		</article>
-        </section>
-        
-        <aside class="sidebar">
-	
-            <?php include 'aside.php'; ?>
-		
-      </aside>
-    	<div class="clear"></div>
-  </div>
-    <footer>
-        <?php include 'footer.php' ?>;
-    </footer>
-</div>
+<?php if($isMobile==false){
+       echo '</section>';
+       
+       echo '<aside class="sidebar">';	
+             include 'aside.php'; 	
+       echo '</aside>';
+		echo '<div class="clear"></div>';
+
+  '</div>';}
+  ?>
+</div></div>
+       <footer>
+			 <?php include 'newfooter.php'; ?> 
+		</footer>
 </body>
 </html>

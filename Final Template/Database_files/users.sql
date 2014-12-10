@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2014 at 02:46 PM
+-- Generation Time: Dec 08, 2014 at 06:42 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -31,17 +31,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(30) NOT NULL,
   `password` varchar(32) NOT NULL,
   `name` varchar(80) NOT NULL,
-  `school` varchar(80) NOT NULL
+  `school` varchar(80) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `verified` int(1) DEFAULT NULL,
+  `role` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`Id`, `username`, `password`, `name`, `school`) VALUES
-(1, 'asubhan', 'password', 'Asif Subhan', 'UNCC'),
-(2, 'ksubhan', 'password', 'Kashif Subhan', 'UNCG'),
-(3, 'hello', 'hello', 'hello', 'hello');
+INSERT INTO `users` (`Id`, `username`, `password`, `name`, `school`, `email`, `verified`, `role`) VALUES
+(1, 'asubhan', 'password', 'Asif Subhan', 'UNCC', NULL, NULL, 'Admin'),
+(2, 'ksubhan', 'password', 'Kashif Subhan', 'UNCG', NULL, NULL, 'Student'),
+(3, 'hello', 'hello', 'hello', 'hello', NULL, NULL, 'Student');
 
 --
 -- Indexes for dumped tables

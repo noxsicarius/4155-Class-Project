@@ -6,7 +6,8 @@
 	$wordstoignore=array("is","was","are","they","can","a","i");
 	$filetostring = 'what is my name?.   what is your name....';
 	//$name='text1.txt';
-	$queryx="SELECT * FROM `uploadinfo` WHERE `FileName` = '$name'";
+	$StudentID=$_SESSION['user_id'];
+	$queryx="SELECT * FROM `uploadinfo` WHERE `FileName` = '$name' AND `StudentID` = '$StudentID'"  ;
 	$All_File_keywords=array();
 
 	if($query_runx = mysql_query($queryx)){
@@ -60,6 +61,7 @@
 	fclose($keywords_file);
 	$All_File_keywords=array_unique($All_File_keywords);
 	Save_FileKeywords($FileID,$All_File_keywords);
+	
 	//comparing
 	if(NumberofRows('keywords')>1){
 		CompareFileToAll($FileID);

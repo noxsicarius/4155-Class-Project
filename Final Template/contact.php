@@ -15,8 +15,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>X Note Plus</title>
+	<title>Contact Us - X Note Plus</title>
 	<link rel="stylesheet" href="styles.css" type="text/css" />
+	<link rel="shortcut icon" href="http://faviconist.com/icons/2651b49d7a0290b4dea7941fae50d25e/favicon.ico" />
 </head>
 
 <body>
@@ -53,14 +54,14 @@
 						if ($action=="")    /* display the contact form */ 
 						{?>
 							<form  action="" method="POST" enctype="multipart/form-data"> 
-							<input type="hidden" name="action" value="submit"> 
-							Your name:<br>
-							<input name="name" type="text" value="" size="30"/><br> 
-							Your email:<br> 
-							<input name="email" type="text" value="" size="30"/><br> 
-							Your message:<br> 
-							<textarea name="message" rows="7" style="width:100%;height:auto;"></textarea><br> 
-							<input type="submit" value="Send email"/> 
+								<input type="hidden" name="action" value="submit"> 
+								Your name:<br>
+								<input name="name" type="text" value="" size="30"/><br> 
+								Your email:<br> 
+								<input name="email" type="text" value="" size="30"/><br> 
+								Your message:<br> 
+								<textarea name="message" rows="7" style="width:100%;height:auto;"></textarea><br> 
+								<input type="submit" value="Send email"/> 
 							</form>
 						<?php 
 						} else {
@@ -70,63 +71,90 @@
 							
 							if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
 								$nameErr = true;
-								$name = "";
+								$incorrectName = true;
 							} else {
 								$nameErr = false;
 							}
 							
-							if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+							if((!filter_var($email,FILTER_VALIDATE_EMAIL))&&($email!="")){
 								$emailErr = true;
-								$email="";
+								$incorrectEmail = true;
 							} else {
 								$emailErr = false;
 							}
 							
-							if (($name=="")||($email=="")||($message=="")){
+							if (($name=="")||($email=="")||($message=="")||$nameErr||$emailErr){
 								$incorrectField = true;
-								if($name==""){$incorrectName=true;}else{$incorrectName=false;};
-								if($email==""){$incorrectEmail=true;}else{$incorrectEmail=false;};
+								if($name==""){$incorrectName=true;}else{if(!$nameErr){$incorrectName=false;}};
+								if($email==""){$incorrectEmail=true;}else{if(!$emailErr){$incorrectEmail=false;}};
 								if($message==""){$incorrectMessage=true;}else{$incorrectMessage=false;};
 							} else {
+								$incorrectField = false;
+								$incorrectMessage=false;
 								$incorrectName=false;
 								$incorrectEmail=false;
-								$incorrectMessage=false;
-								
+									
 								$from="From: $name<$email>\r\nReturn-path: $email"; 
 								$subject="Message sent using your contact form";
 								mail("notepluswebmaster@gmail.com", $subject, $message, $from);
-								echo "Message sent to admins!";
-								$incorrectField = false;
+								echo '
+									<div class="alert alert-success" role="alert">
+										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+										<span class="sr-only">Success! </span>
+										Email has been sent to admins.
+									</div>';
 							}
 
 							if($incorrectField) {
-								echo '<strong><span style="color:#FF0000;">ALL fields are required</span></strong>';
+								if(($name=="")||($email=="")||($message=="")){
 							?>
-								<br><br>
+									<div class="alert alert-danger" role="alert">
+										<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+										<span class="sr-only">Error:</span>
+										ALL fields are required
+									</div>
+						<?php 
+								}
+								
+								if($nameErr){
+									echo'
+										<div class="alert alert-danger" role="alert">
+											<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+											<span class="sr-only">Error:</span>
+											Name must contain only letters and spaces
+										</div>';
+								}
+								if($emailErr){
+									echo'
+										<div class="alert alert-danger" role="alert">
+											<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+											<span class="sr-only">Error:</span>
+											Email format must be: example@email.com
+										</div>';
+								}
+						  ?>
+								<br>
 								<form  action="" method="POST" enctype="multipart/form-data"> 
 								<input type="hidden" name="action" value="submit"> 
 								
 								<?php
 								if($incorrectName){
 									echo '<strong><span style="color:#FF0000;">Your name:</span></strong>';
-									if($nameErr){echo'<span style="color:#FF0000;"> Name must contain only letters and spaces</span>';};
 								} else {
 									echo 'Your name:';
 								}?>
 							
-								<br> 
+								<br>
 								<input name="name" type="text" value="<?php if(!($name == '')){print "$name";}?>" size="30"/><br> 
 								
 								<?php
 								if($incorrectEmail){
 									echo '<strong><span style="color:#FF0000;">Your email:</span></strong>';
-									if($emailErr){echo'<span style="color:#FF0000;"> Incorrect email format example@email.com</span>';}
 								} else {
 									echo 'Your email:';
 								}?>
 								
-								<br> 
-								
+								<br>
 								<input name="email" type="text" value="<?php if(!($email == '')){print "$email";}?>" size="30"/><br> 
 								
 								<?php
@@ -155,11 +183,11 @@
 
 			<div class="clear"></div>
 		</div>
-		
+	</div>	
 		<!-- footer at botom of page -->
 		<footer>
-			<?php include 'footer.php' ?>;
+			<?php include 'newfooter.php' ?>;
 		</footer>
-	</div>
+	
 </body>
 </html>

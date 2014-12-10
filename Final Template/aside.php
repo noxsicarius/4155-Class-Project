@@ -4,37 +4,13 @@
 
 <ul>
 	<li>
-		<h4>Links</h4>
-		<ul>
-			<?php
-				if(!loggedin()){
-					echo '<li class=""><a href="login.php">Log in</a></li>';
-					
-				}else{
-					
-					echo '<li class=""><a href="similar.php">Similar Notes</a></li>';
-					echo '<li class=""><a href="logout.php">Log Out</a></li>';
-				}
-			?>
-			<li class=""><a href="contact.php">Contact Us</a></li>
-		</ul>
-	</li>
-
-	<li>
-		<h4>About us</h4>
-			<ul>
-				<li class="text"> </li>
-			</ul>
-	</li>
-
-	<li>
 		<h4>Search site</h4>
 		<ul>
 			<li class="text">
 				<form action="search.php" method="get">
 					<div class="input-group">
-					  	<label>Document Title:
-							<input type="text" name="searchDoc" class="form-control" placeholder="">
+					  	<label style="font-weight:normal;">Document Title:
+							<input type="text" name="searchDoc" class="form-control">
 						</label>
 					</div>
 					<button class="btn btn-default" type="submit">Search</button>
@@ -42,11 +18,20 @@
 			</li>
 		</ul>
 	</li>
-
 	<li>
-		<h4>Helpful Links</h4>
+		<h4>Links</h4>
 		<ul>
-			<li></li>
+			<?php
+				if(!loggedin()){
+					echo '<li class=""><a href="login.php">Log in</a></li>';
+				}else{
+					echo '<li class=""><a href="logout.php">Log Out</a></li>';
+					echo '<li class=""><a href="similar.php">Similar Notes</a></li>';					
+				}
+			?>
+			<li class=""><a href="contact.php">Contact Us</a></li>
+			<li class=""><a href="manual.php">User Manual</a></li>
+			<li class=""><a href="aboutus.php">About US</a></li>
 		</ul>
 	</li>
 </ul>

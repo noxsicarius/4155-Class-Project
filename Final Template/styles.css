@@ -180,7 +180,6 @@ h4 {
     font-size: 18px;
     font-weight: normal;
     padding-bottom: 10px;
-    text-transform: uppercase;
 }
 
 h5 {
@@ -234,7 +233,7 @@ header h1 a span {
 }
 
 header h2 {
-	color: #E6E7E9;
+	color: #BABBBD;
 	font-size: 13px;
 	position: relative;
 	top: -5px;
