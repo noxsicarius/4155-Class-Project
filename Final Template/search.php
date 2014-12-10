@@ -2,11 +2,11 @@
 
 	require 'core.inc.php';
 	require 'connect.inc.php';
-	require 'rate.inc.php';
 
 	$searchQuery = "SELECT * FROM uploadinfo WHERE ";
 	$init=1;
 	
+/************	Check if variables are set 	*************/
 	if(isset($_GET['searchDoc'])){
 		$searchTitle = $_GET['searchDoc'];
 		if($searchTitle != ""){
@@ -16,6 +16,7 @@
 	} else {
 		$searchTitle="";
 	}
+
 	if(isset($_GET['searchCourse'])){
 		$searchCourse = $_GET['searchCourse'];
 		if($searchCourse != ""){
@@ -26,6 +27,7 @@
 	} else {
 		$searchCourse="";
 	}
+
 	if(isset($_GET['searchInstructor'])){
 		$searchInstructor = $_GET['searchInstructor'];
 		if($searchInstructor != ""){
@@ -36,6 +38,7 @@
 	} else {
 		$searchInstructor="";
 	}
+
 	if(isset($_GET['searchUni'])){
 		$searchUniversity = $_GET['searchUni'];
 		if($searchUniversity != ""){
@@ -95,8 +98,8 @@
 						  <span class='input-group-addon' style='min-width:100px;'>University</span>
 						  <input type='text' style='max-width:550px;' value='$searchUniversity' name='searchUni' class='form-control' placeholder='Search a university'>
 						</div><br>";
-						$title="Advanced-Search";
-						createSpoiler($title, $spoilerContent, $rateUp, $rateDown);
+						$title="Advanced Search";
+						createSpoiler($title, $spoilerContent);
 					?>
 <!----------------------------- END Advanced Search ----------------------------->
 
