@@ -341,6 +341,63 @@
 		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
 	}
+	//This functions returns all the classes names 
+	Function GetAllClasses(){		
+		$query="SELECT * FROM `st_class_names`";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			for($i=0;$i<$num_of_rows;$i++){
+				$File_Field[$i][0]=mysql_result($result,$i,'ClassID');
+				$File_Field[$i][1]=mysql_result($result,$i,'ClassName');
+				$File_Field[$i][2]=mysql_result($result,$i,'SchoolName');
+				$File_Field[$i][3]=mysql_result($result,$i,'TableName');
+			}
+			return $File_Field;
+		}	
+	}
+	
+	//This Function return the table name
+	function TableNameByID($ID){		
+		$query="SELECT * FROM `st_class_names` WHERE `ClassID` = $ID";
+		if($result = mysql_query($query)){			
+			$content=mysql_result($result,0,'TableName');
+			$File_Field= $content;			
+			return $File_Field;
+		}
+	}
+	
+	//This Function returns all sentences in a table
+	Function GetALlSentences($TableName){		
+		$query="SELECT * FROM `$TableName`";
+		if($result = mysql_query($query)){
+			$num_of_rows=mysql_num_rows($result);
+			for($i=0;$i<$num_of_rows;$i++){
+				$File_Field[$i][0]=mysql_result($result,$i,'SentenceNo');
+				$File_Field[$i][1]=mysql_result($result,$i,'Sentence');
+				$File_Field[$i][2]=mysql_result($result,$i,'Hits');
+			}
+			return $File_Field;
+		}	
+	}
+	
+	//Update a sentence
+	Function UpdateSentence($TableName,$SenNo,$String){		
+		$database=DatabaseName();$Success=false;
+		$query="UPDATE `a_database`.`$TableName` SET `Sentence` = '$String' WHERE `$TableName`.`SentenceNo` = $SenNo";
+		if(mysql_query($query)){
+			$Success=true;
+		}
+		return $Success;
+	}
+	//Get a sentence
+	Function GetSentence($TableName,$SenNO){		
+		$database=DatabaseName();
+		$query="SELECT * FROM `$TableName` WHERE `SentenceNo` = $SenNO";
+		$result=mysql_query($query);
+		$content=mysql_result($result,0,'Sentence');
+		
+		return $content;
+	}
 
 
 	Function DatabaseName(){

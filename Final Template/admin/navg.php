@@ -76,7 +76,7 @@
                                     <a href="userfiles.php">User Files</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Study Guides</a>
+                                    <a href="studygudie.php">Study Guides</a>
                                 </li>
 								<li>
                                     <a href="morris.html">Courses</a>
