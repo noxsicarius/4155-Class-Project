@@ -4,7 +4,7 @@
 	
 	
 	if(UserRole()!='Admin'){
-		Die();
+		header('Location:unarth.php');
 	}
 	$StringMesasge='';$Success=false;
 	$CurrentUserFullName=getfield('name',$_SESSION['user_id']);

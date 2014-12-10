@@ -5,7 +5,7 @@
 	if(UserRole()=='Admin' OR UserRole()=='Teacher'){
 		
 	}else {
-		Die();
+		header('Location:unarth.php');	
 	}
 	$AllClasses=GetAllClasses();
 ?>
@@ -160,7 +160,7 @@
 											for($x=0;$x<sizeof($Sentences);$x++){
 												$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];											
 												echo        '<tr class="odd gradeX">';
-												echo            '<td width="70">'.($x+1).'</td>';
+												echo            '<td width="70">'.($Sentences[$x][0]).'</td>';
 												echo            '<td width="900">'.$Sentences[$x][1].'</td>';
 												echo            '<td width="50">'.$Sentences[$x][2].'</td>';
 												echo 			'<form action="'.$link.'" method="POST">';
@@ -176,6 +176,10 @@
 												echo        '</tr>';												
 												if (isset($_REQUEST['edit'.$x])) {
 													header('Location:'.$link.'&sen='.$Sentences[$x][0]);
+												}
+												if (isset($_REQUEST['delete'.$x])) {
+													DeleteSentence($_GET['name'],$Sentences[$x][0]);
+													header('Location:'.$link);
 												}
 												
 											}
