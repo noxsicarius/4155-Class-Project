@@ -417,7 +417,7 @@
 	//Update a sentence
 	Function UpdateSentence($TableName,$SenNo,$String){		
 		$database=DatabaseName();$Success=false;
-		$query="UPDATE `a_database`.`$TableName` SET `Sentence` = '$String' WHERE `$TableName`.`SentenceNo` = $SenNo";
+		$query="UPDATE `$database`.`$TableName` SET `Sentence` = '$String' WHERE `$TableName`.`SentenceNo` = $SenNo";
 		if(mysql_query($query)){
 			$Success=true;
 		}
@@ -427,7 +427,7 @@
 	//Delete a sentence
 	Function DeleteSentence($TableName,$SenNo){		
 		$database=DatabaseName();$Success=false;
-		$query="DELETE FROM `a_database`.`$TableName` WHERE `$TableName`.`SentenceNo` = $SenNo";
+		$query="DELETE FROM `$database`.`$TableName` WHERE `$TableName`.`SentenceNo` = $SenNo";
 		if(mysql_query($query)){
 			$Success=true;			
 		}
