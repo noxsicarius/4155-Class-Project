@@ -1,3 +1,16 @@
+<?php
+		function UserRole(){
+			$ID=getuserid();
+			$query="SELECT * FROM `users` WHERE `Id` = $ID";
+			if($result = mysql_query($query)){			
+				$content=mysql_result($result,0,'role');
+				$File_Field= $content;			
+				return $File_Field;
+			}
+		}
+	
+?>
+
 <div class="footer-content">
 	<ul>
 		<li><h4>How does X Note Plus Works</h4></li>
