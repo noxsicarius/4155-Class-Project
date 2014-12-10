@@ -1,3 +1,17 @@
+<?php
+		$UserRole=UserRole();
+		function UserRole(){
+			$ID=getuserid();
+			$query="SELECT * FROM `users` WHERE `Id` = $ID";
+			if($result = mysql_query($query)){			
+				$content=mysql_result($result,0,'role');
+				$File_Field= $content;			
+				return $File_Field;
+			}
+			return 'Student';
+		}
+	
+?>
 </div></div>
 <div class="container">
 				<div class="row">
@@ -18,6 +32,16 @@
 							<li>
 								<a href="contact.php">Contact</a>
 							</li>
+							<?php
+								if($UserRole=='Admin'){
+							?>	
+							
+							<li>
+								<a href="admin/index.php">Admin</a>
+							</li>
+							<?php
+								}
+							?>
 						</ul>
 					   
 					</div>
