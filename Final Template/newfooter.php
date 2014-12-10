@@ -10,7 +10,7 @@
 								<a href="aboutus.php">About US</a>
 							</li>
 							<li>
-								<a href="#">User Manual</a>
+								<a href="manual.php">User Manual</a>
 							</li>
 							<li>
 								<a href="credits.php">Credits</a>

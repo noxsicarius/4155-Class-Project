@@ -30,7 +30,7 @@
 				}
 			?>
 			<li class=""><a href="contact.php">Contact Us</a></li>
-			<li class=""><a href="#">User Manual</a></li>
+			<li class=""><a href="manual.php">User Manual</a></li>
 			<li class=""><a href="aboutus.php">About US</a></li>
 		</ul>
 	</li>
