@@ -1,14 +1,14 @@
-
 <?php
-
 	ob_start();
 	session_start();
 ?>
+
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 
 </head>
+
 <?php
 	$current_file = $_SERVER['SCRIPT_NAME'];
 	
@@ -34,6 +34,7 @@
 			return false;
 		}
 	}
+
     // return name of current user
 	function getfield($field){
 		$query = "SELECT * FROM `users` WHERE Id=". $_SESSION['user_id'];		
@@ -46,6 +47,7 @@
 			return 'Wrong field or query not executed right';
 		}
 	}
+
 	//return any value from upload table by passing FileID and column name
 	function FileInfo($FileID,$Column){
 		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";
@@ -55,6 +57,7 @@
 			return $File_Field;
 		}
 	}
+
 	// Returns all the visible feeds for index page
 	Function GetVisibleFeed(){
 		$database=DatabaseName();
@@ -88,17 +91,19 @@
 		return $id;
 	}
 	
-	function createSpoiler($title, $content, $rateUp, $rateDown){ ?>
+	function createSpoiler($title, $content){ 
+		$stripTitle = preg_replace('/\s+/', '', $title);
+		?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo"$title";?>
 						</a>
 					</h4>
 				</div>
-				<div id='<?php echo"$title";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
@@ -107,16 +112,15 @@
 		</div>
 <?php
 	}
+
 	//Does it exactly the thing as createSpoiler just by using FileID
 	function CreateSpoilerByFileID($FileID){
 		$title=FileInfo($FileID,'NotesTitle');
 		$content=FileInfo($FileID,'content');
-		$rateDown=0;
-		$rateUp=5;
-		createSpoiler($title, $content, $rateUp, $rateDown);
+		createSpoiler($title, $content);
 	}
 	
-	//---------------------------------------------------------------------------------------------------------------------------------
+
 	// this function will delete a File and also drop the table of sentences and keywords
 	function Drop_Table($id){
 		$database=DatabaseName();
@@ -127,10 +131,7 @@
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
 	}
 	
-	
-	
-//---------------------------------------------------------------------------------------------------------------------------------	
-	
+
 	//This function will return an array of files in the databse
 	//Pass the column name to get the data, for example: id,FileName, etc.
 	function FilesInDataBase($Field){
@@ -144,7 +145,7 @@
 			return $File_Field;		
 		}
 	}
-//---------------------------------------------------------------------------------------------------------------------------------
+
 	//This function will return an array of files in the database for the current user
 	//Pass the column name to get the data, for example: id,FileName, etc.
 	function FilesInDataBase_ID($Field,$ID){
@@ -158,7 +159,7 @@
 			return $File_Field;
 		}
 	}
-//---------------------------------------------------------------------------------------------------------------------------------
+
 	//This function will give an Array of all the tables in the database 
 	function Table_Names(){
 		$database=DatabaseName();
@@ -173,7 +174,7 @@
 		}
 		return $tables;
 	}
-//--------------------------------------------------------------------------------------------------------------------------------
+
 	// Return FileID of note that has keywords and sentences in the database
 	function Tables_FileID(){
 		$File_ID = array();
@@ -188,7 +189,7 @@
 		}
 	  return $File_ID;
 	}
-//---------------------------------------------------------------------------------------------------------------------------------
+
 	// This function will make sure that sentences and keywords table is deleted when the file is deleted from uploadinfo
 	// to chech this code run the code on 
 	function Sync_tables(){
@@ -211,7 +212,7 @@
 			}
 		}
 	}
-//--------------------------------------------------------------------------------------------------------------------------------	
+	
 // Return Number of Rows for a table
 	// Pass the name of the table 
 	function NumberofRows($table){		
@@ -224,6 +225,7 @@
 			return $String;
 		}
 	}
+	
 //-------------------------------Compare Functions----------------------------------------------------------------------
 	// this function will save a keyword string to the keywords table for each file.
 	function Save_FileKeywords($FileID,$Array){
@@ -233,12 +235,9 @@
 		$database=DatabaseName();
 		
 		$query = "INSERT INTO `$database`.`keywords` VALUES (
-									'".mysql_real_escape_string($FileID)."',
-									'".mysql_real_escape_string($Keyword)."',
-									'','')";
-		
-		
-		
+					'".mysql_real_escape_string($FileID)."',
+					'".mysql_real_escape_string($Keyword)."',
+					'','')";
 		mysql_query($query);
 	}
 	
@@ -276,11 +275,11 @@
 	
 	// This Function will return an Array of all the keywords of a file
 	function GetFileKeywords($FileID){
-	$query="SELECT * FROM `keywords` WHERE `FileID` = $FileID";
-	$result=mysql_query($query);	
-	$content=mysql_result($result,0,'Keyword');
-	$contentArray=preg_split('/,/', $content );	
-	return $contentArray;
+		$query="SELECT * FROM `keywords` WHERE `FileID` = $FileID";
+		$result=mysql_query($query);	
+		$content=mysql_result($result,0,'Keyword');
+		$contentArray=preg_split('/,/', $content );	
+		return $contentArray;
 	}
 	
 	// This Function will return an array of the sentences of a File
@@ -331,6 +330,7 @@
 		$Similitry=array($First_TO_Secound,$Secound_To_First,$OverAllSimilitry);
 		return $Similitry;
 	}
+	
 	//Pass FileID and it will compare that file to the rest of files in the database.
 	function CompareFileToAll($FileID){
 		$CurrentFile=$FileID;
@@ -363,11 +363,11 @@
 					}
 					$count++;
 				}
-				
 			}
 		}
 		return $Array;
 	}
+	
 //------------------------------------------------------File Rating-----------------------------------------------------------------------------
 Function File_Vote_Abuse($FileID){
 	$StudentID=getuserid();
@@ -396,28 +396,23 @@ Function File_Vote_Abuse($FileID){
 			$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
 			mysql_query($query);
 			
-		}else if($CurrentRate==-1 ){ 
-							
-				$query1="UPDATE `$database`.`filerating` SET `Rate` = '1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
-				mysql_query($query1);
-				
-				$Vote=File_VoteDown_UploadInfo_Get($FileID);
-				$Vote--;
-				$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
-				mysql_query($query);
-				
-				$Vote=File_VoteUp_UploadInfo_Get($FileID);
-				$Vote++;
-				$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
-				mysql_query($query);
-				
-				
+		}else if($CurrentRate==-1 ){
 			
+			$query1="UPDATE `$database`.`filerating` SET `Rate` = '1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+			mysql_query($query1);
+			
+			$Vote=File_VoteDown_UploadInfo_Get($FileID);
+			$Vote--;
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+			mysql_query($query);
+			
+			$Vote=File_VoteUp_UploadInfo_Get($FileID);
+			$Vote++;
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+			mysql_query($query);
 		}
-		
-		
-	
 	}
+	
 	//This Function will Decrease the file rating by one
 	Function File_VoteDown_UploadInfo_Save($FileID){
 		$database=DatabaseName();$StudentID=getuserid();
@@ -518,11 +513,10 @@ Function File_Vote_Abuse($FileID){
 		
 	}
 
-
-
 //------------------------------------------------------File Rating End--------------------------------------------------------------------------	
-	//Mail Functions---	
-	
+
+
+	//Send mail
 	Function SendMail($To,$From,$Subject,$ReplayTO,$Message){
 		
 		$headers = "From: " . $From . "\r\n";
@@ -534,6 +528,7 @@ Function File_Vote_Abuse($FileID){
 	
 	}	
 	
+	// send to writer
 	Function RegisterEmail($To,$Name,$Username){
 		$From	 	='admin@xnoteplus.com ';
 		$Subject 	='Registration Successfull';
@@ -547,28 +542,22 @@ Function File_Vote_Abuse($FileID){
 		SendMail($To,$From,$Subject,$ReplayTO,$Message);
 	}
 	
-
-	
-	
-//---------------------------------------------------------------------------------------------------------------------------------	
 	function DatabaseName(){
 		$database='a_database';
 		return $database;
 	}
-//---------------------------------------------------------------------------------------------------------------------------------   
 
 	function currentPage() {
 		return substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 	}
-	
-
 
 ?>
 
-<!-------->
+<!--------- Spoiler with button --------->
 <?php
-function createSpoilerbutton($FileID){ 
+	function createSpoilerbutton($FileID){ 
 		$title=FileInfo($FileID,'NotesTitle');
+		$stripTitle = preg_replace('/\s+/', '', $title);
 		$content=FileInfo($FileID,'content');
 		$owner=FileInfo($FileID,'StudentID');
 		$currentuser=getuserid();		
@@ -632,16 +621,13 @@ function createSpoilerbutton($FileID){
 				$votedowncolor='default';
 			}
 		}
-			
-			
-
 
 ?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo 	'<form action="'.$link.'" method="Post">'; 
 							echo"$title";?>
 						</a>
@@ -676,13 +662,11 @@ function createSpoilerbutton($FileID){
 								
 								echo '<span class="glyphicon glyphicon-thumbs-down pull-right" aria-hidden="true"> '.$rateDown.'&nbsp;</span>';
 								echo '<span class="glyphicon glyphicon-thumbs-up pull-right" aria-hidden="true">&nbsp;'.$rateUp.'&nbsp;&nbsp;</span>';
-							
-							
 							}
 							?>
 					</h4>
 				</div>
-				<div id='<?php echo"$title";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
@@ -690,10 +674,13 @@ function createSpoilerbutton($FileID){
 			</div>
 		</div>
 <?php } ?>
-<!---My account spoiler----->
+
+<!---------- My account spoiler ---------->
+
 <?php
 function createSpoilerbuttonmyaccount($FileID){ 
 		$title=FileInfo($FileID,'NotesTitle');
+		$stripTitle = preg_replace('/\s+/', '', $title);
 		$content=FileInfo($FileID,'content');
 		$rateUp=File_VoteUp_UploadInfo_Get($FileID);		
 		$rateDown=File_VoteDown_UploadInfo_Get($FileID);		
@@ -734,15 +721,13 @@ function createSpoilerbuttonmyaccount($FileID){
 			$voteupcolor='default';
 			$votedowncolor='default';
 		}
-		
-
 
 ?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo 	'<form action="'.$link.'" method="Post">'; 
 							echo"$title";?>
 						</a>
@@ -765,7 +750,7 @@ function createSpoilerbuttonmyaccount($FileID){
 							?>
 					</h4>
 				</div>
-				<div id='<?php echo"$title";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
@@ -773,6 +758,3 @@ function createSpoilerbuttonmyaccount($FileID){
 			</div>
 		</div>
 <?php } ?>
-
-
-
