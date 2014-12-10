@@ -6,9 +6,7 @@
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
-		//include 'login.inc.php';
 		$logged_in=0;
 	}
 	
@@ -23,8 +21,6 @@
 	}else{
 		$CurrentFileID=null;
 	}
-	
-	
 	
 	function MakeTable($Name,$Match,$Class,$School,$Link){
 		 
@@ -51,11 +47,7 @@
 			<h2>Upload, Share, and compare notes</h2>
 		</header>
 		
-		
 		<?php include 'menu.php'; ?>
-		
-		
-		
 
 		<div id="body">
 
@@ -64,7 +56,6 @@
 		if(isset($_GET['id'])){
 			echo		'<article>';
 			echo		'<br><br>';
-					
 			echo		'<div class="panel panel-default">';
 			echo		  '<!-- Default panel contents -->';
 			echo		  '<div class="panel-heading">Similar Notes to <b>'.$FileTitle. '</b></div>';				  
@@ -78,37 +69,32 @@
 			echo							'<td><b>Action</b></td>';
 			echo						'</tr>';
 										
-										for($x=0;$x<sizeof($Array);$x++){
-											$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
-											$Name=FileInfo($Array[$x][0],'NotesTitle');$School=FileInfo($Array[$x][0],'School');$Class=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
-											$x5='hey';
-											if ($Match>69){
-												if($Match>100){
-													$Match=100;												
-												}
-												$forml=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+			for($x=0;$x<sizeof($Array);$x++){
+				$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
+				$Name=FileInfo($Array[$x][0],'NotesTitle');$School=FileInfo($Array[$x][0],'School');$Class=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
+				$x5='hey';
+				if ($Match>69){
+					if($Match>100){
+						$Match=100;												
+					}
+					$forml=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
 												
-												echo "<tr><td>$Name </td><td>$Match %</td><td>$Class</td><td>$School</td>";
-												echo '<td>';$Link='similar.php?id='.$CurrentFileID;
-												echo '<form action="'.$forml.'" method="Post">';
-												echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="show'.$x.'" title="Display this file">
-														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-													</button>';
-												echo '</Form>';												
-												echo '</td></tr>';
-												
-											}
+					echo "<tr><td>$Name </td><td>$Match %</td><td>$Class</td><td>$School</td>";
+					echo '<td>';$Link='similar.php?id='.$CurrentFileID;
+					echo '<form action="'.$forml.'" method="Post">';
+					echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="show'.$x.'" title="Display this file">
+							  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+						</button>';
+					echo '</Form>';												
+					echo '</td></tr>';
+				}
 											
-											if (isset($_REQUEST['show'.$x])) {
-												$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
-												header('Location:'.$Link);
-												}
-											
-											
-											
-										}
-									
-																	
+				if (isset($_REQUEST['show'.$x])) {
+					$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
+					header('Location:'.$Link);
+				}
+			}
+
 			echo				'</table>';
 			echo				'</div>';
 			echo			'</div>';
@@ -120,16 +106,10 @@
 			}
 		}else{
 			echo '<article>';
-					include '/comparefiles/yourfiles.php';
-			
-			
-			
-
+				include '/comparefiles/yourfiles.php';
 			echo '</article>';	
 		}
 	?>		
-
-				
 			</section>
 			
 			<aside class="sidebar">
