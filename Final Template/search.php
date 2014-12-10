@@ -117,7 +117,6 @@
 								$docContent = $row['Content'];
 								$FileID = $row['FileID'];
 
-								//createSpoiler($docTitle, $docContent, $rateUp, $rateDown);
 								createSpoilerbutton($FileID);
 							}
 						} else {

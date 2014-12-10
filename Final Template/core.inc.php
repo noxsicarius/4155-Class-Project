@@ -625,7 +625,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$FileID";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo 	'<form action="'.$link.'" method="Post">'; 
 							echo"$title";?>
 						</a>
@@ -664,7 +664,7 @@
 							?>
 					</h4>
 				</div>
-				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$FileID";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
@@ -725,7 +725,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$FileID";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo 	'<form action="'.$link.'" method="Post">'; 
 							echo"$title";?>
 						</a>
@@ -748,7 +748,7 @@
 							?>
 					</h4>
 				</div>
-				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$FileID";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
