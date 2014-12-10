@@ -95,7 +95,7 @@
 											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="view'.$x.'" title="Display this file">
 														  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 													</button>'; echo '   ';
-											echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="download'.$x.'" title="Download this file as PDF">
+											echo ' <button type="submit" class="btn btn-default" aria-label="Left Align" name="downloadfile'.$x.'" title="Download this file as PDF">
 														  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 													</button>'; echo '   ';
 											echo '<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this file">
@@ -107,7 +107,7 @@
 													</button>';
 											echo '</Form>';
 											echo '</td>';
-											if (isset($_REQUEST['download'.$x])) {												
+											if (isset($_REQUEST['downloadfile'.$x])) {												
 												header('Location:pdfFunction.php?id='.$Files_ID[$x]);
 											}
 											if (isset($_REQUEST['delete'.$x])) {												

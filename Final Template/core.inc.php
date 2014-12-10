@@ -369,9 +369,11 @@
 //------------------------------------------------------File Rating-----------------------------------------------------------------------------
 	Function File_Vote_Abuse($FileID){
 		$StudentID=getuserid();
+		$CurrentRate=File_Check_Userrate($FileID);
 		$database=DatabaseName();
 		if($CurrentRate=='no'){			
 				$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '-10')";
+				//echo $query1;
 				mysql_query($query1);			
 				
 		}else {
@@ -594,7 +596,8 @@
 				File_VoteUp_UploadInfo_Save($FileID);
 				header('Location:'.$link);
 			}
-			if (isset($_REQUEST['abuse'.$FileID])) {												
+			if (isset($_REQUEST['abuse'.$FileID])) {
+				
 				File_Vote_Abuse($FileID);
 				header('Location:'.$link);
 			}
