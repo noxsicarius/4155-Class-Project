@@ -2,10 +2,7 @@
 	require 'connect.inc.php';
 	require 'core.inc.php';	
 	
-	
 	createSpoilerbutton(81);
-
-	
 	
 ?>
 <head>
@@ -15,7 +12,7 @@
 	<script src="js/bootstrap.js"></script>
 </head>
 <?php
-function createSpoilerbutton($FileID){
+	function createSpoilerbutton($FileID){
 		$currentfile=basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 		if($currentfile=='myaccount.php'){
 			$link=$currentfile.'?id='.$FileID;
@@ -32,15 +29,13 @@ function createSpoilerbutton($FileID){
 			File_VoteUp_UploadInfo_Save($FileID);
 		}
 
-
-
 ?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$title";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
-							<?php echo 	'<form action="'.$link.'" method="Post">'; 
+							<?php echo 	'<form action="'.$link.'" method="Post">';
 							echo"$title";?>
 						</a>
 							<?php	
@@ -51,7 +46,6 @@ function createSpoilerbutton($FileID){
 								echo 	'<button type="submit" class="btn btn-default btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="Up" title="Click to vote Up">
 											<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> '.$rateUp.'</span>
 										</button>'; 
-								
 								echo 	'</Form>';
 							?>
 					</h4>

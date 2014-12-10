@@ -16,14 +16,12 @@
 		$Array=(GetMatchTo($CurrentFileID));
 		for($x=0;$x<sizeof($Array);$x++){
 			$Nname=FileInfo($Array[$x][0],'NotesTitle');$Sschool=FileInfo($Array[$x][0],'School');$Cclass=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];			
-				
 		}
 	}else{
 		$CurrentFileID=null;
 	}
 	
 	function MakeTable($Name,$Match,$Class,$School,$Link){
-		 
 		$String ="<tr><td>$Name </td><td>$Match %</td><td>$Class</td><td>$School</td><td><a href=".$Link.">View</a></td></tr>";
 		return $String;
 	}
@@ -68,7 +66,8 @@
 			echo							'<td><b>School</b></td>';
 			echo							'<td><b>Action</b></td>';
 			echo						'</tr>';
-										
+
+	/******** Display the notes information for similar files *******/
 			for($x=0;$x<sizeof($Array);$x++){
 				$Link='similar.php?id='.$CurrentFileID.'&view='.$Array[$x][0];
 				$Name=FileInfo($Array[$x][0],'NotesTitle');$School=FileInfo($Array[$x][0],'School');$Class=FileInfo($Array[$x][0],'ClassName');$Match=$Array[$x][1];
@@ -106,7 +105,7 @@
 			}
 		}else{
 			echo '<article>';
-				include '/comparefiles/yourfiles.php';
+				include 'comparefiles/yourfiles.php';
 			echo '</article>';	
 		}
 	?>		

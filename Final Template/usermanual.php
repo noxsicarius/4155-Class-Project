@@ -6,9 +6,7 @@
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
-		//include 'login.inc.php';
 		$logged_in=0;
 	}
 	$AllFeeds=GetVisibleFeed();
@@ -34,9 +32,7 @@
 			<h2>Upload, Share, and compare notes</h2>
 		</header>
 		
-		
 		<?php include 'menu.php'; ?>
-		
 		
 		<img class="header-image" src="images/image.jpg" alt="Buildings" style="width:100%;height:auto;"/>
 	<?php 
@@ -61,14 +57,9 @@
 						  <div class="panel-body">'.$AllFeeds[$x][4].' </div>
 						  <div class="panel-footer"><p style="text-align:left;">Author: '.$AllFeeds[$x][2].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
 					  </div>';
-				
 			}
-			
 	?>
 			</section>
-		
-
-
 			
 				<?php 
 				if($isMobile==false){
@@ -76,21 +67,17 @@
 					include 'aside.php'; 
 					echo '</aside>';
 				}
-				
-				
 				?>
-			
 
 			<div class="clear"></div>
 	    <?php 
 	       if($isMobile==false){	
-		echo '</div>';
-		}
-	      ?>
-</div>
-       <footer>
-			 <?php include 'newfooter.php'; ?> 
-		</footer>
+				echo '</div>';
+			}
+	    ?>
 	</div>
+    <footer>
+		<?php include 'newfooter.php'; ?> 
+	</footer>
 </body>
 </html>

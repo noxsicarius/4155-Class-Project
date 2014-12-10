@@ -16,7 +16,4 @@
 	//returns multi dim array with two columns first with fileID and SENCOUND with match
 	//pass file id of the file you want matches to
 	
-	
-	
-	
 ?>
