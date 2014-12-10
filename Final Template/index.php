@@ -6,9 +6,7 @@
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;							
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
-		//include 'login.inc.php';
 		$logged_in=0;
 	}
 	$AllFeeds=GetVisibleFeed();
@@ -34,15 +32,13 @@
 			<h2>Upload, Share, and compare notes</h2>
 		</header>
 		
-		
 		<?php include 'menu.php'; ?>
 		
-		
 		<img class="header-image" src="images/image.jpg" alt="Buildings" style="width:100%;height:auto;"/>
+
 	<?php 
-	     if($isMobile==false){
+	    if($isMobile==false){
 		echo '<div id="body">
-	   
 			<section id="content">';  }
 	  ?>
 				<article>
@@ -54,41 +50,34 @@
 					<p>You can also upload your note by becoming a member of NotePlus.</p>
 					<p>&nbsp;</p>
 				</article>
-	<?php
-			for($x=0;$x<sizeof($AllFeeds);$x++){			
-				echo '<div class="panel panel-default">
-						  <div class="panel-heading"><p style="text-align:left;">Title: '.$AllFeeds[$x][1].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
-						  <div class="panel-body">'.$AllFeeds[$x][4].' </div>						  
-					  </div>';
-				
-			}
-			
-	?>
-			</section>
-		
-
-
-			
-				<?php 
-				if($isMobile==false){
-					echo '<aside class="sidebar">';
-					include 'aside.php'; 
-					echo '</aside>';
+			<?php
+				for($x=0;$x<sizeof($AllFeeds);$x++){			
+					echo '<div class="panel panel-default">
+							  <div class="panel-heading"><p style="text-align:left;">Title: '.$AllFeeds[$x][1].'<span style="float:right;">Date: '.$AllFeeds[$x][3].'</span></p></div>
+							  <div class="panel-body">'.$AllFeeds[$x][4].' </div>						  
+						  </div>';
 				}
-				
-				
-				?>
-			
+			?>
+			</section>
 
-			<div class="clear"></div>
-	    <?php 
-	       if($isMobile==false){	
-		echo '</div>';
-		}
-	      ?>
-</div>
-       <footer>
-			<?php include 'newfooter.php'; ?> 
-		</footer>
+		<?php 
+			if($isMobile==false){
+				echo '<aside class="sidebar">';
+				include 'aside.php'; 
+				echo '</aside>';
+			}
+		?>
+
+		<div class="clear"></div>
+
+		<?php
+			if($isMobile==false){	
+				echo '</div>';
+			}
+		?>
+	</div>
+    <footer>
+		<?php include 'newfooter.php'; ?> 
+	</footer>
 </body>
 </html>

@@ -5,13 +5,9 @@
 	if(UserRole()!='Admin'){
 		header('Location:unarth.php');	
 	}
-	//$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];
+
 	$link='adminaccounts.php';
 	$StudentsInfo=GetAllAdminusers();
-	//
-	for($x=0;$x<sizeof($StudentsInfo);$x++){
-		//echo $StudentsInfo[$x][0];
-	}
 	
 ?>
 

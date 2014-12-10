@@ -1,14 +1,14 @@
 <?php
-	require 'connect.inc.php';
-	
+	require 'connect.inc.php';	
 	ob_start();
 	session_start();
 ?>
+
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-
 </head>
+
 <?php
 	function loggedin() {
 		if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
@@ -46,6 +46,7 @@
 		$id=$_SESSION['user_id'];
 		return $id;
 	}
+
 	// Returns an array of FileID who are flagged as abuse 
 	Function GetTotalFileAbuse(){
 		$query="SELECT * FROM `filerating` WHERE `Rate` = -10";
@@ -78,7 +79,6 @@
 					$File_Field[$i][4]=ClassColumn($ID,'SchoolName');
 					$File_Field[$i][5]=GetSentence($File_Field[$i][2],$File_Field[$i][1]);
 				}
-				
 			}
 			return $File_Field;
 		}
@@ -135,7 +135,6 @@
 				$File_Field[$i][2]=mysql_result($result,$i,'school');
 				$File_Field[$i][3]=mysql_result($result,$i,'name');
 				$File_Field[$i][4]=mysql_result($result,$i,'id');					
-				
 			}
 			return $File_Field;
 		}	
@@ -162,12 +161,6 @@
 	}
 	
 	
-	
-	
-	
-	
-	
-	//DeleteUser();
 	//This function will delete a user 
 	Function DeleteUser($StudentID){
 		$database=DatabaseName();
@@ -179,8 +172,6 @@
 			//echo $name[$x];
 			mysql_query("DROP TABLE IF EXISTS `$database`.`$name[$x]`");
 		}
-	
-	
 		
 		$query="DELETE FROM `$database`.`filerating` WHERE `filerating`.`FileID` = (SELECT FileID FROM `uploadinfo` WHERE `StudentID` = $StudentID ORDER BY `FileName`)";
 		mysql_query($query);			
@@ -198,16 +189,7 @@
 		mysql_query($query2);
 		
 		$query3="DELETE FROM `$database`.`users` WHERE `users`.`Id` = $StudentID";
-		mysql_query($query3);	
-		
-		
-		
-		
-		//echo $query.'<br>'.$query0.'<br>'.$query00.'<br>'.$query1.'<br>'.$query2.'<br>';
-		
-		
-		
-	
+		mysql_query($query3);
 	}
 	
 	//This function will create one Student user 
@@ -259,8 +241,6 @@
 		}
 	}
 	
-	
-		
 	//This function will save feeds to database	
 	Function SaveFeeds($Title,$Content){
 		$Success=false;
@@ -320,7 +300,6 @@
 				$Feeds[$i][2]=mysql_result($result,$i,'FeedAuthor');
 				$Feeds[$i][3]=mysql_result($result,$i,'FeedDate');
 				$Feeds[$i][4]=mysql_result($result,$i,'FeedContant');					
-				
 			}
 			return $Feeds;
 		}	
@@ -339,7 +318,6 @@
 				$Feeds[$i][2]=mysql_result($result,$i,'FeedAuthor');
 				$Feeds[$i][3]=mysql_result($result,$i,'FeedDate');
 				$Feeds[$i][4]=mysql_result($result,$i,'FeedContant');					
-				
 			}
 			return $Feeds;
 		}	
@@ -358,7 +336,6 @@
 			$Feeds[4]=mysql_result($result,0,'FeedContant');
 		}
 			return $Feeds;
-			
 	}
 	
 	//This function will return an array of files in the databse
@@ -387,6 +364,7 @@
 		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
 	}
+
 	//This functions returns all the classes names 
 	Function GetAllClasses(){		
 		$query="SELECT * FROM `st_class_names`";
@@ -411,6 +389,7 @@
 			return $File_Field;
 		}
 	}
+
 	function ClassColumn($ID,$Field){		
 		$query="SELECT * FROM `st_class_names` WHERE `ClassID` = $ID";
 		if($result = mysql_query($query)){			
@@ -437,7 +416,7 @@
 	//Update a sentence
 	Function UpdateSentence($TableName,$SenNo,$String){		
 		$database=DatabaseName();$Success=false;
-		$query="UPDATE `a_database`.`$TableName` SET `Sentence` = '$String' WHERE `$TableName`.`SentenceNo` = $SenNo";
+		$query="UPDATE `$database`.`$TableName` SET `Sentence` = '$String' WHERE `$TableName`.`SentenceNo` = $SenNo";
 		if(mysql_query($query)){
 			$Success=true;
 		}
@@ -447,13 +426,20 @@
 	//Delete a sentence
 	Function DeleteSentence($TableName,$SenNo){		
 		$database=DatabaseName();$Success=false;
-		$query="DELETE FROM `a_database`.`$TableName` WHERE `$TableName`.`SentenceNo` = $SenNo";
+		$query="DELETE FROM `$database`.`$TableName` WHERE `$TableName`.`SentenceNo` = $SenNo";
 		if(mysql_query($query)){
 			$Success=true;			
 		}
 		return $Success;
 	}
-	
+	Function DeleteRating($ClassID,$SenNo){
+		$database=DatabaseName();$Success=false;
+		$query="DELETE FROM `$database`.`sentencerating` WHERE `sentencerating`.`ClassID` = $ClassID AND `sentencerating`.`SentenceID` = $SenNo";
+		if(mysql_query($query)){
+			$Success=true;			
+		}
+		return $Success;
+	}
 	//Get a sentence
 	Function GetSentence($TableName,$SenNO){		
 		$database=DatabaseName();
@@ -464,11 +450,9 @@
 		return $content;
 	}
 
-
 	Function DatabaseName(){
 		$database='a_database';
 		return $database;
 	}
 	
-
 ?>

@@ -2,16 +2,15 @@
 	require 'core.inc.php';
 	require 'connect.inc.php';
 	require 'comparison.php';
+
 	if(loggedin()) {
 		$user_fullname =getfield('name').' ,you are logged in';
 		$logged_in=1;
 		$user_fullname=getfield('name');
 		$StudentID=getuserid();
-		//echo ', you are logged in  '.'<a href="logout.php">Log out</a><br>';							
 	}else{
 		$logged_in=0;
 	}	
-
 	
 	$Sring_Message='<strong>Please upload text files only. </strong>';
 
@@ -55,7 +54,6 @@
 					$query_run = mysql_query($query);
 					$num_of_rows=mysql_num_rows($query_run);
 					
-					
 					if($num_of_rows>0){
 						$File_Student_ID = mysql_result($query_run, 0,'StudentID');
 					}else{
@@ -64,13 +62,10 @@
 					
 					//Checking if the file exists in the database
 					
-					//echo 'Database: '.$File_Student_ID.'<br>';
-					//echo 'Current: '.$StudentID.'<br>';
 					if($num_of_rows==1 && $File_Student_ID==$StudentID) {
 						$Sring_Message= 'The File '.$name. ' already !!exists.345435345345  '.$StudentID;
 						
 					} else{
-						//sql query
 						$query = "INSERT INTO uploadinfo VALUES ('$StudentID',
 									FileID,
 									'".mysql_real_escape_string($name)."',
@@ -160,73 +155,65 @@
 				echo '<div class="alert alert-danger" role="alert">'.$Sring_Message.'</div>';
 			}
 			
-			
 		?>
 		
-		
-			<?php
-				if($logged_in==1){
-					echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
-							<div class="input-group">
-								<span class="input-group-addon" style="min-width:120px;">Title</span>
-								<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Title for your notes" name ="title">
-							</div><br>
+		<?php
+			if($logged_in==1){
+				echo '<form action="uploads.php" method="POST" enctype="multipart/form-data">
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:120px;">Title</span>
+							<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Title for your notes" name ="title">
+						</div><br>
 
-							<div class="input-group">
-								<span class="input-group-addon" style="min-width:120px;">Chapter</span>
-							    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
-							</div><br>
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:120px;">Chapter</span>
+						    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Chapter for your notes" name ="chapter">
+						</div><br>
 
-							<div class="input-group">
-								<span class="input-group-addon" style="min-width:120px;">Class Name</span>
-							    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
-							</div><br>
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:120px;">Class Name</span>
+						    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Class Name for your notes" name ="classname">
+						</div><br>
 
-							<div class="input-group">
-								<span class="input-group-addon" style="min-width:120px;">Teacher Name</span>
-							    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
-							</div><br>
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:120px;">Teacher Name</span>
+						    <input type="text" style="max-width:500px;" class="form-control" placeholder="Enter Teacher Name for your notes" name ="teacher">
+						</div><br>
 
-							<div class="input-group">
-								<span class="input-group-addon" style="min-width:120px;">School</span>
-							  	<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
-							</div><br>
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:120px;">School</span>
+						  	<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter School Name for your notes" name ="school" value="UNCC">
+						</div><br>
 
-							<div class="input-group">
-								<span class="input-group-addon" style="min-width:120px;">Comments</span>
-							  	<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
-							</div><br>
+						<div class="input-group">
+							<span class="input-group-addon" style="min-width:120px;">Comments</span>
+						  	<input type="text" style="max-width:500px;" class="form-control" placeholder="Enter comments for your notes" name ="comments" value="None">
+						</div><br>
 
-							<input type="file" name="file"><br><br>
-							
-							<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-							  <button type="submit" class="btn btn-default" name="submit" >Upload</button>
-							</div>
-						  </div>
-						</form>';
+						<input type="file" name="file"><br><br>
 						
-					$arrlength=count($File_names);
-					//echo 'My Files in DataBase'.'<br>';
-					for($x=0;$x<$arrlength;$x++){
-						//echo $File_names[$x].'<br>';
-					}
-				}else{
-					echo 'Please '.'<a href="register.php">Register</a>'.' or '.'<a href="login.php">Log in</a>'.' before uploading a file';
-				}
+						<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+						  <button type="submit" class="btn btn-default" name="submit" >Upload</button>
+						</div>
+					  </div>
+					</form>';
+						
+				$arrlength=count($File_names);
+			}else{
+				echo 'Please '.'<a href="register.php">Register</a>'.' or '.'<a href="login.php">Log in</a>'.' before uploading a file';
+			}
 				
-			?>
+		?>
 		  <h2>&nbsp;</h2>
 		</article>
 <?php if($isMobile==false){
-       echo '</section>';
-       
-       echo '<aside class="sidebar">';	
-             include 'aside.php'; 	
-       echo '</aside>';
+		echo '</section>';
+		echo '<aside class="sidebar">';	
+			include 'aside.php'; 	
+		echo '</aside>';
 		echo '<div class="clear"></div>';
-
-  '</div>';}
+		echo '</div>';}
   ?>
 </div></div>
        <footer>

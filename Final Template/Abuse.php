@@ -12,13 +12,9 @@
 		echo $Sentence;
 		ST_ReportAbuse_tablename($TableName,$Sentence);
 
-
 	$redirect = 'Location:ST_view.php?Name='.$TableName;
 	echo $redirect;
 	header($redirect);
-	
-	  
-	
 ?>
 
   

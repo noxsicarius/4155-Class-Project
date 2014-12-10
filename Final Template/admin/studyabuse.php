@@ -74,21 +74,24 @@
 										<tbody>
 										<?php
 											for($x=0;$x<sizeof($AllSentence);$x++){
-												$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];											
+												$link=basename($_SERVER['PHP_SELF']) . "?" . $_SERVER['QUERY_STRING'];$link="studyabuse.php";										
 												echo        '<tr class="odd gradeX">';
 												echo            '<td width="200">'.($AllSentence[$x][5]).'</td>';
 												echo            '<td width="90">'.$AllSentence[$x][3].'</td>';
 												echo            '<td width="50">'.$AllSentence[$x][4].'</td>';
 												echo 			'<form action="'.$link.'" method="POST">';
 												echo			'<td width="300">';											
-												echo 				'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this user">
+												echo 				'<button type="submit" class="btn btn-default" aria-label="Left Align" name="delete'.$x.'" title="Delete this Sentence">
 																  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 																	</button>'; echo '   ';											
 												echo 			'</Form>';
 												echo			'</td>';                    
 												echo        '</tr>';									
 												
-												if (isset($_REQUEST['delete'.$x])) {													
+												if (isset($_REQUEST['delete'.$x])) {
+													
+													DeleteSentence($AllSentence[$x][2],$AllSentence[$x][1]);
+													DeleteRating($AllSentence[$x][0],$AllSentence[$x][1]);
 													header('Location:'.$link);
 												}
 												

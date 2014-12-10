@@ -119,7 +119,6 @@
 		$content=FileInfo($FileID,'content');
 		createSpoiler($title, $content);
 	}
-	
 
 	// this function will delete a File and also drop the table of sentences and keywords
 	function Drop_Table($id){
@@ -130,7 +129,6 @@
 		mysql_query("DELETE FROM `$database`.`keywords` WHERE `keywords`.`FileID` =  $id");
 		mysql_query("DELETE FROM `$database`.`uploadinfo` WHERE `uploadinfo`.`FileID` = $id");
 	}
-	
 
 	//This function will return an array of files in the databse
 	//Pass the column name to get the data, for example: id,FileName, etc.
@@ -213,7 +211,7 @@
 		}
 	}
 	
-// Return Number of Rows for a table
+	// Return Number of Rows for a table
 	// Pass the name of the table 
 	function NumberofRows($table){		
 		$query = "SELECT * FROM `$table`";
@@ -231,7 +229,6 @@
 	function Save_FileKeywords($FileID,$Array){
 		$Keyword=ArrayToString($Array);
 		$Keyword=strtolower($Keyword);
-		
 		$database=DatabaseName();
 		
 		$query = "INSERT INTO `$database`.`keywords` VALUES (
@@ -303,6 +300,7 @@
 		$KeySecountFile=GetFileKeywords($SecountFile);//Array of second File keywords
 		$AverageKeyWord=(sizeof($KeyFirstFile)+sizeof($KeySecountFile))/2;//average number of keywords in both file. 
 		$count=0;
+
 		//compare 
 		for($x=0;$x<sizeof($KeyFirstFile);$x++){
 			for($y=0;$y<sizeof($KeySecountFile);$y++){
@@ -369,19 +367,20 @@
 	}
 	
 //------------------------------------------------------File Rating-----------------------------------------------------------------------------
-Function File_Vote_Abuse($FileID){
-	$StudentID=getuserid();
-	$database=DatabaseName();
-	if($CurrentRate=='no'){			
-			$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '-10')";
-			mysql_query($query1);			
-			
-	}else {
-		$query1="UPDATE `$database`.`filerating` SET `Rate` = '-10' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
-		mysql_query($query1);
+	Function File_Vote_Abuse($FileID){
+		$StudentID=getuserid();
+		$CurrentRate=File_Check_Userrate($FileID);
+		$database=DatabaseName();
+		if($CurrentRate=='no'){			
+				$query1="INSERT INTO `$database`.`filerating` (`FileID`, `StudentID`, `Rate`) VALUES ('$FileID', '$StudentID', '-10')";
+				//echo $query1;
+				mysql_query($query1);			
+				
+		}else {
+			$query1="UPDATE `$database`.`filerating` SET `Rate` = '-10' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+			mysql_query($query1);
+		}
 	}
-
-}
 
 //This Will Increase the Rate of a file by one
 	Function File_VoteUp_UploadInfo_Save($FileID){
@@ -416,7 +415,6 @@ Function File_Vote_Abuse($FileID){
 	//This Function will Decrease the file rating by one
 	Function File_VoteDown_UploadInfo_Save($FileID){
 		$database=DatabaseName();$StudentID=getuserid();
-		
 		$CurrentRate=File_Check_Userrate($FileID); 
 		
 		if($CurrentRate=='no'){			
@@ -425,21 +423,24 @@ Function File_Vote_Abuse($FileID){
 			$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
 			$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
 			mysql_query($query);
+
 		}else if($CurrentRate==1 ){
-				
-				$query1="UPDATE `$database`.`filerating` SET `Rate` = '-1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
-				mysql_query($query1);
-				// Decrease Vote up by 1
-				$Vote=File_VoteUp_UploadInfo_Get($FileID);$Vote--;
-				$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
-				mysql_query($query);
-				// Increase Vote Down by 1
-				$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
-				$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
-				mysql_query($query);
-			
+		
+			$query1="UPDATE `$database`.`filerating` SET `Rate` = '-1' WHERE `filerating`.`FileID` = $FileID AND `filerating`.`StudentID` = $StudentID";
+			mysql_query($query1);
+
+			// Decrease Vote up by 1
+			$Vote=File_VoteUp_UploadInfo_Get($FileID);$Vote--;
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteUp` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";		
+			mysql_query($query);
+
+			// Increase Vote Down by 1
+			$Vote=File_VoteDown_UploadInfo_Get($FileID);$Vote++;
+			$query="UPDATE `$database`.`uploadinfo` SET `VoteDown` = '$Vote' WHERE `uploadinfo`.`FileID` = $FileID";
+			mysql_query($query);
 		}
 	}
+
 	//returns the Total vote up for a file
 	Function File_VoteUp_UploadInfo_Get($FileID){
 		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";		
@@ -451,8 +452,8 @@ Function File_Vote_Abuse($FileID){
 		}else{
 			return 'Wrong field or query not executed right';
 		}
-	
 	}
+
 	//returns the Total vote down for a file
 	Function File_VoteDown_UploadInfo_Get($FileID){
 		$query="SELECT * FROM `uploadinfo` WHERE `FileID` = $FileID ";		
@@ -465,6 +466,7 @@ Function File_Vote_Abuse($FileID){
 			return 'Wrong field or query not executed right';
 		}
 	}
+
 	//returns average rating of a file
 	Function File_SetAverage($FileID){		
 		$VoteUp  =File_VoteUp_UploadInfo_Get($FileID);
@@ -510,7 +512,6 @@ Function File_Vote_Abuse($FileID){
 			$query_result=mysql_result($query_run, 0, 'Rate');
 			return $query_result;
 		}
-		
 	}
 
 //------------------------------------------------------File Rating End--------------------------------------------------------------------------	
@@ -525,7 +526,6 @@ Function File_Vote_Abuse($FileID){
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
 		mail($To, $Subject, $Message, $headers);	
-	
 	}	
 	
 	// send to writer
@@ -596,7 +596,8 @@ Function File_Vote_Abuse($FileID){
 				File_VoteUp_UploadInfo_Save($FileID);
 				header('Location:'.$link);
 			}
-			if (isset($_REQUEST['abuse'.$FileID])) {												
+			if (isset($_REQUEST['abuse'.$FileID])) {
+				
 				File_Vote_Abuse($FileID);
 				header('Location:'.$link);
 			}
@@ -627,18 +628,18 @@ Function File_Vote_Abuse($FileID){
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$FileID";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo 	'<form action="'.$link.'" method="Post">'; 
 							echo"$title";?>
 						</a>
-							<?php	
+							<?php
 							if(loggedin()){
 								if($rateDown==0){
 									$rateDown=0;
 								}
 								if($rateUp==0){
 									$rateUp=0;
-								}									
+								}
 								echo 	'<button type="submit" class="btn btn-'.$votedowncolor.' btn-sm spoiler-trigger pull-right" aria-label="Left Align" name="down'.$FileID.'" title="Click to vote down">
 											<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"> '.$rateDown.'</span>
 										</button>'; 
@@ -666,7 +667,7 @@ Function File_Vote_Abuse($FileID){
 							?>
 					</h4>
 				</div>
-				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$FileID";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
@@ -678,7 +679,7 @@ Function File_Vote_Abuse($FileID){
 <!---------- My account spoiler ---------->
 
 <?php
-function createSpoilerbuttonmyaccount($FileID){ 
+	function createSpoilerbuttonmyaccount($FileID){ 
 		$title=FileInfo($FileID,'NotesTitle');
 		$stripTitle = preg_replace('/\s+/', '', $title);
 		$content=FileInfo($FileID,'content');
@@ -707,6 +708,7 @@ function createSpoilerbuttonmyaccount($FileID){
 				header('Location:'.$link);
 			}
 		}
+
 		$UserRate=File_Check_Userrate($FileID);
 		if($UserRate=='no'){
 			$voteupcolor='default';
@@ -720,14 +722,13 @@ function createSpoilerbuttonmyaccount($FileID){
 		}else if ($UserRate=='0'){
 			$voteupcolor='default';
 			$votedowncolor='default';
-		}
-
+		} 
 ?>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="headingOne">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$stripTitle";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
+						<a data-toggle="collapse" data-parent="#accordion" href='#<?php echo"$FileID";?>' aria-expanded="true" aria-controls='<?php echo"$title";?>'>
 							<?php echo 	'<form action="'.$link.'" method="Post">'; 
 							echo"$title";?>
 						</a>
@@ -750,11 +751,12 @@ function createSpoilerbuttonmyaccount($FileID){
 							?>
 					</h4>
 				</div>
-				<div id='<?php echo"$stripTitle";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+				<div id='<?php echo"$FileID";?>' class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
 					<div class="panel-body">
 						<?php echo"$content";?>
 					</div>
 				</div>
 			</div>
 		</div>
-<?php } ?>
+<?php 
+	} ?>
