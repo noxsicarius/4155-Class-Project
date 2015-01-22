@@ -1,6 +1,6 @@
 <?php
 
-	$connection = mysql_connect('localhost', 'root', '');
+	$connection = mysql_connect('localhost', 'root', 'password');
 	if (!$connection){
 		die("Database Connection Failed" . mysql_error());
 	}
